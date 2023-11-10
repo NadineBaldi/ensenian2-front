@@ -1,0 +1,167 @@
+.signUp {
+  text-align: center;
+  background-image: url('../../../assets/images/Fondo.jpeg');
+  min-height: 100vh;
+}
+
+.signUp-container {
+  background-color: #F2F2F2;
+  min-height: 100vh;
+  width: 1050px;
+  margin-left: 150px;
+}
+
+.signUp-title-container {
+  padding: 150px 316px 10px 317px;
+}
+
+.signUp-title {
+  font-size: 30px !important;
+  font-family: "Montserrat" !important;
+  font-weight: bold !important;
+}
+
+.signUp-subtitle {
+  font-size: 14px !important;
+  font-family: "Montserrat" !important;
+}
+
+.text-field-container {
+  text-align: left;
+  margin-top: 20px;
+  width: fit-content;
+  padding-left: 317px;
+  padding-right: 316px;
+}
+
+.text-field {
+  width: 417px;
+  color: #4E35F2 !important;
+}
+
+.terms-and-conditions-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  width: fit-content;
+  padding-left: 307px;
+  padding-right: 316px;
+}
+
+.text {
+  font-size: 12px !important;
+  font-family: "Montserrat" !important;
+}
+
+.terms-and-conditions-text {
+  display: flex;
+  align-items: center;
+}
+
+.link-terms-and-cond {
+  font-size: 12px !important;
+  font-family: "Montserrat" !important;
+  padding-left: 3px;
+}
+
+.next-button-container {
+  width: fit-content;
+  padding-left: 317px;
+  padding-right: 316px;
+  text-align: left;
+  margin-top: 30px;
+}
+
+.next-button {
+  border-radius: 20px !important;
+  width: 417px;
+  margin-bottom: 8px !important;
+  text-transform: none !important;
+  font-weight: bold !important;
+}
+
+.log-in-container {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  width: fit-content;
+  padding-left: 317px;
+  padding-right: 316px;
+}
+
+.step-text {
+  font-size: 12px !important;
+  font-family: "Montserrat" !important;
+  padding-left: 180px;
+}
+
+.link-log-in {
+  font-size: 14px !important;
+  font-family: "Montserrat" !important;
+  font-weight: bold !important;
+  padding-left: 3px;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 12px;
+  align-items: center !important;
+}
+
+.item-container {
+  text-align: center;
+}
+
+.item-container-form-control {
+  text-align: center;
+  margin-top: 11px;
+}
+
+.uni-container {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.page-two-container {
+  padding: 40px 80px 0px 80px;
+}
+
+.bnt-back-container {
+  margin-bottom: 50px;
+  text-align: left;
+}
+
+.back-button {
+  text-transform: none !important;
+  font-size: 14px !important;
+  font-family: "Montserrat" !important;
+}
+
+.sign-up-button-container {
+  width: fit-content;
+  padding-left: 237px;
+  padding-right: 236px;
+  text-align: left;
+  margin-top: 50px;
+}
+
+.log-in-container-step2 {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  width: fit-content;
+  padding-left: 20px;
+  padding-right: 316px;
+}
+
+.menu-options {
+  font-size: 14px !important;
+  font-family: "Montserrat" !important;
+  color: #4E35F2 !important;
+}
+
+.option-select {
+  color: #4E35F2 !important;
+  text-align: left;
+}
