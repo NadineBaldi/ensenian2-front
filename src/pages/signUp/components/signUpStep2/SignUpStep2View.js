@@ -19,27 +19,23 @@ import { universities, provinces } from "../../../../constants/signUp";
 const SignUpStep2 = (props) => {
   const { setCurrentStep, currentStep } = props;
 
-  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState(null);
 
   const handleUniversityOptions = () => {
-    if (selectedProvince) {
-      console.log(universities);
-      const universitiesFiltered = universities.find(
-        ({ province }) => province === selectedProvince
-      );
-      return universitiesFiltered.universitiesList.map((uni) => (
-        <MenuItem
-          key={uni}
-          value={uni}
-          classes={{
-            root: "menu-options",
-          }}
-        >
-          {uni}
-        </MenuItem>
-      ));
-    }
-    return [];
+    const universitiesFiltered = universities.find(
+      ({ province }) => province === selectedProvince
+    );
+    return universitiesFiltered.universitiesList.map((uni) => (
+      <MenuItem
+        key={uni}
+        value={uni}
+        classes={{
+          root: "menu-options",
+        }}
+      >
+        {uni}
+      </MenuItem>
+    ));
   };
 
   return (
@@ -185,7 +181,7 @@ const SignUpStep2 = (props) => {
               root: "option-select",
             }}
           >
-            {handleUniversityOptions()}
+            {selectedProvince && handleUniversityOptions()}
           </Select>
         </FormControl>
       </div>
@@ -202,9 +198,7 @@ const SignUpStep2 = (props) => {
         </Typography>
       </div>
       <div className="log-in-container-step2">
-        <Typography classes={{ root: "signUp-subtitle" }}>
-          ¿Ya tenes una cuenta?
-        </Typography>
+        <Typography variant="subtitle">¿Ya tenes una cuenta?</Typography>
         <Link href="#" underline="hover" className="link-log-in">
           Ingresá acá
         </Link>

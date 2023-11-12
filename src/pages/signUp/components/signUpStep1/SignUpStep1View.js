@@ -25,14 +25,10 @@ const SignUpStep1 = (props) => {
   return (
     <div>
       <div className="signUp-title-container">
-        <Typography
-          classes={{ root: "signUp-title" }}
-          align="left"
-          color="primary"
-        >
+        <Typography variant="title" color="primary">
           Registro
         </Typography>
-        <Typography classes={{ root: "signUp-subtitle" }} align="left">
+        <Typography variant="subtitle">
           Create una cuenta para poder comenzar.
         </Typography>
       </div>
@@ -97,9 +93,7 @@ const SignUpStep1 = (props) => {
         </Typography>
       </div>
       <div className="log-in-container">
-        <Typography classes={{ root: "signUp-subtitle" }}>
-          ¿Ya tenes una cuenta?
-        </Typography>
+        <Typography variant="subtitle">¿Ya tenes una cuenta?</Typography>
         <Link href="#" underline="hover" className="link-log-in">
           Ingresá acá
         </Link>
