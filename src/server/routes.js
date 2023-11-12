@@ -1,5 +1,6 @@
 import { lazy } from "react";
 const SignUp = lazy(() => import("../client/signUp"));
+const Login = lazy(() => import("../client/login"));
 
 const routes = [
   {
@@ -8,6 +9,13 @@ const routes = [
     layout: "/signUp",
     exact: true,
     element: <SignUp />,
+  },
+  {
+    path: "login",
+    name: "login",
+    layout: "/login",
+    exact: true,
+    element: <Login />,
   },
 ];
 
