@@ -4,47 +4,34 @@ import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 
 // Icons
-import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Utils
 import {
   EMPTY_FIELD,
-  INVALID_EMAIL_FORMAT,
   INVALID_PASSWORD_FORMAT,
+  DIFFERENT_PASSWORD,
 } from "../../constants/util";
 
-const Login = () => {
+const ForgetPassword = () => {
   // Use states
-  const [checked, setChecked] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newRepeatedPassword, setNewRepeatedPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatedPassword, setShowRepeatedPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const validateEmail = (newEmail) => {
-    let regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i;
-    if (!regex.test(newEmail)) {
-      setEmailError(INVALID_EMAIL_FORMAT);
-    } else {
-      setEmailError("");
-    }
-  };
+  const handleClickShowRepeatedPassword = () =>
+    setShowRepeatedPassword((show) => !show);
 
   const validatePassword = (newPass) => {
     if (newPass.length <= 7) {
@@ -58,63 +45,49 @@ const Login = () => {
     switch (errorType) {
       case EMPTY_FIELD:
         return "El campo no puede quedar vacío";
-      case INVALID_EMAIL_FORMAT:
-        return "Formato de email inválido";
       case INVALID_PASSWORD_FORMAT:
         return "Formato de contraseña inválido";
+      case DIFFERENT_PASSWORD:
+        return "Las contraseñas deben coincidir";
       default:
         return "";
     }
   };
 
-  const handleSignUp = () => {
-    if (email === "") {
-      setEmailError(EMPTY_FIELD);
-    }
-    if (password === "") {
+  const handleChangePassword = () => {
+    if (newPassword === "") {
       setPasswordError(EMPTY_FIELD);
+    }
+    if (newPassword !== newRepeatedPassword) {
+      setPasswordError(DIFFERENT_PASSWORD);
     }
   };
 
   return (
-    <div className="login">
-      <div className="login-container">
-        <div className="login-title-container">
+    <div className="forget-password">
+      <div className="forget-password-container">
+        <div className="bnt-back-container">
+          <Button
+            className="back-button"
+            startIcon={<ArrowBackIcon />}
+            href="http://localhost:3000/login"
+          >
+            Volver atrás
+          </Button>
+        </div>
+        <div className="forget-password-title-container">
           <Typography variant="title" color="primary">
-            Inicio de sesión
+            Cambio de contraseña
           </Typography>
           <Typography variant="subtitle">
-            Bienvenido nuevamente! Por favor ingresá a tu cuenta.
+            ¿Olvidaste tu contraseña? Ingresá una nueva!
           </Typography>
         </div>
         <div className="text-field-container">
           <TextField
-            id="email"
-            value={email}
-            label="Correo electrónico"
-            placeholder="aaaa@gmail.com"
-            color="primary"
-            focused
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <EmailIcon color="primary" />
-                </InputAdornment>
-              ),
-              className: "text-field",
-            }}
-            style={{ marginTop: 11 }}
-            onChange={(event) => setEmail(event.target.value)}
-            error={emailError !== "" ? true : false}
-            helperText={handleErrorMessages(emailError)}
-            onBlur={(event) => validateEmail(event.target.value)}
-          />
-        </div>
-        <div className="text-field-container">
-          <TextField
-            id="password"
-            value={password}
-            label="Contraseña"
+            id="newPassword"
+            value={newPassword}
+            label="Nueva contraseña"
             placeholder="********"
             color="primary"
             type={showPassword ? "text" : "password"}
@@ -143,49 +116,63 @@ const Login = () => {
               ),
             }}
             style={{ marginTop: 11 }}
-            onChange={({ target: { value } }) => setPassword(value)}
+            onChange={({ target: { value } }) => setNewPassword(value)}
             error={passwordError !== "" ? true : false}
             helperText={handleErrorMessages(passwordError)}
             onBlur={(event) => validatePassword(event.target.value)}
           />
         </div>
-        <div className="options-container">
-          <div className="remember-me-container">
-            <Checkbox checked={checked} onChange={handleChange} size="small" />
-            <Typography classes={{ root: "text" }}>Recordarme</Typography>
-          </div>
-          <div>
-            <Link
-              href="http://localhost:3000/forgetPassword"
-              underline="hover"
-              className="forget-password-label"
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
-          </div>
+        <div className="text-field-container">
+          <TextField
+            id="newPasswordRepeated"
+            value={newRepeatedPassword}
+            label="Ingrese nuevamente la contraseña"
+            placeholder="********"
+            color="primary"
+            type={showRepeatedPassword ? "text" : "password"}
+            focused
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon color="primary" />
+                </InputAdornment>
+              ),
+              className: "text-field",
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowRepeatedPassword}
+                    edge="end"
+                  >
+                    {showRepeatedPassword ? (
+                      <Visibility fontSize="small" color="primary" />
+                    ) : (
+                      <VisibilityOff fontSize="small" color="primary" />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            style={{ marginTop: 11 }}
+            onChange={({ target: { value } }) => setNewRepeatedPassword(value)}
+            error={passwordError !== "" ? true : false}
+            helperText={handleErrorMessages(passwordError)}
+            onBlur={(event) => validatePassword(event.target.value)}
+          />
         </div>
-        <div className="login-btn-container">
+        <div className="forget-password-btn-container">
           <Button
             variant="contained"
-            className="login-button"
-            onClick={() => handleSignUp()}
+            className="forget-password-button"
+            onClick={() => handleChangePassword()}
           >
-            Iniciar sesión
+            Cambiar contraseña
           </Button>
-        </div>
-        <div className="sign-up-container">
-          <Typography variant="subtitle">¿No tenés cuenta?</Typography>
-          <Link
-            href="http://localhost:3000/signUp"
-            underline="hover"
-            className="link-sign-up"
-          >
-            Registrate acá
-          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default ForgetPassword;

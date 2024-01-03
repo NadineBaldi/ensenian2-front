@@ -1,0 +1,47 @@
+.card-container {
+  border-radius: $font-size-20;
+}
+
+.state-container {
+  display: flex;
+  align-items: center;
+}
+
+.body-card-container {
+  height: 227px;
+  background-color: $quaternary-color;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 0px $font-size-20;
+}
+
+.footer-container {
+    &-Pendiente {
+        border-top: 1px solid $tertiary-color;
+    }
+    &-Archivado {
+        border-top: 1px solid $skyblue-color;
+    }
+    &-Publicado {
+        border-top: 1px solid $green-color;
+    }
+}
+
+.footer-div {
+  height: 53px;
+  display: flex;
+  align-items: center;
+  margin: 0px $font-size-10;
+  justify-content: space-between;
+}
+
+.title-state-container {
+  padding-left: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.more-icon-container {
+  display: flex;
+}
