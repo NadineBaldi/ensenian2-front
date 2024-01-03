@@ -1,0 +1,62 @@
+@import '../../theme/variables';
+
+.forget-password {
+  text-align: center;
+  background-image: url('../../../assets/images/Background-welcome.jpg');
+  min-height: 100vh;
+}
+
+.forget-password-container {
+  background-color: $secondary-color;
+  min-height: 100vh;
+  width: 800px;
+  margin-left: 800px
+}
+
+.forget-password-title-container {
+  padding: $font-size-80 $font-size-50 $font-size-20 $font-size-50;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-field-container {
+  text-align: left;
+  margin-top: $font-size-15;
+  width: fit-content;
+  padding-left: $font-size-50;
+  padding-right: $font-size-50;
+}
+
+.text-field {
+  width: 417px;
+  color: $primay-color !important;
+}
+
+.forget-password-btn-container {
+  width: fit-content;
+  padding-left: $font-size-50;
+  padding-right: $font-size-50;
+  text-align: left;
+  margin-top: $font-size-40;
+}
+
+.forget-password-button {
+  border-radius: $font-size-20 !important;
+  width: 417px;
+  margin-bottom: $font-size-8 !important;
+  text-transform: none !important;
+  font-weight: bold !important;
+}
+
+.bnt-back-container {
+  text-align: left;
+  padding-top: $font-size-80;
+  padding-left: $font-size-50;
+}
+
+.back-button {
+  text-transform: none !important;
+  font-size: $font-size-14 !important;
+  font-family: $font-family-primay !important;
+}

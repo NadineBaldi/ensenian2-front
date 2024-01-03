@@ -94,7 +94,11 @@ const SignUpStep1 = (props) => {
       </div>
       <div className="log-in-container">
         <Typography variant="subtitle">¿Ya tenes una cuenta?</Typography>
-        <Link href="#" underline="hover" className="link-log-in">
+        <Link
+          href="http://localhost:3000/login"
+          underline="hover"
+          className="link-log-in"
+        >
           Ingresá acá
         </Link>
       </div>
