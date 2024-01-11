@@ -29,7 +29,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -67,12 +67,19 @@ const Login = () => {
     }
   };
 
-  const handleSignUp = () => {
+  const handleLogin = () => {
+    let hasErrors = false;
     if (email === "") {
       setEmailError(EMPTY_FIELD);
+      hasErrors = true;
     }
     if (password === "") {
       setPasswordError(EMPTY_FIELD);
+      hasErrors = true;
+    }
+
+    if (!hasErrors && emailError === "" && passwordError === "") {
+      window.location.href = "http://localhost:3000/courses";
     }
   };
 
@@ -168,7 +175,7 @@ const Login = () => {
           <Button
             variant="contained"
             className="login-button"
-            onClick={() => handleSignUp()}
+            onClick={() => handleLogin()}
           >
             Iniciar sesión
           </Button>
