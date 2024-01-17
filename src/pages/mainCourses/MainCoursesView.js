@@ -55,7 +55,11 @@ const MainCourses = () => {
             </div>
             {courses.map(({ name, status }) => (
               <div className="course-card-container">
-                <CourseCard courseName={name} courseStatus={status} />
+                <CourseCard
+                  courseName={name}
+                  courseStatus={status}
+                  courses={courses}
+                />
               </div>
             ))}
           </div>
