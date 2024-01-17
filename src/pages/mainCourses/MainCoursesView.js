@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Material UI Components
 import Typography from "@mui/material/Typography";
@@ -9,14 +9,14 @@ import AddIcon from "@mui/icons-material/Add";
 
 // Components
 import CourseCard from "./components/courseCard/CourseCard";
+import AddCourseModal from "./components/addCourseModal/AddCourseModal";
+
+// Constants
+import { courses } from "../../constants/courses";
 
 const MainCourses = () => {
-  const courses = [
-    { name: "Física I", status: "Pendiente" },
-    { name: "Física II", status: "Publicado" },
-    { name: "Álgebra", status: "Publicado" },
-    { name: "Análisis Matemático I", status: "Archivado" },
-  ];
+  // useState
+  const [openAddCourseModal, setOpenAddCourseModal] = useState(false);
 
   return (
     <div className="mainCourses">
@@ -43,7 +43,10 @@ const MainCourses = () => {
           </div>
           <div className="cards-container">
             <div className="add-course-button-container">
-              <div className="add-course-button">
+              <div
+                className="add-course-button"
+                onClick={() => setOpenAddCourseModal(true)}
+              >
                 <AddIcon color="secondary" fontSize="large" />
                 <Typography variant="subtitle2" color="secondary">
                   Agregar nuevo curso
@@ -58,6 +61,10 @@ const MainCourses = () => {
           </div>
         </div>
       </div>
+      <AddCourseModal
+        openAddCourseModal={openAddCourseModal}
+        setOpenAddCourseModal={setOpenAddCourseModal}
+      />
     </div>
   );
 };
