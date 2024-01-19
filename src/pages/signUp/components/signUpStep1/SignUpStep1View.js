@@ -15,10 +15,16 @@ import LockIcon from "@mui/icons-material/Lock";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-// Utils
+// Constants
 import {
+  EMAIL,
+  PASSWORD,
   INVALID_EMAIL_FORMAT,
   INVALID_PASSWORD_FORMAT,
+  ERROR_TERMS_AND_CONDITIONS,
+  NOT_SAME_PASS,
+  ERROR_EMPTY_FIELDS,
+  DUPLICATED_PASS,
 } from "../../../../constants/util";
 
 const SignUpStep1 = (props) => {
@@ -34,6 +40,7 @@ const SignUpStep1 = (props) => {
   // Use states
   const [checked, setChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showDuplicatedPass, setShowDuplicatedPass] = useState(false);
   const [errorTermsAndConditionsMessage, setErrorTermsAndConditionsMessage] =
     useState("");
 
@@ -45,36 +52,39 @@ const SignUpStep1 = (props) => {
   const getEmailErrorMessage = () => {
     let regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i;
 
-    if (values["email"] === "") {
-      return "El campo no puede quedar vacío";
-    } else if (!regex.test(values["email"])) {
+    if (values[EMAIL] === "") {
+      return ERROR_EMPTY_FIELDS;
+    } else if (!regex.test(values[EMAIL])) {
       return INVALID_EMAIL_FORMAT;
     }
     return "";
   };
 
-  const getPasswordErrorMessage = () => {
-    if (values["password"] === "") {
-      return "El campo no puede quedar vacío";
-    } else if (values["email"].length <= 7) {
+  const getPasswordErrorMessage = (key) => {
+    if (values[key] === "") {
+      return ERROR_EMPTY_FIELDS;
+    } else if (values[key].length <= 7) {
       return INVALID_PASSWORD_FORMAT;
+    } else if (values[PASSWORD] !== values[DUPLICATED_PASS]) {
+      return NOT_SAME_PASS;
     }
     return "";
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  const handleClickShowDuplicatedPassword = () =>
+    setShowDuplicatedPass((show) => !show);
+
   const showNextStep = () => {
-    debugger;
     const newErrorMessages = {
       email: getEmailErrorMessage(),
-      password: getPasswordErrorMessage(),
+      password: getPasswordErrorMessage(PASSWORD),
+      duplicatedPass: getPasswordErrorMessage(DUPLICATED_PASS),
     };
 
     if (!checked) {
-      setErrorTermsAndConditionsMessage(
-        "*Debes aceptar los términos y condiciones para continuar."
-      );
+      setErrorTermsAndConditionsMessage(ERROR_TERMS_AND_CONDITIONS);
     } else {
       setErrorTermsAndConditionsMessage("");
     }
@@ -84,6 +94,8 @@ const SignUpStep1 = (props) => {
     if (
       newErrorMessages.email === "" &&
       newErrorMessages.password === "" &&
+      newErrorMessages.duplicatedPass === "" &&
+      values[PASSWORD] === values[DUPLICATED_PASS] &&
       checked
     ) {
       setCurrentStep(2);
@@ -102,7 +114,7 @@ const SignUpStep1 = (props) => {
       </div>
       <div className="text-field-container">
         <TextField
-          id="email"
+          id={EMAIL}
           value={values.email}
           label="Correo electrónico"
           placeholder="aaaa@gmail.com"
@@ -117,14 +129,14 @@ const SignUpStep1 = (props) => {
             className: "text-field",
           }}
           style={{ marginTop: 11 }}
-          onChange={(event) => handleFieldChange("email", event.target.value)}
+          onChange={(event) => handleFieldChange(EMAIL, event.target.value)}
           error={!!errorMessages.email}
           helperText={errorMessages.email}
         />
       </div>
       <div className="text-field-container">
         <TextField
-          id="password"
+          id={PASSWORD}
           value={values.password}
           label="Contraseña"
           placeholder="********"
@@ -155,12 +167,49 @@ const SignUpStep1 = (props) => {
             ),
           }}
           style={{ marginTop: 11 }}
-          onChange={(event) =>
-            handleFieldChange("password", event.target.value)
-          }
+          onChange={(event) => handleFieldChange(PASSWORD, event.target.value)}
           error={!!errorMessages.password}
           helperText={errorMessages.password}
-          // onBlur={(event) => validatePassword(event.target.value)}
+        />
+      </div>
+      <div className="text-field-container">
+        <TextField
+          id={DUPLICATED_PASS}
+          value={values.duplicatedPass}
+          label="Ingrese de nuevo su contraseña"
+          placeholder="********"
+          color="primary"
+          type={showDuplicatedPass ? "text" : "password"}
+          focused
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockIcon color="primary" />
+              </InputAdornment>
+            ),
+            className: "text-field",
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowDuplicatedPassword}
+                  edge="end"
+                >
+                  {showDuplicatedPass ? (
+                    <Visibility fontSize="small" color="primary" />
+                  ) : (
+                    <VisibilityOff fontSize="small" color="primary" />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+          style={{ marginTop: 11 }}
+          onChange={(event) =>
+            handleFieldChange(DUPLICATED_PASS, event.target.value)
+          }
+          error={!!errorMessages.duplicatedPass}
+          helperText={errorMessages.duplicatedPass}
         />
       </div>
       <div className="terms-and-conditions-container-with-error">

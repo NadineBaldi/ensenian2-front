@@ -12,6 +12,7 @@ const SignUp = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
+    duplicatedPass: "",
     name: "",
     lastName: "",
     birthdate: "",
@@ -19,7 +20,7 @@ const SignUp = () => {
     provinceSelected: "",
     city: "",
     domicile: "",
-    registrationNumber: "",
+    fileNumber: "",
     university: "",
   });
 
@@ -27,6 +28,7 @@ const SignUp = () => {
   const [errorMessages, setErrorMessages] = useState({
     email: "",
     password: "",
+    duplicatedPass: "",
     name: "",
     lastName: "",
     birthdate: "",
@@ -34,7 +36,7 @@ const SignUp = () => {
     provinceSelected: "",
     city: "",
     domicile: "",
-    registrationNumber: "",
+    fileNumber: "",
     university: "",
   });
 
