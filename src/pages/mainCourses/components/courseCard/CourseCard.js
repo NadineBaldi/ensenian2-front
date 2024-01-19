@@ -14,7 +14,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import ChangeCourseNameModal from "../changeCourseNameModal/ChangeCourseNameModal";
 
 const CourseCard = (props) => {
-  const { courseName, courseStatus, courses } = props;
+  const { courseId, courseName, courseStatus, courses } = props;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
@@ -48,17 +48,10 @@ const CourseCard = (props) => {
     setOpenChangeCourseNameModal(true);
   };
 
-  const handleArchiveCourse = (courses, name, status) => {
-    for (const clave in courses) {
-      if (
-        courses.hasOwnProperty(clave) &&
-        courses[clave].name === name &&
-        courses[clave].status === status
-      ) {
-        courses[clave].status = "Archivado";
-      }
-    }
-    return courses;
+  const handleArchiveCourse = () => {
+    const selectedCourse = courses.find(({ id }) => id === courseId);
+    selectedCourse.status = "Archivado";
+    setAnchorEl(null);
   };
 
   return (
@@ -93,11 +86,7 @@ const CourseCard = (props) => {
               }}
             >
               <MenuItem onClick={handleChangeName}>Editar nombre</MenuItem>
-              <MenuItem
-                onClick={() =>
-                  handleArchiveCourse(courses, courseName, courseStatus)
-                }
-              >
+              <MenuItem onClick={() => handleArchiveCourse()}>
                 Archivar curso
               </MenuItem>
             </Menu>
@@ -107,6 +96,7 @@ const CourseCard = (props) => {
       <ChangeCourseNameModal
         openChangeCourseNameModal={openChangeCourseNameModal}
         setOpenChangeCourseNameModal={setOpenChangeCourseNameModal}
+        courseId={courseId}
         courseName={courseName}
         courses={courses}
       />

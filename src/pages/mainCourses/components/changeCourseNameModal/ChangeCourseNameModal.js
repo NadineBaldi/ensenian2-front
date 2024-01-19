@@ -13,6 +13,7 @@ const ChangeCourseNameModal = (props) => {
   const {
     openChangeCourseNameModal,
     setOpenChangeCourseNameModal,
+    courseId,
     courseName,
     courses,
   } = props;
@@ -20,13 +21,9 @@ const ChangeCourseNameModal = (props) => {
   const [newName, setNewName] = useState("");
   const [newNameError, setNewNameError] = useState("");
 
-  const changeName = (courses, courseName, newName) => {
-    for (const clave in courses) {
-      if (courses.hasOwnProperty(clave) && courses[clave].name === courseName) {
-        courses[clave].name = newName;
-      }
-    }
-    return courses;
+  const changeName = (newName) => {
+    const selectedCourse = courses.find(({ id }) => id === courseId);
+    selectedCourse.name = newName;
   };
 
   const handleSaveNewName = () => {
@@ -34,7 +31,7 @@ const ChangeCourseNameModal = (props) => {
       setNewNameError(INVALID_NAME);
     } else {
       setNewNameError("");
-      changeName(courses, courseName, newName);
+      changeName(newName);
       setOpenChangeCourseNameModal(false);
     }
   };

@@ -53,9 +53,10 @@ const MainCourses = () => {
                 </Typography>
               </div>
             </div>
-            {courses.map(({ name, status }) => (
+            {courses.map(({ name, status, id }) => (
               <div className="course-card-container">
                 <CourseCard
+                  courseId={id}
                   courseName={name}
                   courseStatus={status}
                   courses={courses}

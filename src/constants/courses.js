@@ -1,8 +1,8 @@
 const courses = [
-  { name: "Física I", status: "Pendiente" },
-  { name: "Física II", status: "Publicado" },
-  { name: "Álgebra", status: "Publicado" },
-  { name: "Análisis Matemático I", status: "Archivado" },
+  { id: 1, name: "Física I", status: "Pendiente" },
+  { id: 2, name: "Física II", status: "Publicado" },
+  { id: 3, name: "Álgebra", status: "Publicado" },
+  { id: 4, name: "Análisis Matemático I", status: "Archivado" },
 ];
 
 module.exports = {
