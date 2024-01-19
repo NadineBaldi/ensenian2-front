@@ -13,6 +13,12 @@ import CircleIcon from "@mui/icons-material/Circle";
 // Components
 import ChangeCourseNameModal from "../changeCourseNameModal/ChangeCourseNameModal";
 
+// Utils
+import {
+  ARCHIVED_COURSE_STATUS,
+  PUBLISHED_COURSE_STATUS,
+} from "../../../../constants/util";
+
 const CourseCard = (props) => {
   const { courseId, courseName, courseStatus, courses } = props;
 
@@ -48,9 +54,9 @@ const CourseCard = (props) => {
     setOpenChangeCourseNameModal(true);
   };
 
-  const handleArchiveCourse = () => {
+  const changeCourseStatus = (newStatus) => {
     const selectedCourse = courses.find(({ id }) => id === courseId);
-    selectedCourse.status = "Archivado";
+    selectedCourse.status = newStatus;
     setAnchorEl(null);
   };
 
@@ -86,9 +92,20 @@ const CourseCard = (props) => {
               }}
             >
               <MenuItem onClick={handleChangeName}>Editar nombre</MenuItem>
-              <MenuItem onClick={() => handleArchiveCourse()}>
-                Archivar curso
-              </MenuItem>
+              {courseStatus !== PUBLISHED_COURSE_STATUS && (
+                <MenuItem
+                  onClick={() => changeCourseStatus(PUBLISHED_COURSE_STATUS)}
+                >
+                  Publicar curso
+                </MenuItem>
+              )}
+              {courseStatus !== ARCHIVED_COURSE_STATUS && (
+                <MenuItem
+                  onClick={() => changeCourseStatus(ARCHIVED_COURSE_STATUS)}
+                >
+                  Archivar curso
+                </MenuItem>
+              )}
             </Menu>
           </div>
         </div>
