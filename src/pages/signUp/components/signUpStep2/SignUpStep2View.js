@@ -16,6 +16,13 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Constants
 import { universities, provinces } from "../../../../constants/signUp";
+import {
+  DNI,
+  FILE_NUMBER,
+  ERROR_EMPTY_FIELDS,
+  INVALID_DNI_FORMAT,
+  INVALID_FILE_NUMBER_FORMAT,
+} from "../../../../constants/util";
 
 const SignUpStep2 = (props) => {
   const {
@@ -62,16 +69,32 @@ const SignUpStep2 = (props) => {
     let hasErrors = false;
     const newErrorMessages = {};
 
+    if (values[DNI].length <= 6) {
+      newErrorMessages[DNI] = INVALID_DNI_FORMAT;
+    } else {
+      newErrorMessages[DNI] = "";
+    }
+
+    if (values[FILE_NUMBER].length <= 4) {
+      newErrorMessages[FILE_NUMBER] = INVALID_FILE_NUMBER_FORMAT;
+    } else {
+      newErrorMessages[FILE_NUMBER] = "";
+    }
+
     for (const fieldName in values) {
       if (values[fieldName].trim() === "") {
-        newErrorMessages[fieldName] = "El campo no puede quedar vacío";
+        newErrorMessages[fieldName] = ERROR_EMPTY_FIELDS;
         hasErrors = true;
       }
     }
 
     setErrorMessages(newErrorMessages);
 
-    if (!hasErrors) {
+    if (
+      !hasErrors &&
+      newErrorMessages.dni === "" &&
+      newErrorMessages.fileNumber === ""
+    ) {
       window.location.href = "http://localhost:3000/login";
     }
   };
@@ -236,9 +259,9 @@ const SignUpStep2 = (props) => {
         </div>
         <div className="item-container">
           <TextField
-            id="matricula"
-            value={values.registrationNumber}
-            label="Número de matrícula"
+            id="fileNumber"
+            value={values.fileNumber}
+            label="Número de legajo"
             color="primary"
             type="number"
             focused
@@ -248,10 +271,10 @@ const SignUpStep2 = (props) => {
             style={{ marginTop: 11 }}
             fullWidth
             onChange={(event) =>
-              handleFieldChange("registrationNumber", event.target.value)
+              handleFieldChange("fileNumber", event.target.value)
             }
-            error={!!errorMessages.registrationNumber}
-            helperText={errorMessages.registrationNumber}
+            error={!!errorMessages.fileNumber}
+            helperText={errorMessages.fileNumber}
           />
         </div>
       </div>
