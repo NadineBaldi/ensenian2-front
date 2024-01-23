@@ -4,7 +4,14 @@ const EMAIL = "email";
 const PASSWORD = "password";
 const DUPLICATED_PASS = "duplicatedPass";
 const DNI = "dni";
-const FILE_NUMBER = "fileNumber";
+const REGISTRATION_NUMBER = "registrationNumber";
+const NAME = "name";
+const LAST_NAME = "lastName";
+const BIRTHDATE = "birthdate";
+const PROVINCE_SELECTED = "provinceSelected";
+const CITY = "city";
+const DOMICILE = "domicile";
+const UNIVERSITY = "university";
 
 // error messages
 const INVALID_EMAIL_FORMAT =
@@ -17,8 +24,8 @@ const ERROR_TERMS_AND_CONDITIONS =
 const NOT_SAME_PASS = "Ambas contraseñas deben coincidir.";
 const ERROR_EMPTY_FIELDS = "El campo no puede quedar vacío";
 const INVALID_DNI_FORMAT = "El DNI debe contener al menos 7 caracteres";
-const INVALID_FILE_NUMBER_FORMAT =
-  "El número de legajo debe contener al menos 5 caracteres";
+const INVALID_REGISTRATION_NUMBER_FORMAT =
+  "El número de matrícula debe contener al menos 5 caracteres";
 
 // status
 const ARCHIVED_COURSE_STATUS = "Archivado";
@@ -31,7 +38,14 @@ module.exports = {
   PASSWORD,
   DUPLICATED_PASS,
   DNI,
-  FILE_NUMBER,
+  REGISTRATION_NUMBER,
+  NAME,
+  LAST_NAME,
+  BIRTHDATE,
+  PROVINCE_SELECTED,
+  CITY,
+  DOMICILE,
+  UNIVERSITY,
   INVALID_NAME,
   INVALID_EMAIL_FORMAT,
   INVALID_PASSWORD_FORMAT,
@@ -39,7 +53,7 @@ module.exports = {
   NOT_SAME_PASS,
   ERROR_EMPTY_FIELDS,
   INVALID_DNI_FORMAT,
-  INVALID_FILE_NUMBER_FORMAT,
+  INVALID_REGISTRATION_NUMBER_FORMAT,
   ARCHIVED_COURSE_STATUS,
   PUBLISHED_COURSE_STATUS,
 };

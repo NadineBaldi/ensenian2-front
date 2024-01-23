@@ -29,6 +29,11 @@
   padding-top: 2px;
 }
 
+.account-data-container {
+  display: flex;
+  align-items: center;
+}
+
 .avatar-container {
   margin: $font-size-8;
 }
