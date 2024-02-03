@@ -18,10 +18,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { universities, provinces } from "../../../../constants/signUp";
 import {
   DNI,
-  FILE_NUMBER,
+  REGISTRATION_NUMBER,
   ERROR_EMPTY_FIELDS,
   INVALID_DNI_FORMAT,
-  INVALID_FILE_NUMBER_FORMAT,
+  INVALID_REGISTRATION_NUMBER_FORMAT,
 } from "../../../../constants/util";
 
 const SignUpStep2 = (props) => {
@@ -75,10 +75,11 @@ const SignUpStep2 = (props) => {
       newErrorMessages[DNI] = "";
     }
 
-    if (values[FILE_NUMBER].length <= 4) {
-      newErrorMessages[FILE_NUMBER] = INVALID_FILE_NUMBER_FORMAT;
+    if (values[REGISTRATION_NUMBER].length <= 4) {
+      newErrorMessages[REGISTRATION_NUMBER] =
+        INVALID_REGISTRATION_NUMBER_FORMAT;
     } else {
-      newErrorMessages[FILE_NUMBER] = "";
+      newErrorMessages[REGISTRATION_NUMBER] = "";
     }
 
     for (const fieldName in values) {
@@ -93,7 +94,7 @@ const SignUpStep2 = (props) => {
     if (
       !hasErrors &&
       newErrorMessages.dni === "" &&
-      newErrorMessages.fileNumber === ""
+      newErrorMessages.registrationNumber === ""
     ) {
       window.location.href = "http://localhost:3000/login";
     }
@@ -259,9 +260,9 @@ const SignUpStep2 = (props) => {
         </div>
         <div className="item-container">
           <TextField
-            id="fileNumber"
-            value={values.fileNumber}
-            label="Número de legajo"
+            id="registrationNumber"
+            value={values.registrationNumber}
+            label="Número de matrícula"
             color="primary"
             type="number"
             focused
@@ -271,10 +272,10 @@ const SignUpStep2 = (props) => {
             style={{ marginTop: 11 }}
             fullWidth
             onChange={(event) =>
-              handleFieldChange("fileNumber", event.target.value)
+              handleFieldChange("registrationNumber", event.target.value)
             }
-            error={!!errorMessages.fileNumber}
-            helperText={errorMessages.fileNumber}
+            error={!!errorMessages.registrationNumber}
+            helperText={errorMessages.registrationNumber}
           />
         </div>
       </div>

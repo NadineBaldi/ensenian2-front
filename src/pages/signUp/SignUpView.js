@@ -20,7 +20,7 @@ const SignUp = () => {
     provinceSelected: "",
     city: "",
     domicile: "",
-    fileNumber: "",
+    registrationNumber: "",
     university: "",
   });
 
@@ -36,7 +36,7 @@ const SignUp = () => {
     provinceSelected: "",
     city: "",
     domicile: "",
-    fileNumber: "",
+    registrationNumber: "",
     university: "",
   });
 

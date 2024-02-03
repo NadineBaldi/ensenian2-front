@@ -3,6 +3,8 @@ import React, { useState } from "react";
 // Material UI Components
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 // Icons
 import AddIcon from "@mui/icons-material/Add";
@@ -17,22 +19,48 @@ import { courses } from "../../constants/courses";
 const MainCourses = () => {
   // useState
   const [openAddCourseModal, setOpenAddCourseModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openOptions = Boolean(anchorEl);
+
+  const handleManageAccount = () => {
+    setAnchorEl(null);
+    window.location.href = "http://localhost:3000/accountData";
+  };
 
   return (
     <div className="mainCourses">
       <div className="mainCourses-container">
         <div className="header-container">
           <div className="user-info-container">
-            <div className="avatar-container">
-              <Avatar
-                alt="Remy Sharp"
-                src="../../../assets/images/Background.jpeg"
-                sx={{ width: 30, height: 30 }}
-              />
+            <div
+              className="account-data-container"
+              onClick={(event) => setAnchorEl(event.currentTarget)}
+            >
+              <div className="avatar-container">
+                <Avatar
+                  alt="Remy Sharp"
+                  src="../../../assets/images/Background.jpeg"
+                  sx={{ width: 30, height: 30 }}
+                />
+              </div>
+              <Typography variant="subtitle" color="secondary">
+                Nombre de usuario
+              </Typography>
             </div>
-            <Typography variant="subtitle" color="secondary">
-              Nombre de usuario
-            </Typography>
+            <Menu
+              id="edit-data-menu"
+              anchorEl={anchorEl}
+              open={openOptions}
+              onClose={() => setAnchorEl(null)}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleManageAccount}>
+                Gestionar cuenta
+              </MenuItem>
+              <MenuItem>Cerrar sesión</MenuItem>
+            </Menu>
           </div>
         </div>
         <div className="body-container">

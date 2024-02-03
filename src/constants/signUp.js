@@ -262,7 +262,6 @@ const universities = [
       "Universidad Tecnológica Nacional (UTN)",
       "Universidad Católica de Santa Fe (UCSF)",
       "Universidad de Ciencias Empresariales y Sociales (UCES)",
-      "Universidad Católica de La Plata (UCALP)",
       "Universidad Austral",
       "Instituto Universitario Italiano de Rosario (IUNIR)",
       "Instituto Universitario del Gran Rosario (IUGR)",
@@ -270,7 +269,6 @@ const universities = [
       "Universidad Abierta Interamericana (UAI)",
       "Universidad Católica Argentina (UCA)",
       "Instituto Universitario IDEA",
-      "Universidad Católica de Santiago del Estero (UCSE)",
     ],
   },
   {

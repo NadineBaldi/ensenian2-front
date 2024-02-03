@@ -3,6 +3,7 @@ const SignUp = lazy(() => import("../client/signUp"));
 const Login = lazy(() => import("../client/login"));
 const MainCourses = lazy(() => import("../client/mainCourses"));
 const ForgetPassword = lazy(() => import("../client/forgetPassword"));
+const AccountData = lazy(() => import("../client/accountData"));
 
 const routes = [
   {
@@ -32,6 +33,13 @@ const routes = [
     layout: "/forgetPassword",
     exact: true,
     element: <ForgetPassword />,
+  },
+  {
+    path: "accountData",
+    name: "accountData",
+    layout: "/accountData",
+    exact: true,
+    element: <AccountData />,
   },
 ];
 
