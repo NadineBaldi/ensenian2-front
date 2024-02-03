@@ -5,31 +5,31 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-
-// Icons
-import AddIcon from "@mui/icons-material/Add";
+import { Tab, Tabs } from "@mui/material";
 
 // Components
-import CourseCard from "./components/courseCard/CourseCard";
-import AddCourseModal from "./components/addCourseModal/AddCourseModal";
+import ConfigView from "./components/config/ConfigView";
+import ExamsView from "./components/exams/ExamsView";
+import QuestionsView from "./components/questions/QuestionsView";
+import UnitsView from "./components/units/UnitsView";
 
-// Constants
-import { courses } from "../../constants/courses";
-
-const MainCourses = () => {
-  // useState
-  const [openAddCourseModal, setOpenAddCourseModal] = useState(false);
+const CourseView = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
+  const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
   const handleManageAccount = () => {
     setAnchorEl(null);
     window.open("http://localhost:3000/accountData", "_self");
   };
 
+  const handleTabChange = (e, tabIndex) => {
+    setCurrentTabIndex(tabIndex);
+  };
+
   return (
-    <div className="mainCourses">
-      <div className="mainCourses-container">
+    <div className="course">
+      <div className="course-container">
         <div className="header-container">
           <div className="user-info-container">
             <div
@@ -66,40 +66,25 @@ const MainCourses = () => {
         <div className="body-container">
           <div className="title-container">
             <Typography variant="title" color="primary">
-              Mis cursos
+              Nombre curso
             </Typography>
           </div>
-          <div className="cards-container">
-            <div className="add-course-button-container">
-              <div
-                className="add-course-button"
-                onClick={() => setOpenAddCourseModal(true)}
-              >
-                <AddIcon color="secondary" fontSize="large" />
-                <Typography variant="subtitle2" color="secondary">
-                  Agregar nuevo curso
-                </Typography>
-              </div>
-            </div>
-            {courses.map(({ name, status, id }) => (
-              <div className="course-card-container">
-                <CourseCard
-                  courseId={id}
-                  courseName={name}
-                  courseStatus={status}
-                  courses={courses}
-                />
-              </div>
-            ))}
+          <div className="tabs-container">
+            <Tabs value={currentTabIndex} onChange={handleTabChange}>
+              <Tab label="Unidades" />
+              <Tab label="Preguntas" />
+              <Tab label="Exámenes" />
+              <Tab label="Configuraciones" />
+            </Tabs>
           </div>
+          <div>{currentTabIndex === 0 && <UnitsView />}</div>
+          <div>{currentTabIndex === 1 && <QuestionsView />}</div>
+          <div>{currentTabIndex === 2 && <ExamsView />}</div>
+          <div>{currentTabIndex === 3 && <ConfigView />}</div>
         </div>
       </div>
-      <AddCourseModal
-        openAddCourseModal={openAddCourseModal}
-        setOpenAddCourseModal={setOpenAddCourseModal}
-      />
     </div>
   );
 };
 
-export default MainCourses;
+export default CourseView;
