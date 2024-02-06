@@ -1,0 +1,57 @@
+.editUnitNameModal-box-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $font-size-400;
+  height: 360px;
+  text-align: center;
+  background-color: $secondary-color;
+  border: 1px solid $quaternary-color;
+  border-radius: $font-size-10;
+}
+
+.editUnitNameModal-close-btn-container {
+  position: absolute;
+  top: $font-size-10; 
+  right: $font-size-10;
+}
+  
+.editUnitNameModal-title-container {
+  padding-top: $font-size-40;
+  padding-bottom: $font-size-10; 
+  display: flex; 
+  flex-direction: column;
+  text-align: left;
+  padding-left: $font-size-20;
+}
+
+.editUnitNameModal-text-fields {
+  display: flex;
+  align-items: center;
+  flex-direction: column;    
+}
+    
+.editUnitNameModal-text-field-container {
+  text-align: left;
+  margin-top: $font-size-20;
+  width: fit-content;
+}
+    
+.text-field {
+  width: $font-size-350;
+  color: $primay-color !important;
+}
+
+.editUnitNameModal-btn-container {
+  text-align: center;
+  margin-top: $font-size-30;  
+}
+  
+.editUnitNameModal-button {
+  border-radius: $font-size-20 !important;
+  width: $font-size-150;
+  margin-bottom: $font-size-10 !important;
+  text-transform: none !important;
+  font-weight: bold !important;    
+}

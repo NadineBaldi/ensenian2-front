@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI Components
 import Typography from "@mui/material/Typography";
@@ -13,10 +13,40 @@ import ExamsView from "./components/exams/ExamsView";
 import QuestionsView from "./components/questions/QuestionsView";
 import UnitsView from "./components/units/UnitsView";
 
+// Constants
+import { courses } from "../../constants/courses";
+
 const CourseView = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const [courseName, setCourseName] = useState("");
+  const [units, setUnits] = useState([]);
+
+  const getQueryVariable = (variable) => {
+    let query = window.location.search.substring(1);
+    let vars = query.split("&");
+    for (let i = 0; i < vars.length; i++) {
+      let pair = vars[i].split("=");
+      if (pair[0] === variable) {
+        return pair[1];
+      }
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    const courseId = getQueryVariable("courseId");
+    if (courseId !== null) {
+      const course = courses.find(
+        (course) => course.id.toString() === courseId
+      );
+      if (course) {
+        setCourseName(course.name);
+        setUnits(course.units);
+      }
+    }
+  }, []);
 
   const handleManageAccount = () => {
     setAnchorEl(null);
@@ -66,7 +96,7 @@ const CourseView = () => {
         <div className="body-container">
           <div className="title-container">
             <Typography variant="title" color="primary">
-              Nombre curso
+              {courseName}
             </Typography>
           </div>
           <div className="tabs-container">
@@ -77,7 +107,7 @@ const CourseView = () => {
               <Tab label="Configuraciones" />
             </Tabs>
           </div>
-          <div>{currentTabIndex === 0 && <UnitsView />}</div>
+          <div>{currentTabIndex === 0 && <UnitsView units={units} />}</div>
           <div>{currentTabIndex === 1 && <QuestionsView />}</div>
           <div>{currentTabIndex === 2 && <ExamsView />}</div>
           <div>{currentTabIndex === 3 && <ConfigView />}</div>
