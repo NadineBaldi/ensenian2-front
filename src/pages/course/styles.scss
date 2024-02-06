@@ -1,0 +1,50 @@
+@import '../../theme/variables';
+
+.course {
+  text-align: center;
+  background-image: url('../../../assets/images/Background.jpeg');
+  min-height: 100vh;
+}
+
+.course-container {
+  background-color: $secondary-color;
+  min-height: 100vh;
+  width: 1110px;
+  margin-left: 332px;
+}
+
+.header-container {
+  background-color: $tertiary-color; 
+  height: $font-size-50;
+}
+ 
+.user-info-container {
+  display: flex;
+ align-items: center;
+ justify-content: right;
+ margin-right: $font-size-20;
+ padding-top: 2px;
+}
+
+.account-data-container {
+  display: flex;
+  align-items: center;
+}
+  
+.avatar-container {
+  margin: $font-size-8;
+}
+
+.title-container {
+  margin-top: $font-size-30;
+  margin-left: $font-size-50; 
+  text-align: left;
+}
+
+.tabs-container {
+  margin: $font-size-40;
+  
+  .MuiTab-textColorPrimary {
+    width: 250px;
+  }
+}
