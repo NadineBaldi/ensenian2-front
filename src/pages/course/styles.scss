@@ -1,4 +1,8 @@
 @import '../../theme/variables';
+@import './components/units/styles';
+@import './components/deleteQuestionModal/styles';
+@import './components/editUnitNameModal/styles';
+@import './components/addUnitModal/styles';
 
 .course {
   text-align: center;
@@ -45,6 +49,19 @@
   margin: $font-size-40;
   
   .MuiTab-textColorPrimary {
-    width: 250px;
+    width: 255px;
+    font-weight: bold;
+    text-transform: capitalize;
+    border-bottom: solid lightgray;
+    color: black !important;
+  }
+
+  .Mui-selected {
+    color: $green-color !important;
+    border-bottom: solid $green-color !important;
+  }
+
+  .MuiTabs-indicator {
+    background-color: $green-color !important;
   }
 }

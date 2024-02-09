@@ -60,16 +60,20 @@ const CourseCard = (props) => {
     setAnchorEl(null);
   };
 
+  const handleOnClick = () => {
+    if (courseId !== undefined) {
+      let id = courseId;
+      let newUrl = "http://localhost:3000/course?courseId=" + id;
+
+      window.location.href = newUrl;
+    }
+  };
+
   return (
     <div className="card-container">
       {" "}
       <Card sx={{ height: 280, borderRadius: 5 }}>
-        <div
-          className="body-card-container"
-          onClick={() =>
-            (window.location.href = "http://localhost:3000/course")
-          }
-        >
+        <div className="body-card-container" onClick={() => handleOnClick()}>
           <Typography variant="title" color="primary">
             {courseName}
           </Typography>
