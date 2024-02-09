@@ -26,6 +26,8 @@ const ERROR_EMPTY_FIELDS = "El campo no puede quedar vacío";
 const INVALID_DNI_FORMAT = "El DNI debe contener al menos 7 caracteres";
 const INVALID_REGISTRATION_NUMBER_FORMAT =
   "El número de matrícula debe contener al menos 5 caracteres";
+const NOT_CORRECT_OPTION_SELECTED =
+  "Cuidado! Al menos una opción debe ser correcta";
 
 // status
 const ARCHIVED_COURSE_STATUS = "Archivado";
@@ -54,6 +56,7 @@ module.exports = {
   ERROR_EMPTY_FIELDS,
   INVALID_DNI_FORMAT,
   INVALID_REGISTRATION_NUMBER_FORMAT,
+  NOT_CORRECT_OPTION_SELECTED,
   ARCHIVED_COURSE_STATUS,
   PUBLISHED_COURSE_STATUS,
 };
