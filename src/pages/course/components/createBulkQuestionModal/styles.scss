@@ -1,0 +1,291 @@
+.create-bulk-question-modal {
+    &__box-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: $font-size-600;
+      min-height: $font-size-350;
+      text-align: center;
+      background-color: $secondary-color;
+      border: 1px solid $quaternary-color;
+      border-radius: $font-size-10;
+    }
+      
+    &__close-btn-container {
+      position: absolute;
+      top: $font-size-10; 
+      right: $font-size-10;
+    }
+  
+    &__title-container {
+      padding: $font-size-40 $font-size-50 $font-size-10 $font-size-50;
+      display: flex; 
+      flex-direction: column;
+      text-align: left;
+    }
+  
+    &__options-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: $font-size-12;
+      align-items: center !important;
+      justify-items: center;
+    }
+  
+    &__text-fields {
+      display: flex;
+      align-items: center;
+      flex-direction: column;    
+      max-height: $font-size-550;
+      overflow: auto;
+    }
+  
+    &__title-text-field-container {
+      text-align: left;
+      margin-top: $font-size-20;
+      margin-bottom: $font-size-30;
+    }
+  
+    &__text-field-container {
+      text-align: left;
+    }
+  
+    &__btn-container {
+      text-align: center;
+      margin-top: $font-size-30;  
+    }
+  
+    &__button {
+      border-radius: $font-size-20 !important;
+      width: $font-size-200;
+      margin-bottom: $font-size-20 !important;
+      text-transform: none !important;
+      font-weight: bold !important;    
+    }
+  
+    &__checkbox-container {
+      display: flex;
+      align-items: center;
+    }
+  
+    &__btn-add-option-container {
+      width: 712px;
+      display: flex;
+      justify-self: left;
+      padding-top: $font-size-10;
+    }
+  
+    &__option_button {
+      text-transform: none !important;
+    }
+  
+    &__footer-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    &__trash-button {
+      padding-right: 9px;
+    } 
+  
+    &__message-error-container {
+      margin-right: auto;
+      padding-left: $font-size-50;
+      padding-top: $font-size-10;
+    }
+
+    &__file-uploader-container {
+      width: $font-size-500;
+      padding: $font-size-10 $font-size-50 $font-size-10 $font-size-50;
+    }
+
+    &__file-uploader-label {
+      display: inline-block;
+      font-size: $font-size-14;
+      font-weight: $font-size-400;
+      line-height: $font-size-18;
+      color: rgba(0,0,0,0.9);
+      margin-bottom: $font-size-8;
+      margin-left: $font-size-6; 
+    }
+
+    &__visually-hidden {
+      border: 0;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      height: $font-size-1;
+      margin: 0 -1px -1px 0;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+      white-space: nowrap;
+    }
+
+    &__dropzone {
+      width: 100%;
+      min-width: 320px;
+      height: 96px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      text-align: center;
+    }
+
+    &__dropzone-dashed-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      stroke: $primay-color;
+      stroke-width: $font-size-2;
+      background-color: rgba(0,0,0,0);
+      border-radius: $font-size-6;
+    }
+
+    &__dropzone-input {
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      outline: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+    }
+
+    &__dropzone-button {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      outline: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-color: rgba(0,0,0,0);
+      border-radius: $font-size-6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__dropzone-icon {
+      vertical-align: middle;
+      margin-right: $font-size-4;  
+    }
+
+    &__dropzone-call-to-action {
+      font-size: $font-size-16;
+      font-weight: $font-size-400;
+      line-height: $font-size-20;
+      color: $primay-color;
+    }
+
+    &__dropzone-description {
+      font-size: $font-size-16;
+      font-weight: $font-size-400;
+      line-height: $font-size-20;
+      color: rgba(0,0,0,.9);
+    }
+
+    &__dropzone-requirements {
+      display: block;
+      font-size: $font-size-14;
+      font-weight: $font-size-400;
+      line-height: $font-size-18;
+      color: rgba(0,0,0,.55);
+      margin-top: $font-size-2;
+      margin-left: $font-size-16;
+      margin-right: $font-size-16;
+    }
+
+    &__tag-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &__tag-item {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      width: max-content;
+      max-width: 206px;
+      box-sizing: border-box;
+      margin-top: $font-size-8;
+      margin-right: $font-size-8;
+    }
+
+    &__tag-wrapper {
+      width: max-content;
+      position: relative;
+    }
+
+    &__tag-large {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      font-size: $font-size-14;
+      height: $font-size-2;
+      padding: 0 0.285em;
+      border-radius: 1.1428em;
+    }
+
+    &__tag-child {
+      padding: 0 0.5714285714em;
+    }
+
+    &__tag-children {
+      width: 100%;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      align-items: stretch;
+    }
+
+    &__tag-name {
+      display: inline;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__tag-close {
+      font-size: inherit;
+      height: 1.7142857143em;
+      width: 1.7142857143em;
+      margin-left: -0.2857142857em 
+    }
+
+    &__icon-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  
+  .text-field {
+    width: $font-size-350;
+    color: $primay-color !important;
+  }
+    
+  .title-text-field {
+    width: 712px;
+    color: $primay-color !important;
+  }
+    
+  .text {
+    font-size: $font-size-12 !important;
+  }
+  
