@@ -13,6 +13,8 @@ import EditIcon from "@mui/icons-material/Edit";
 // Components
 import DeleteQuestionModal from "../deleteQuestionModal/DeleteQuestionModal";
 import EditQuestionModal from "../editQuestionModal/EditQuestionModal";
+import CreateSingleQuestionModal from "../createSingleQuestionModal/createSingleQuestionModal";
+import CreateBulkQuestionModal from "../createBulkQuestionModal/createBulkQuestionModal";
 
 // Constants
 import { questions } from "../../../../constants/questions";
@@ -20,6 +22,10 @@ import { questions } from "../../../../constants/questions";
 const QuestionsView = () => {
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
   const [openEditQuestionModal, setOpenEditQuestionModal] = useState(false);
+  const [openCreateSingleQuestionModal, setOpenCreateSingleQuestionModal] =
+    useState(false);
+  const [openCreateBulkQuestionModal, setOpenCreateBulkQuestionModal] =
+    useState(false);
   const [questionSelected, setQuestionSelected] = useState({});
 
   const handleOnClickEditQuestion = (question) => {
@@ -35,6 +41,7 @@ const QuestionsView = () => {
             variant="contained"
             className="questions-view__add-individual-question-btn"
             size="small"
+            onClick={() => setOpenCreateSingleQuestionModal(true)}
           >
             Crear pregunta individual
           </Button>
@@ -44,6 +51,7 @@ const QuestionsView = () => {
             variant="contained"
             className="questions-view__add-questions-btn"
             size="small"
+            onClick={() => setOpenCreateBulkQuestionModal(true)}
           >
             Carga masiva de preguntas
           </Button>
@@ -90,6 +98,14 @@ const QuestionsView = () => {
         setOpenModal={setOpenEditQuestionModal}
         questions={questions}
         questionSelected={questionSelected}
+      />
+      <CreateSingleQuestionModal
+        openModal={openCreateSingleQuestionModal}
+        setOpenModal={setOpenCreateSingleQuestionModal}
+      />
+      <CreateBulkQuestionModal
+        openModal={openCreateBulkQuestionModal}
+        setOpenModal={setOpenCreateBulkQuestionModal}
       />
     </div>
   );
