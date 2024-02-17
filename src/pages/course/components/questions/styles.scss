@@ -1,0 +1,104 @@
+@import '../../../../theme/variables';
+
+.questions-view {
+
+  &__header {
+    text-align: right;
+    padding: 0 $font-size-120;
+    display: flex;
+    justify-content: right;
+  }
+
+  &__button-container {
+    margin: 0 $font-size-5;
+  }
+
+  &__add-individual-question-btn {
+    border-radius: $font-size-30 !important;
+    text-transform: none !important;
+  }
+
+  &__add-questions-btn {
+    border-radius: $font-size-30 !important;
+    text-transform: none !important;
+    background-color: $white-color !important;
+    color: $primay-color !important;
+    border-color: $primay-color !important;
+    border: 1px solid !important;
+  }
+
+  &__body {
+    padding: $font-size-40 $font-size-120;
+    display: flex;
+    flex-direction: column;
+    gap: $font-size-10;
+  }
+
+  &__text-field-container {
+    .MuiTextField-root {
+      width: 100%;
+      border: 1px solid $primay-color;
+      border-radius: $font-size-15; 
+    }
+
+    .MuiInputBase-root {
+      border: 0px solid;
+    }
+
+    .MuiInputBase-input {
+      font-weight: bold;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+    }
+  }
+
+  &__question-text-field {
+    width: 100% !important;
+    border-radius: $font-size-30 !important;
+  }
+
+  .MuiAccordion-root {
+    background-color: transparent !important;
+    box-shadow: 0 0 1px 1px $primay-color;
+    border-radius: $font-size-10 !important;
+
+    .MuiAccordionSummary-content {
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+
+    .accordion-summary-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      cursor: default !important;
+    }
+
+    .edit-icon {
+      padding-left: $font-size-10;
+      color: $green-color;
+      margin-right: auto;
+      cursor: pointer !important;
+    }
+
+    .expand-icon-container {
+      cursor: pointer !important;
+    }
+
+    .Mui-expanded {
+      min-height: 0 !important;
+    }
+  }
+
+  .MuiAccordionSummary-expandIconWrapper {
+    color: $primay-color;
+  }
+
+  .MuiListItem-root {
+    border-bottom: 1px solid $quaternary-color;
+  }
+
+  .MuiListItemIcon-root {
+    justify-content: right;
+  }
+
+}
