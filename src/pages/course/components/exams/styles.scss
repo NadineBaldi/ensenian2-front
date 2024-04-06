@@ -1,0 +1,84 @@
+@import '../../../../theme/variables';
+
+.exams-view {
+
+  &__header {
+    text-align: right;
+    padding: 0 $font-size-120;
+  }
+    
+  &__create-exam-btn {
+    border-radius: $font-size-30 !important;
+    text-transform: capitalize !important;
+  }
+
+  &__body {
+    padding: $font-size-40 $font-size-120;
+    display: flex;
+    flex-direction: column;
+    gap: $font-size-10;
+  }
+
+  .MuiAccordion-root {
+    background-color: $grey-color;
+    box-shadow: 0 0 1px 1px $grey-color;
+    border-radius: $font-size-10 !important;
+
+    .MuiAccordionSummary-content {
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+
+    .accordion-summary-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      cursor: default !important;
+    }
+
+    .accordion-summary-text-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    } 
+
+    .edit-icon {
+      padding-left: $font-size-10;
+      color: $green-color;
+      margin-right: auto;
+      cursor: pointer !important;
+    }
+
+    .expand-icon-container {
+      cursor: pointer !important;
+    }
+
+    .Mui-expanded {
+      min-height: 0 !important;
+    }
+  }
+
+  .MuiAccordionSummary-expandIconWrapper {
+    color: $primay-color;
+  }
+
+  .MuiListItem-root {
+    border-bottom: 1px solid $quaternary-color;
+  }
+
+  .MuiListItemIcon-root {
+    justify-content: right;
+  }
+
+}
+
+.title-text  {
+  color: $dark-grey-color;
+  padding-top: $font-size-5;
+  padding-bottom: $font-size-4;
+}
+
+.description-text  {
+  padding-top: $font-size-4;
+  padding-bottom: $font-size-5;
+}

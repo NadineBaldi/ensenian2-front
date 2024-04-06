@@ -28,10 +28,59 @@ const INVALID_REGISTRATION_NUMBER_FORMAT =
   "El número de matrícula debe contener al menos 5 caracteres";
 const NOT_CORRECT_OPTION_SELECTED =
   "Cuidado! Al menos una opción debe ser correcta";
+const NOT_QUESTION_SELECTED =
+  "Cuidado! El exámen debe contener al menos una pregunta.";
 
 // status
 const ARCHIVED_COURSE_STATUS = "Archivado";
 const PUBLISHED_COURSE_STATUS = "Publicado";
+
+const grades = [
+  {
+    value: 0,
+    label: "0",
+  },
+  {
+    value: 10,
+    label: "10",
+  },
+  {
+    value: 20,
+    label: "20",
+  },
+  {
+    value: 30,
+    label: "30",
+  },
+  {
+    value: 40,
+    label: "40",
+  },
+  {
+    value: 50,
+    label: "50",
+  },
+  {
+    value: 60,
+    label: "60",
+  },
+  {
+    value: 70,
+    label: "70",
+  },
+  {
+    value: 80,
+    label: "80",
+  },
+  {
+    value: 90,
+    label: "90",
+  },
+  {
+    value: 100,
+    label: "100",
+  },
+];
 
 module.exports = {
   EMPTY_FIELD,
@@ -59,4 +108,6 @@ module.exports = {
   NOT_CORRECT_OPTION_SELECTED,
   ARCHIVED_COURSE_STATUS,
   PUBLISHED_COURSE_STATUS,
+  grades,
+  NOT_QUESTION_SELECTED,
 };
