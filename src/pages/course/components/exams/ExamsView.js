@@ -15,11 +15,13 @@ import EditIcon from "@mui/icons-material/Edit";
 // Components
 import DeleteExamModal from "../deleteExamModal/DeleteExamModal";
 import EditExamModal from "../editExamModal/EditExamModal";
+import CreateNewExamModal from "../createNewExamModal/createNewExamModal";
 
 // Constants
 import { exams } from "../../../../constants/exams";
 
 const ExamsView = () => {
+  const [openCreateNewExamModal, setOpenCreateNewExamModal] = useState(false);
   const [openDeleteExamModal, setOpenDeleteExamModal] = useState(false);
   const [openEditExamModal, setOpenEditExamModal] = useState(false);
   const [examSelected, setExamSelected] = useState(false);
@@ -47,7 +49,7 @@ const ExamsView = () => {
           variant="contained"
           className="exams-view__create-exam-btn"
           size="small"
-          // onClick={() => setOpenCreateSingleQuestionModal(true)}
+          onClick={() => setOpenCreateNewExamModal(true)}
         >
           Crear exámen
         </Button>
@@ -108,6 +110,10 @@ const ExamsView = () => {
           )
         )}
       </div>
+      <CreateNewExamModal
+        openModal={openCreateNewExamModal}
+        setOpenModal={setOpenCreateNewExamModal}
+      />
       <DeleteExamModal
         openModal={openDeleteExamModal}
         setOpenModal={setOpenDeleteExamModal}
