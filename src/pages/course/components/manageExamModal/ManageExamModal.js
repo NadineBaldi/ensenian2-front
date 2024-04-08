@@ -30,25 +30,42 @@ import {
 } from "../../../../constants/util";
 import { questions } from "../../../../constants/questions";
 
-const CreateNewExamModal = (props) => {
-  const { openModal, setOpenModal } = props;
+const ManageExamModal = (props) => {
+  const { openModal, onClose, examSelected } = props;
 
-  const [values, setValues] = useState({
-    description: "",
-    timeLimit: null,
-    minimumGrade: 0,
-    questions: [],
-  });
+  const [newExamData, setNewExamData] = useState({});
+  const {
+    description,
+    timeLimit,
+    minimumGrade,
+    errorDescription,
+    errorTimeLimit,
+    errorQuestions,
+  } = newExamData;
   const [isSelected, setIsSelected] = useState(false);
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [newExamQuestions, setNewExamQuestions] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
 
+  useEffect(() => {
+    if (examSelected) {
+      setNewExamData({ ...examSelected });
+      setIsSelected(!!examSelected.timeLimit);
+      setNewExamQuestions(examSelected.questions);
+    } else {
+      setNewExamData({});
+      setIsSelected(false);
+      setCurrentTabIndex(0);
+      setNewExamQuestions([]);
+      setFilteredQuestions([]);
+    }
+
+    setFilteredQuestions(questions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [examSelected, openModal]);
+
   const handleChangeNewExamData = (event, key) => {
-    setValues({
-      ...values,
-      [key]: event.target.value,
-    });
+    setNewExamData({ ...newExamData, [key]: event.target.value });
   };
 
   const handleChangeOptions = (newValue) => {
@@ -87,11 +104,11 @@ const CreateNewExamModal = (props) => {
 
   const generalInformation = () => {
     return (
-      <div className="create-new-exam-modal__text-fields">
-        <div className="create-new-exam-modal__title-text-field-container">
+      <div className="edit-exam-modal__text-fields">
+        <div className="edit-exam-modal__title-text-field-container">
           <TextField
             id="examDescription"
-            value={values.description}
+            value={description}
             label="Descripción"
             color="primary"
             focused
@@ -100,14 +117,14 @@ const CreateNewExamModal = (props) => {
             }}
             style={{ marginTop: 11 }}
             onChange={(event) => handleChangeNewExamData(event, "description")}
-            error={!!values.errorDescription}
-            helperText={values.errorDescription}
+            error={!!errorDescription}
+            helperText={errorDescription}
           />
         </div>
-        <div className="create-new-exam-modal__limit-time-text-field-container">
+        <div className="edit-exam-modal__limit-time-text-field-container">
           <TextField
             id="examTimeLimit"
-            value={values.timeLimit}
+            value={timeLimit}
             label="Tiempo límite (en minutos)"
             color="primary"
             focused
@@ -117,10 +134,10 @@ const CreateNewExamModal = (props) => {
             style={{ marginTop: 11 }}
             disabled={!isSelected}
             onChange={(event) => handleChangeNewExamData(event, "timeLimit")}
-            error={!!values.errorTimeLimit}
-            helperText={values.errorTimeLimit}
+            error={!!errorTimeLimit}
+            helperText={errorTimeLimit}
           />
-          <div className="create-new-exam-modal__checkbox-container">
+          <div className="edit-exam-modal__checkbox-container">
             <Checkbox
               checked={isSelected}
               size="small"
@@ -131,14 +148,14 @@ const CreateNewExamModal = (props) => {
             </Typography>
           </div>
         </div>
-        <div className="create-new-exam-modal__grade-container">
+        <div className="edit-exam-modal__grade-container">
           <Typography classes={{ root: "grade-text" }}>
             Calificación mínima para aprobación
           </Typography>
-          <div className="create-new-exam-modal__slider-container">
+          <div className="edit-exam-modal__slider-container">
             <Slider
               aria-label="Custom grades"
-              defaultValue={values.minimumGrade}
+              defaultValue={minimumGrade}
               getAriaValueText={valuetext}
               step={10}
               valueLabelDisplay="auto"
@@ -152,8 +169,8 @@ const CreateNewExamModal = (props) => {
 
   const questionsInformation = () => {
     return (
-      <div className="create-new-exam-modal__text-fields">
-        <div className="create-new-exam-modal__search-question-container">
+      <div className="edit-exam-modal__text-fields">
+        <div className="edit-exam-modal__search-question-container">
           <Paper
             component="form"
             sx={{
@@ -198,7 +215,7 @@ const CreateNewExamModal = (props) => {
                       <ListItemIcon>
                         <Checkbox
                           edge="start"
-                          checked={newExamQuestions.some(
+                          checked={newExamQuestions?.some(
                             ({ id }) => id === value.id
                           )}
                           tabIndex={-1}
@@ -212,7 +229,7 @@ const CreateNewExamModal = (props) => {
                       <ListItemText id={labelId} primary={value.title} />
                     </ListItemButton>
                   </ListItem>
-                  {index + 1 !== questions.length ? (
+                  {index + 1 !== questions?.length ? (
                     <Divider variant="inset" component="li" />
                   ) : null}
                 </div>
@@ -225,14 +242,14 @@ const CreateNewExamModal = (props) => {
   };
 
   const getErrorMessages = () => {
-    const errorDescription =
-      values.description === "" ? ERROR_EMPTY_FIELDS : "";
-    const errorTimeLimit = values.timeLimit === "" ? ERROR_EMPTY_FIELDS : "";
-    const errorQuestions =
-      newExamQuestions.length <= 0 ? NOT_QUESTION_SELECTED : "";
+    const errorDescription = !description ? ERROR_EMPTY_FIELDS : "";
+    const errorTimeLimit = !timeLimit && isSelected ? ERROR_EMPTY_FIELDS : "";
+    const errorQuestions = !newExamQuestions?.length
+      ? NOT_QUESTION_SELECTED
+      : "";
 
-    setValues({
-      ...values,
+    setNewExamData({
+      ...newExamData,
       errorDescription,
       errorTimeLimit,
       errorQuestions,
@@ -243,26 +260,29 @@ const CreateNewExamModal = (props) => {
 
   const handleApplyChanges = () => {
     if (!getErrorMessages()) {
-      console.log("Se está guardando el nuevo examen (ponele)");
+      console.log("Se están guardando (ponele)");
+      onClose();
       //TODO aca se llama al back
     }
   };
 
   return (
-    <div className="create-new-exam-modal">
-      <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <div className="create-new-exam-modal__box-container">
-          <div className="create-new-exam-modal__close-btn-container">
-            <IconButton onClick={() => setOpenModal(false)} aria-label="close">
+    <div className="edit-exam-modal">
+      <Modal open={openModal} onClose={() => onClose()}>
+        <div className="edit-exam-modal__box-container">
+          <div className="edit-exam-modal__close-btn-container">
+            <IconButton onClick={() => onClose()} aria-label="close">
               <CloseIcon />
             </IconButton>
           </div>
-          <div className="create-new-exam-modal__title-container">
+          <div className="edit-exam-modal__title-container">
             <Typography variant="h5" color="primary">
-              <strong>Crear nuevo exámen</strong>
+              <strong>
+                {examSelected ? "Editar exámen" : "Crear nuevo exámen"}{" "}
+              </strong>
             </Typography>
           </div>
-          <div className="create-new-exam-modal__tabs-container">
+          <div className="edit-exam-modal__tabs-container">
             <Tabs value={currentTabIndex} onChange={handleTabChange}>
               <Tab label="Información general" />
               <Tab label="Preguntas" />
@@ -270,20 +290,20 @@ const CreateNewExamModal = (props) => {
           </div>
           <div>{currentTabIndex === 0 && generalInformation()}</div>
           <div>{currentTabIndex === 1 && questionsInformation()}</div>
-          {values.errorQuestions !== "" ? (
-            <div className="create-new-exam-modal__message-error-container">
+          {errorQuestions !== "" ? (
+            <div className="edit-exam-modal__message-error-container">
               <Typography color="error" variant="caption">
-                {values.errorQuestions}
+                {errorQuestions}
               </Typography>
             </div>
           ) : null}
-          <div className="create-new-exam-modal__btn-container">
+          <div className="edit-exam-modal__btn-container">
             <Button
-              className="create-new-exam-modal__button"
+              className="edit-exam-modal__button"
               variant="contained"
               onClick={() => handleApplyChanges()}
             >
-              Guardar
+              {examSelected ? "Guardar cambios" : "Crear exámen"}
             </Button>
           </div>
         </div>
@@ -292,4 +312,4 @@ const CreateNewExamModal = (props) => {
   );
 };
 
-export default CreateNewExamModal;
+export default ManageExamModal;

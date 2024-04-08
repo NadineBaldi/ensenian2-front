@@ -14,16 +14,14 @@ import EditIcon from "@mui/icons-material/Edit";
 
 // Components
 import DeleteExamModal from "../deleteExamModal/DeleteExamModal";
-import EditExamModal from "../editExamModal/EditExamModal";
-import CreateNewExamModal from "../createNewExamModal/createNewExamModal";
+import ManageExamModal from "../manageExamModal/ManageExamModal";
 
 // Constants
 import { exams } from "../../../../constants/exams";
 
 const ExamsView = () => {
-  const [openCreateNewExamModal, setOpenCreateNewExamModal] = useState(false);
   const [openDeleteExamModal, setOpenDeleteExamModal] = useState(false);
-  const [openEditExamModal, setOpenEditExamModal] = useState(false);
+  const [openManageExamModal, setOpenManageExamModal] = useState(false);
   const [examSelected, setExamSelected] = useState(false);
 
   const handleTitle = (timeLimit, questions) => {
@@ -38,7 +36,12 @@ const ExamsView = () => {
 
   const handleOnClickEditExam = (exam) => {
     setExamSelected(exam);
-    setOpenEditExamModal(true);
+    setOpenManageExamModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setExamSelected(false);
+    setOpenManageExamModal(false);
   };
 
   return (
@@ -49,7 +52,7 @@ const ExamsView = () => {
           variant="contained"
           className="exams-view__create-exam-btn"
           size="small"
-          onClick={() => setOpenCreateNewExamModal(true)}
+          onClick={() => setOpenManageExamModal(true)}
         >
           Crear exámen
         </Button>
@@ -110,17 +113,13 @@ const ExamsView = () => {
           )
         )}
       </div>
-      <CreateNewExamModal
-        openModal={openCreateNewExamModal}
-        setOpenModal={setOpenCreateNewExamModal}
-      />
       <DeleteExamModal
         openModal={openDeleteExamModal}
         setOpenModal={setOpenDeleteExamModal}
       />
-      <EditExamModal
-        openModal={openEditExamModal}
-        setOpenModal={setOpenEditExamModal}
+      <ManageExamModal
+        openModal={openManageExamModal}
+        onClose={handleCloseModal}
         examSelected={examSelected}
       />
     </div>

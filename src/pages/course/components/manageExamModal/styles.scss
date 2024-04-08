@@ -28,7 +28,8 @@
   &__text-fields {
     display: flex;
     align-items: center;
-    flex-direction: column;    
+    flex-direction: column;   
+    padding: 0 45px; 
   }
 
   &__title-text-field-container {
@@ -56,8 +57,10 @@
   }
 
   &__limit-time-text-field-container {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
     margin-bottom: $font-size-40;
+    width: 100%;
   }
 
   &__checkbox-container {
@@ -70,7 +73,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 89%;
+    width: 100%;
   }
 
   &__slider-container {
@@ -103,7 +106,7 @@
   &__search-question-container {
     display: flex;
     width: 100%;
-    margin-left: $font-size-90;
+    margin-left: $font-size-10;
   }
 
   &__questions-container {
@@ -131,28 +134,4 @@
     padding-left: $font-size-50;
     padding-top: $font-size-10;
   }
-}
-
-.time-limit-text-field {
-  width: 445px !important;
-  color: $primay-color !important;
-}
-
-.text-field {
-  width: $font-size-450;
-  color: $primay-color !important;
-}
-  
-.title-text-field {
-  width: 712px;
-  color: $primay-color !important;
-}
-  
-.text {
-  font-size: $font-size-12 !important;
-}
-
-.grade-text {
-  font-size: 1rem !important;
-  color: $primay-color !important;
 }
