@@ -8,7 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Tab, Tabs } from "@mui/material";
 
 // Components
-import ConfigView from "./components/config/ConfigView";
+import ConfigView from "./components/configuration/ConfigurationView";
 import ExamsView from "./components/exams/ExamsView";
 import QuestionsView from "./components/questions/QuestionsView";
 import UnitsView from "./components/units/UnitsView";
@@ -20,7 +20,7 @@ const CourseView = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
-  const [courseName, setCourseName] = useState("");
+  const [courseInfo, setCourseInfo] = useState({});
   const [units, setUnits] = useState([]);
 
   const getQueryVariable = (variable) => {
@@ -42,8 +42,11 @@ const CourseView = () => {
         (course) => course.id.toString() === courseId
       );
       if (course) {
-        setCourseName(course.name);
-        setUnits(course.units);
+        const { units, ...other } = course;
+        setCourseInfo({
+          ...other,
+        });
+        setUnits(units);
       }
     }
   }, []);
@@ -96,7 +99,7 @@ const CourseView = () => {
         <div className="body-container">
           <div className="title-container">
             <Typography variant="title" color="primary">
-              {courseName}
+              {courseInfo.name}
             </Typography>
           </div>
           <div className="tabs-container">
@@ -110,7 +113,9 @@ const CourseView = () => {
           <div>{currentTabIndex === 0 && <UnitsView units={units} />}</div>
           <div>{currentTabIndex === 1 && <QuestionsView />}</div>
           <div>{currentTabIndex === 2 && <ExamsView />}</div>
-          <div>{currentTabIndex === 3 && <ConfigView />}</div>
+          <div>
+            {currentTabIndex === 3 && <ConfigView courseInfo={courseInfo} />}
+          </div>
         </div>
       </div>
     </div>
