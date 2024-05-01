@@ -1,0 +1,53 @@
+@import '../../../../theme/variables';
+
+.configuration-view {
+
+  display: flex;
+  justify-content: center;
+
+  &__card {
+    width: $font-size-800;
+    height: $font-size-400;
+    background-color: $white-color;
+    border-radius: $font-size-20;
+    text-align: left;
+  }
+
+  &__title-container {
+    margin: $font-size-20;
+  }
+
+  &__textfield-container {
+    margin: $font-size-20;
+
+    .MuiFormControl-root {
+      margin: 0px !important;
+    }
+  }
+
+  &__text-field {
+    width: $font-size-450;
+  }
+
+  &__togglebtn-container {
+    margin: $font-size-20; 
+
+    .MuiToggleButton-root {
+      text-transform: capitalize;
+      color: $black-color;
+      width: 254px;
+    }
+  }
+}
+
+.title-text  {
+  color: $black-color;
+  padding-top: $font-size-5;
+  padding-bottom: $font-size-4;
+  font-weight: bold !important;
+}
+
+.subtitle-text  {
+  color: $primay-color;
+  padding-top: $font-size-5;
+}

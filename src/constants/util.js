@@ -12,6 +12,12 @@ const PROVINCE_SELECTED = "provinceSelected";
 const CITY = "city";
 const DOMICILE = "domicile";
 const UNIVERSITY = "university";
+const DESCRIPTION = "description";
+
+// Course status
+const ARCHIVADO = "Archivado";
+const PENDIENTE = "Pendiente";
+const PUBLICADO = "Publicado";
 
 // error messages
 const INVALID_EMAIL_FORMAT =
@@ -97,6 +103,10 @@ module.exports = {
   CITY,
   DOMICILE,
   UNIVERSITY,
+  DESCRIPTION,
+  ARCHIVADO,
+  PENDIENTE,
+  PUBLICADO,
   INVALID_NAME,
   INVALID_EMAIL_FORMAT,
   INVALID_PASSWORD_FORMAT,

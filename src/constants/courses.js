@@ -3,6 +3,7 @@ const courses = [
     id: 1,
     name: "Física I",
     status: "Pendiente",
+    description: "Curso de Física I para Ingeniería en Sistemas de Información",
     units: [
       {
         id: 11,
@@ -44,6 +45,8 @@ const courses = [
     id: 2,
     name: "Física II",
     status: "Publicado",
+    description:
+      "Curso de Física II para Ingeniería en Sistemas de Información",
     units: [
       {
         id: 21,
@@ -74,6 +77,7 @@ const courses = [
     id: 3,
     name: "Álgebra",
     status: "Publicado",
+    description: "Curso de Álgebra para Ingeniería en Sistemas de Información",
     units: [
       {
         id: 31,
@@ -131,6 +135,8 @@ const courses = [
     id: 4,
     name: "Análisis Matemático I",
     status: "Archivado",
+    description:
+      "Curso de Análisis Matemático I para Ingeniería en Sistemas de Información",
     units: [
       {
         id: 41,
