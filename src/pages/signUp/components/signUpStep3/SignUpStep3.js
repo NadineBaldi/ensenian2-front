@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from "react";
 
 // Material UI Components
 import Button from "@mui/material/Button";
@@ -15,12 +16,15 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Constants
-import { universities, provinces } from "../../../../constants/signUp";
 import {
   REGISTRATION_NUMBER,
   ERROR_EMPTY_FIELDS,
   INVALID_REGISTRATION_NUMBER_FORMAT,
+  PROVINCE_SELECTED,
 } from "../../../../constants/util";
+
+//hook
+import useFetchCommon from "../../hooks";
 
 const SignUpStep3 = (props) => {
   const {
@@ -32,6 +36,17 @@ const SignUpStep3 = (props) => {
     setErrorMessages,
     handleFieldChange,
   } = props;
+
+  const { provinces, universities, loadProvinces, loadUniversities } =
+    useFetchCommon();
+
+  useEffect(() => {
+    if (values[PROVINCE_SELECTED]) loadUniversities(values[PROVINCE_SELECTED]);
+  }, [values[PROVINCE_SELECTED]]);
+
+  useEffect(() => {
+    loadProvinces();
+  }, []);
 
   const handleUniversityOptions = () => {
     if (universities.length) {
@@ -135,15 +150,15 @@ const SignUpStep3 = (props) => {
                 root: "option-select",
               }}
             >
-              {provinces.map((prov) => (
+              {provinces.map(({ id, nombre }) => (
                 <MenuItem
-                  key={prov}
-                  value={prov}
+                  key={id}
+                  value={id}
                   classes={{
                     root: "menu-options",
                   }}
                 >
-                  {prov}
+                  {nombre}
                 </MenuItem>
               ))}
             </Select>

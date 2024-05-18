@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 
 //hook
@@ -23,7 +24,6 @@ import {
   PHONE,
   ERROR_EMPTY_FIELDS,
   INVALID_DNI_FORMAT,
-  PROVINCE_SELECTED,
   INVALID_PHONE_NUMBER_FORMAT,
 } from "../../../../constants/util";
 
@@ -37,12 +37,7 @@ const SignUpStep2 = (props) => {
     setErrorMessages,
     handleFieldChange,
   } = props;
-  const { provinces, universities, loadProvinces, loadUniversities } =
-    useFetchCommon();
-
-  useEffect(() => {
-    if (values[PROVINCE_SELECTED]) loadUniversities(values[PROVINCE_SELECTED]);
-  }, [values[PROVINCE_SELECTED]]);
+  const { provinces, loadProvinces } = useFetchCommon();
 
   useEffect(() => {
     loadProvinces();
