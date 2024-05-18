@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 
 // Components
 import Step1 from "./components/signUpStep1/SignUpStep1View";
 import Step2 from "./components/signUpStep2/SignUpStep2View";
 import Step3 from "./components/signUpStep3/SignUpStep3";
+
+//hook
+import useFetchCommon from "./hooks";
 
 const SignUp = () => {
   // Use states
@@ -46,6 +50,12 @@ const SignUp = () => {
     registrationNumber: "",
     university: "",
   });
+
+  const { loadProvinces } = useFetchCommon();
+
+  useEffect(() => {
+    loadProvinces();
+  }, []);
 
   const handleFieldChange = (fieldName, value) => {
     setValues({

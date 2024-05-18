@@ -13,6 +13,7 @@ const CITY = "city";
 const DOMICILE = "domicile";
 const UNIVERSITY = "university";
 const DESCRIPTION = "description";
+const UNIVERSITY_PROVINCE = "universityProvince";
 
 // Course status
 const ARCHIVADO = "Archivado";
@@ -120,4 +121,5 @@ module.exports = {
   PUBLISHED_COURSE_STATUS,
   grades,
   NOT_QUESTION_SELECTED,
+  UNIVERSITY_PROVINCE,
 };

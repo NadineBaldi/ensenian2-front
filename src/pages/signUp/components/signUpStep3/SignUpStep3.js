@@ -20,7 +20,7 @@ import {
   REGISTRATION_NUMBER,
   ERROR_EMPTY_FIELDS,
   INVALID_REGISTRATION_NUMBER_FORMAT,
-  PROVINCE_SELECTED,
+  UNIVERSITY_PROVINCE,
 } from "../../../../constants/util";
 
 //hook
@@ -37,16 +37,12 @@ const SignUpStep3 = (props) => {
     handleFieldChange,
   } = props;
 
-  const { provinces, universities, loadProvinces, loadUniversities } =
-    useFetchCommon();
+  const { provinces, universities, loadUniversities } = useFetchCommon();
 
   useEffect(() => {
-    if (values[PROVINCE_SELECTED]) loadUniversities(values[PROVINCE_SELECTED]);
-  }, [values[PROVINCE_SELECTED]]);
-
-  useEffect(() => {
-    loadProvinces();
-  }, []);
+    if (values[UNIVERSITY_PROVINCE])
+      loadUniversities(values[UNIVERSITY_PROVINCE]);
+  }, [values[UNIVERSITY_PROVINCE]]);
 
   const handleUniversityOptions = () => {
     if (universities.length) {

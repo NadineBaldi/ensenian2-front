@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React from "react";
 
 //hook
 import useFetchCommon from "../../hooks";
@@ -37,11 +36,7 @@ const SignUpStep2 = (props) => {
     setErrorMessages,
     handleFieldChange,
   } = props;
-  const { provinces, loadProvinces } = useFetchCommon();
-
-  useEffect(() => {
-    loadProvinces();
-  }, []);
+  const { provinces } = useFetchCommon();
 
   const handleOnChangeSelect = (event, fieldName) => {
     setValues({

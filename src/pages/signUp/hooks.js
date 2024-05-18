@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 //Api
 import { getAllProvinces, getAllProvinceUniversities } from "../../api/commons";
