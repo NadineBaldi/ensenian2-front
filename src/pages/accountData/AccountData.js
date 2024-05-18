@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+//hook
+import useFetchCommon from "./hooks";
+
 // Material UI Components
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -22,7 +25,6 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
 // Constants
-import { universities, provinces } from "../../constants/signUp";
 import { userData } from "../../constants/userData";
 import {
   DNI,
@@ -68,10 +70,18 @@ const AccountData = () => {
     domicile: "",
     university: "",
   });
+  const { provinces, universities, loadProvinces, loadUniversities } =
+    useFetchCommon();
 
   const userId = 1;
 
   useEffect(() => {
+    if (newUserData[PROVINCE_SELECTED])
+      loadUniversities(newUserData[PROVINCE_SELECTED]);
+  }, [newUserData[PROVINCE_SELECTED]]);
+
+  useEffect(() => {
+    loadProvinces();
     if (userData) {
       const filterData = userData.find(({ id }) => id === userId);
       setData(filterData);
@@ -396,15 +406,15 @@ const AccountData = () => {
                       root: "option-select",
                     }}
                   >
-                    {provinces.map((prov) => (
+                    {provinces.map(({ id, nombre }) => (
                       <MenuItem
-                        key={prov}
-                        value={prov}
+                        key={id}
+                        value={id}
                         classes={{
                           root: "menu-options",
                         }}
                       >
-                        {prov}
+                        {nombre}
                       </MenuItem>
                     ))}
                   </Select>
@@ -494,24 +504,17 @@ const AccountData = () => {
                     handleChangeNewUserData(event, UNIVERSITY)
                   }
                 >
-                  {universities
-                    .filter(
-                      ({ province }) =>
-                        province === newUserData.provinceSelected
-                    )
-                    .map(({ universitiesList }) =>
-                      universitiesList.map((university) => (
-                        <MenuItem
-                          key={university}
-                          value={university}
-                          classes={{
-                            root: "menu-options",
-                          }}
-                        >
-                          {university}
-                        </MenuItem>
-                      ))
-                    )}
+                  {universities.map(({ id, nombre }) => (
+                    <MenuItem
+                      key={id}
+                      value={id}
+                      classes={{
+                        root: "menu-options",
+                      }}
+                    >
+                      {nombre}
+                    </MenuItem>
+                  ))}
                 </Select>
                 {!!errorMessages.university ? (
                   <FormHelperText>{errorMessages.university}</FormHelperText>

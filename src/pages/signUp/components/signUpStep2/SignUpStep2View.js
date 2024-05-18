@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+//hook
+import useFetchCommon from "../../hooks";
 
 // Material UI Components
 import Typography from "@mui/material/Typography";
@@ -15,13 +18,13 @@ import Select from "@mui/material/Select";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Constants
-import { universities, provinces } from "../../../../constants/signUp";
 import {
   DNI,
   REGISTRATION_NUMBER,
   ERROR_EMPTY_FIELDS,
   INVALID_DNI_FORMAT,
   INVALID_REGISTRATION_NUMBER_FORMAT,
+  PROVINCE_SELECTED,
 } from "../../../../constants/util";
 
 const SignUpStep2 = (props) => {
@@ -34,22 +37,43 @@ const SignUpStep2 = (props) => {
     setErrorMessages,
     handleFieldChange,
   } = props;
+  const { provinces, universities, loadProvinces, loadUniversities } =
+    useFetchCommon();
+
+  useEffect(() => {
+    if (values[PROVINCE_SELECTED]) loadUniversities(values[PROVINCE_SELECTED]);
+  }, [values[PROVINCE_SELECTED]]);
+
+  useEffect(() => {
+    loadProvinces();
+  }, []);
 
   const handleUniversityOptions = () => {
-    const universitiesFiltered = universities.find(
-      ({ province }) => province === values?.provinceSelected
-    );
-    return universitiesFiltered.universitiesList.map((uni) => (
+    if (universities.length) {
+      return universities.map(({ id, nombre }) => (
+        <MenuItem
+          key={id}
+          value={id}
+          classes={{
+            root: "menu-options",
+          }}
+        >
+          {nombre}
+        </MenuItem>
+      ));
+    }
+
+    return (
       <MenuItem
-        key={uni}
-        value={uni}
+        value={0}
+        disabled
         classes={{
           root: "menu-options",
         }}
       >
-        {uni}
+        No hay universidades disponibles
       </MenuItem>
-    ));
+    );
   };
 
   const handleOnChangeSelect = (event, fieldName) => {
@@ -205,15 +229,15 @@ const SignUpStep2 = (props) => {
                 root: "option-select",
               }}
             >
-              {provinces.map((prov) => (
+              {provinces.map(({ id, nombre }) => (
                 <MenuItem
-                  key={prov}
-                  value={prov}
+                  key={id}
+                  value={id}
                   classes={{
                     root: "menu-options",
                   }}
                 >
-                  {prov}
+                  {nombre}
                 </MenuItem>
               ))}
             </Select>
