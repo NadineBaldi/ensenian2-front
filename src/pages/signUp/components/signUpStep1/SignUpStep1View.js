@@ -241,7 +241,7 @@ const SignUpStep1 = (props) => {
           Siguiente
         </Button>
         <Typography classes={{ root: "step-text" }}>
-          Paso {currentStep} de 2
+          Paso {currentStep} de 3
         </Typography>
       </div>
       <div className="log-in-container">

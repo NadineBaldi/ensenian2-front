@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // Components
 import Step1 from "./components/signUpStep1/SignUpStep1View";
 import Step2 from "./components/signUpStep2/SignUpStep2View";
+import Step3 from "./components/signUpStep3/SignUpStep3";
 
 const SignUp = () => {
   // Use states
@@ -20,6 +21,9 @@ const SignUp = () => {
     provinceSelected: "",
     city: "",
     domicile: "",
+    phone: "",
+    universityProvince: "",
+    universityCity: "",
     registrationNumber: "",
     university: "",
   });
@@ -36,6 +40,9 @@ const SignUp = () => {
     provinceSelected: "",
     city: "",
     domicile: "",
+    phone: "",
+    universityProvince: "",
+    universityCity: "",
     registrationNumber: "",
     university: "",
   });
@@ -53,10 +60,11 @@ const SignUp = () => {
     });
   };
 
-  return (
-    <div className="signUp">
-      <div className="signUp-container">
-        {currentStep === 1 ? (
+  const handleDisplaySteps = () => {
+    switch (currentStep) {
+      case 1:
+      default:
+        return (
           <Step1
             setCurrentStep={setCurrentStep}
             currentStep={currentStep}
@@ -66,7 +74,9 @@ const SignUp = () => {
             setErrorMessages={setErrorMessages}
             handleFieldChange={handleFieldChange}
           />
-        ) : (
+        );
+      case 2:
+        return (
           <Step2
             setCurrentStep={setCurrentStep}
             currentStep={currentStep}
@@ -76,8 +86,25 @@ const SignUp = () => {
             setErrorMessages={setErrorMessages}
             handleFieldChange={handleFieldChange}
           />
-        )}
-      </div>
+        );
+      case 3:
+        return (
+          <Step3
+            setCurrentStep={setCurrentStep}
+            currentStep={currentStep}
+            values={values}
+            setValues={setValues}
+            errorMessages={errorMessages}
+            setErrorMessages={setErrorMessages}
+            handleFieldChange={handleFieldChange}
+          />
+        );
+    }
+  };
+
+  return (
+    <div className="signUp">
+      <div className="signUp-container">{handleDisplaySteps()}</div>
     </div>
   );
 };
