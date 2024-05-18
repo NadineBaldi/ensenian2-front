@@ -1,0 +1,40 @@
+.page-three {
+
+  &__container {
+    padding: $font-size-40 $font-size-80 0px $font-size-80;
+  }
+  
+  &__bnt-back-container {
+    margin-bottom: $font-size-50;
+    text-align: left;
+  }
+  
+  &__form-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: $font-size-12;
+    align-items: end !important;
+  }
+  
+  &__sign-up-button-container {
+    width: fit-content;
+    padding-left: 237px;
+    padding-right: 236px;
+    text-align: left;
+    margin-top: $font-size-50;
+  }
+  
+  &__log-in-container-step3 {
+    display: flex;
+    align-items: center;
+    margin-top: $font-size-50;
+    width: fit-content;
+    padding-left: $font-size-20;
+    padding-right: 316px;
+  }
+  
+  &__title-container {
+    display: flex;
+    padding-bottom: $font-size-20;
+  } 
+}

@@ -1,4 +1,5 @@
 @import '../../theme/variables';
+@import './components/signUpStep3/styles';
 
 .signUp {
   text-align: center;
@@ -90,7 +91,7 @@
 
 .step-text {
   font-size: $font-size-12 !important;
-  padding-left: 180px;
+  padding-left: 175px;
 }
 
 .link-log-in {
@@ -162,4 +163,15 @@
 .option-select {
   color: $primay-color !important;
   text-align: left;
+}
+
+.title-page-two-container {
+  display: flex;
+  padding-bottom: $font-size-20;
+} 
+
+.title-text {
+  font-size: $font-size-20 !important;
+  font-weight: bold !important;
+  color: $primay-color;
 }
