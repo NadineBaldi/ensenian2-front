@@ -2,7 +2,7 @@ const userData = [
   {
     id: 1,
     email: "juanperez@gmail.com",
-    password: "holahola8",
+    password: undefined,
     name: "Juan",
     lastName: "Perez",
     birthdate: "1998-03-01",

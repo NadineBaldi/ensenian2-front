@@ -2,6 +2,8 @@ const EMPTY_FIELD = "EMPTY_FIELD";
 const DIFFERENT_PASSWORD = "DIFFERENT_PASSWORD";
 const EMAIL = "email";
 const PASSWORD = "password";
+const NEW_PASSWORD = "newPassword";
+const NEW_PASSWORD_DUPLICATED = "newPasswordDuplicated";
 const DUPLICATED_PASS = "duplicatedPass";
 const DNI = "dni";
 const REGISTRATION_NUMBER = "registrationNumber";
@@ -37,6 +39,7 @@ const NOT_CORRECT_OPTION_SELECTED =
   "Cuidado! Al menos una opción debe ser correcta";
 const NOT_QUESTION_SELECTED =
   "Cuidado! El exámen debe contener al menos una pregunta.";
+const PASSWORDS_NOT_THE_SAME = "Las nuevas contraseñas deben coincidir";
 
 // status
 const ARCHIVED_COURSE_STATUS = "Archivado";
@@ -94,6 +97,9 @@ module.exports = {
   DIFFERENT_PASSWORD,
   EMAIL,
   PASSWORD,
+  NEW_PASSWORD,
+  NEW_PASSWORD_DUPLICATED,
+  PASSWORDS_NOT_THE_SAME,
   DUPLICATED_PASS,
   DNI,
   REGISTRATION_NUMBER,
