@@ -51,7 +51,7 @@ const SignUp = () => {
     university: "",
   });
 
-  const { loadProvinces } = useFetchCommon();
+  const { loadProvinces, provinces } = useFetchCommon();
 
   useEffect(() => {
     loadProvinces();
@@ -95,6 +95,7 @@ const SignUp = () => {
             errorMessages={errorMessages}
             setErrorMessages={setErrorMessages}
             handleFieldChange={handleFieldChange}
+            provinces={provinces}
           />
         );
       case 3:
@@ -107,6 +108,7 @@ const SignUp = () => {
             errorMessages={errorMessages}
             setErrorMessages={setErrorMessages}
             handleFieldChange={handleFieldChange}
+            provinces={provinces}
           />
         );
     }
