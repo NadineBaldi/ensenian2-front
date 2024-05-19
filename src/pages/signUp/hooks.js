@@ -1,10 +1,15 @@
 import { useState } from "react";
 
 //Api
-import { getAllProvinces, getAllProvinceUniversities } from "../../api/commons";
+import {
+  getAllProvinces,
+  getCityByProvinceId,
+  getUniversitiesByCityId,
+} from "../../api/commons";
 
 const useFetchCommon = () => {
   const [provinces, setProvinces] = useState([]);
+  const [cities, setCities] = useState([]);
   const [universities, setUniversities] = useState([]);
 
   const loadProvinces = async () => {
@@ -16,9 +21,18 @@ const useFetchCommon = () => {
     }
   };
 
-  const loadUniversities = async (provinceId) => {
+  const loadCities = async (provinceId) => {
     try {
-      const { data } = await getAllProvinceUniversities(provinceId);
+      const { data } = await getCityByProvinceId(provinceId);
+      if (data) setCities(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const loadUniversities = async (cityId) => {
+    try {
+      const { data } = await getUniversitiesByCityId(cityId);
       if (data) setUniversities(data);
     } catch (e) {
       console.log(e);
@@ -27,8 +41,10 @@ const useFetchCommon = () => {
 
   return {
     provinces,
+    cities,
     universities,
     loadProvinces,
+    loadCities,
     loadUniversities,
   };
 };

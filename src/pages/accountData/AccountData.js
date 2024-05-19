@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 
 //hook
@@ -7,7 +8,6 @@ import useFetchCommon from "./hooks";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import InputLabel from "@mui/material/InputLabel";
@@ -70,15 +70,26 @@ const AccountData = () => {
     domicile: "",
     university: "",
   });
-  const { provinces, universities, loadProvinces, loadUniversities } =
-    useFetchCommon();
+
+  const {
+    provinces,
+    cities,
+    universityData,
+    loadProvinces,
+    loadCities,
+    getUniversityInfoById,
+  } = useFetchCommon();
 
   const userId = 1;
 
   useEffect(() => {
     if (newUserData[PROVINCE_SELECTED])
-      loadUniversities(newUserData[PROVINCE_SELECTED]);
+      loadCities(newUserData[PROVINCE_SELECTED]);
   }, [newUserData[PROVINCE_SELECTED]]);
+
+  useEffect(() => {
+    if (newUserData[UNIVERSITY]) getUniversityInfoById(newUserData[UNIVERSITY]);
+  }, [newUserData[UNIVERSITY]]);
 
   useEffect(() => {
     loadProvinces();
@@ -406,7 +417,7 @@ const AccountData = () => {
                       root: "option-select",
                     }}
                   >
-                    {provinces.map(({ id, nombre }) => (
+                    {provinces.map(({ id, name }) => (
                       <MenuItem
                         key={id}
                         value={id}
@@ -414,31 +425,47 @@ const AccountData = () => {
                           root: "menu-options",
                         }}
                       >
-                        {nombre}
+                        {name}
                       </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
               )}
             </div>
-            <div className="accountData-item-container">
-              <TextField
-                id={CITY}
-                value={newUserData.city}
-                label="Ciudad"
-                color="primary"
-                focused
-                InputProps={{
-                  className: "text-field",
-                  endAdornment: handleEndAdornment(CITY),
-                  readOnly: editData.city ? false : true,
-                }}
-                style={{ marginTop: 11 }}
-                fullWidth
-                onChange={(event) => handleChangeNewUserData(event, CITY)}
-                error={!!errorMessages.city}
-                helperText={errorMessages.city}
-              />
+            <div className="accountData-item-container-form-control">
+              {data.provinceSelected && (
+                <FormControl
+                  color="primary"
+                  focused
+                  fullWidth
+                  error={!!errorMessages.city}
+                >
+                  <InputLabel>Seleccionar ciudad</InputLabel>
+                  <Select
+                    id={CITY}
+                    label="Seleccionar ciudad"
+                    color="primary"
+                    onChange={(event) => handleChangeNewUserData(event, CITY)}
+                    value={newUserData.city}
+                    endAdornment={handleEndAdornment(CITY)}
+                    classes={{
+                      root: "option-select",
+                    }}
+                  >
+                    {cities.map(({ id, name }) => (
+                      <MenuItem
+                        key={id}
+                        value={id}
+                        classes={{
+                          root: "menu-options",
+                        }}
+                      >
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
             </div>
             <div className="accountData-item-container">
               <TextField
@@ -477,50 +504,19 @@ const AccountData = () => {
             </div>
           </div>
           <div className="accountData-uni-container">
-            {data.provinceSelected && (
-              <FormControl
-                color="primary"
-                focused
-                fullWidth
-                error={!!errorMessages.university}
-              >
-                <InputLabel size="small">Seleccionar universidad</InputLabel>
-                <Select
-                  id={UNIVERSITY}
-                  label="Seleccionar universidad"
-                  placeholder="Seleccionar universidad"
-                  color="primary"
-                  disabled={
-                    editData.university && !editData.provinceSelected
-                      ? false
-                      : true
-                  }
-                  endAdornment={handleEndAdornment(UNIVERSITY)}
-                  classes={{
-                    root: "option-select",
-                  }}
-                  value={newUserData.university}
-                  onChange={(event) =>
-                    handleChangeNewUserData(event, UNIVERSITY)
-                  }
-                >
-                  {universities.map(({ id, nombre }) => (
-                    <MenuItem
-                      key={id}
-                      value={id}
-                      classes={{
-                        root: "menu-options",
-                      }}
-                    >
-                      {nombre}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {!!errorMessages.university ? (
-                  <FormHelperText>{errorMessages.university}</FormHelperText>
-                ) : null}
-              </FormControl>
-            )}
+            <TextField
+              id={UNIVERSITY}
+              value={universityData.name}
+              label="Universidad"
+              color="primary"
+              focused
+              InputProps={{
+                className: "text-field",
+                readOnly: true,
+              }}
+              style={{ marginTop: 11 }}
+              fullWidth
+            />
           </div>
         </div>
       </div>
