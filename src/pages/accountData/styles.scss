@@ -22,6 +22,9 @@
 
 .accountData-left-body-container {
   width: $font-size-400;
+  display: flex;
+  flex-direction: column;    
+  align-items: center;
 }
 
 .accountData-button-back-container {
@@ -98,7 +101,7 @@
 }
 
 .accountData-profile-container {
-  margin-top: $font-size-80;
+  margin-top: $font-size-70;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -112,7 +115,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: $font-size-100;
+  margin-top: $font-size-30;
 }
 
 .accountData-text-field-container {
@@ -128,7 +131,8 @@
 .sign-off-button {
   border-radius: $font-size-20 !important;
   width: $font-size-200;
-  margin-top: $font-size-100 !important;
+  margin-top: auto !important;
+  margin-bottom: $font-size-40 !important;
   text-transform: none !important;
   font-weight: bold !important;
   color: $primay-color !important;
