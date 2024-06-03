@@ -42,6 +42,8 @@ const NOT_CORRECT_OPTION_SELECTED =
 const NOT_QUESTION_SELECTED =
   "Cuidado! El exámen debe contener al menos una pregunta.";
 const PASSWORDS_NOT_THE_SAME = "Las nuevas contraseñas deben coincidir";
+const REGISTRATION_NUMBER_LENGTH =
+  "El número de legajo ingresado tiene un formato incorrecto. El mismo puede contener hasta 5 dígitos.";
 
 // status
 const ARCHIVED_COURSE_STATUS = "Archivado";
@@ -132,4 +134,5 @@ module.exports = {
   NOT_QUESTION_SELECTED,
   UNIVERSITY_PROVINCE,
   UNIVERSITY_CITY,
+  REGISTRATION_NUMBER_LENGTH,
 };

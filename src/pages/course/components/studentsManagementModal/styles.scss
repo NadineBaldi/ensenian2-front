@@ -1,0 +1,46 @@
+@import '../../../../theme/variables';
+@import '../deleteStudentModal/styles';
+@import '../addStudentModal/styles';
+
+.studentsManagementModal {
+  &__box-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: $font-size-800;
+    height: $font-size-550;
+    text-align: center;
+    background-color: $secondary-color;
+    border: 1px solid $quaternary-color;
+    border-radius: $font-size-10;
+  }
+
+  &__close-btn-container {
+    position: absolute;
+    top: $font-size-10; 
+    right: $font-size-10;
+  }
+
+  &__title-container {
+    padding-top: $font-size-50;
+    padding-bottom: $font-size-20;  
+    text-align: left;
+    margin-left: $font-size-20;
+    margin-right: $font-size-20;
+  }
+
+  &__add-student-btn-container {
+    margin-bottom: $font-size-20;
+    margin-right: $font-size-20;
+    display: flex;
+    justify-content: right;
+  }
+
+  &__add-student-btn {
+    text-transform: none !important;
+    font-size: $font-size-14 !important;
+    font-family: $font-family-primay !important;
+    border-radius: $font-size-20 !important;
+  }
+}

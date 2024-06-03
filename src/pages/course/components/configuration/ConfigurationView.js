@@ -12,6 +12,7 @@ import {
 } from "../../../../constants/util";
 
 // Material UI Components
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
@@ -23,6 +24,9 @@ import Typography from "@mui/material/Typography";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
+
+// Components
+import StudentsManagementModal from "../studentsManagementModal/StudentsManagementModal";
 
 const ConfigurationView = (props) => {
   const { courseInfo } = props;
@@ -39,6 +43,7 @@ const ConfigurationView = (props) => {
     name: "",
     description: "",
   });
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (courseInfo) {
@@ -227,7 +232,28 @@ const ConfigurationView = (props) => {
             </ToggleButton>
           </ToggleButtonGroup>
         </div>
+        <div className="configuration-view__students-config-container">
+          <div>
+            <Typography variant="subtitle" classes={{ root: "subtitle-text" }}>
+              Estudiantes
+            </Typography>
+          </div>
+          <div className="configuration-view__config-students-button-container">
+            <Button
+              variant="contained"
+              className="configuration-view__config-students-button"
+              onClick={() => setOpenModal(true)}
+            >
+              Gestionar estudiantes
+            </Button>
+          </div>
+        </div>
       </div>
+      <StudentsManagementModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        students={courseInfo.students}
+      />
     </div>
   );
 };

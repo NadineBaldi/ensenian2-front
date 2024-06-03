@@ -1,0 +1,66 @@
+@import '../../../../theme/variables';
+
+.addStudentModal {
+  &__box-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: $font-size-500;
+    max-height: $font-size-400;
+    text-align: center;
+    background-color: $secondary-color;
+    border: 1px solid $quaternary-color;
+    border-radius: $font-size-10;
+  }
+
+  &__close-btn-container {
+    position: absolute;
+    top: $font-size-10; 
+    right: $font-size-10;
+  }
+
+  &__title-container {
+    padding-top: $font-size-50;
+    text-align: left;
+    margin-left: $font-size-20;
+    margin-right: $font-size-20;
+  }
+
+  &__text-fields {
+    display: flex;
+    align-items: center;
+    flex-direction: column;    
+  }
+
+  &__button {
+    border-radius: $font-size-20 !important;
+    width: $font-size-120;
+    margin-bottom: $font-size-10 !important;
+    text-transform: none !important;
+  }
+
+  &__registration-number-container {
+    display: flex;
+    text-align: left;
+    padding-left: $font-size-5;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: 130px;
+    overflow-x: scroll;
+  }
+
+  &__pill {
+    border: 1px solid $primay-color;
+    border-radius: $font-size-50;
+    padding: $font-size-2 $font-size-5;
+    margin: $font-size-4;
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.MuiDialogActions-root {
+  padding-right: 25px !important;  
+}
