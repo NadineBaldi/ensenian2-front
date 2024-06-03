@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI Components
 import Button from "@mui/material/Button";
@@ -20,7 +20,7 @@ import {
 } from "../../../../constants/util";
 
 const CreateSingleQuestionModal = (props) => {
-  const { openModal, setOpenModal } = props;
+  const { openModal, onClose, questionSelected } = props;
 
   // variables for textFields values
   const initialState = {
@@ -34,6 +34,15 @@ const CreateSingleQuestionModal = (props) => {
     ],
   };
   const [values, setValues] = useState(initialState);
+
+  useEffect(() => {
+    if (questionSelected) {
+      setValues({ ...questionSelected });
+    } else {
+      setValues(initialState);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [questionSelected, openModal]);
 
   const handleAddOption = () => {
     setValues({
@@ -89,27 +98,23 @@ const CreateSingleQuestionModal = (props) => {
   const handleCreateQuestion = () => {
     if (!getErrorMessages()) {
       console.log("Pregunta creada");
-      //TODO aca se llama al back para guardar nueva preg
+      //TODO aca se llama al back para guardar/editar nueva preg
     }
-  };
-
-  const handleOnClose = () => {
-    setOpenModal(false);
-    setValues(initialState);
   };
 
   return (
     <div className="create-single-question-modal">
-      <Modal open={openModal} onClose={handleOnClose}>
+      <Modal open={openModal} onClose={onClose}>
         <div className="create-single-question-modal__box-container">
           <div className="create-single-question-modal__close-btn-container">
-            <IconButton onClick={handleOnClose} aria-label="close">
+            <IconButton onClick={onClose} aria-label="close">
               <CloseIcon />
             </IconButton>
           </div>
           <div className="create-single-question-modal__title-container">
             <Typography variant="h5" color="primary">
-              <strong>Crear pregunta</strong>
+              <strong></strong>
+              {questionSelected ? "Editar pregunta" : "Crear pregunta"}{" "}
             </Typography>
           </div>
           <div className="create-single-question-modal__text-fields">

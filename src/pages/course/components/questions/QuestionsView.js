@@ -12,8 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 // Components
 import DeleteQuestionModal from "../deleteQuestionModal/DeleteQuestionModal";
-import EditQuestionModal from "../editQuestionModal/EditQuestionModal";
-import CreateSingleQuestionModal from "../createSingleQuestionModal/createSingleQuestionModal";
+import ManageSingleQuestionModal from "../manageSingleQuestionModal/manageSingleQuestionModal";
 import CreateBulkQuestionModal from "../createBulkQuestionModal/createBulkQuestionModal";
 
 // Constants
@@ -21,16 +20,15 @@ import { questions } from "../../../../constants/questions";
 
 const QuestionsView = () => {
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
-  const [openEditQuestionModal, setOpenEditQuestionModal] = useState(false);
-  const [openCreateSingleQuestionModal, setOpenCreateSingleQuestionModal] =
+  const [openManageSingleQuestionModal, setOpenManageSingleQuestionModal] =
     useState(false);
   const [openCreateBulkQuestionModal, setOpenCreateBulkQuestionModal] =
     useState(false);
-  const [questionSelected, setQuestionSelected] = useState({});
+  const [questionSelected, setQuestionSelected] = useState(null);
 
   const handleOnClickEditQuestion = (question) => {
     setQuestionSelected(question);
-    setOpenEditQuestionModal(true);
+    setOpenManageSingleQuestionModal(true);
   };
 
   return (
@@ -41,7 +39,7 @@ const QuestionsView = () => {
             variant="contained"
             className="questions-view__add-individual-question-btn"
             size="small"
-            onClick={() => setOpenCreateSingleQuestionModal(true)}
+            onClick={() => setOpenManageSingleQuestionModal(true)}
           >
             Crear pregunta individual
           </Button>
@@ -93,15 +91,13 @@ const QuestionsView = () => {
         openModal={openDeleteQuestionModal}
         setOpenModal={setOpenDeleteQuestionModal}
       />
-      <EditQuestionModal
-        openModal={openEditQuestionModal}
-        setOpenModal={setOpenEditQuestionModal}
-        questions={questions}
+      <ManageSingleQuestionModal
+        openModal={openManageSingleQuestionModal}
+        onClose={() => {
+          setQuestionSelected(null);
+          setOpenManageSingleQuestionModal(false);
+        }}
         questionSelected={questionSelected}
-      />
-      <CreateSingleQuestionModal
-        openModal={openCreateSingleQuestionModal}
-        setOpenModal={setOpenCreateSingleQuestionModal}
       />
       <CreateBulkQuestionModal
         openModal={openCreateBulkQuestionModal}
