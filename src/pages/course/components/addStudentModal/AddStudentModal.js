@@ -49,9 +49,9 @@ const AddStudentModal = (props) => {
   };
 
   const handleDeleteClick = (index) => {
-    const newLegajos = [...registrationNumbers];
-    newLegajos.splice(index, 1);
-    setRegistrationNumbers(newLegajos);
+    const newRegistrationsNumbers = [...registrationNumbers];
+    newRegistrationsNumbers.splice(index, 1);
+    setRegistrationNumbers(newRegistrationsNumbers);
   };
 
   const handleErrorMessages = (errorType) => {
@@ -103,9 +103,9 @@ const AddStudentModal = (props) => {
                 }
               />
               <div className="addStudentModal__registration-number-container">
-                {registrationNumbers.map((legajo, index) => (
+                {registrationNumbers.map((registrationNumber, index) => (
                   <div key={index} className="addStudentModal__pill">
-                    <span>{legajo}</span>
+                    <span>{registrationNumber}</span>
                     <IconButton
                       onClick={() => handleDeleteClick(index)}
                       aria-label="delete"
