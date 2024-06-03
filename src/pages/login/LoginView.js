@@ -59,9 +59,9 @@ const Login = () => {
       case EMPTY_FIELD:
         return "El campo no puede quedar vacío";
       case INVALID_EMAIL_FORMAT:
-        return "Formato de email inválido";
+        return INVALID_EMAIL_FORMAT;
       case INVALID_PASSWORD_FORMAT:
-        return "Formato de contraseña inválido";
+        return INVALID_PASSWORD_FORMAT;
       default:
         return "";
     }

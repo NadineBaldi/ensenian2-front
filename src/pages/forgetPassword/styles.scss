@@ -39,6 +39,7 @@
   padding-right: $font-size-50;
   text-align: left;
   margin-top: $font-size-40;
+  margin-bottom: $font-size-10;
 }
 
 .forget-password-button {
@@ -51,7 +52,7 @@
 
 .bnt-back-container {
   text-align: left;
-  padding-top: $font-size-80;
+  padding-top: $font-size-60;
   padding-left: $font-size-50;
 }
 
@@ -59,4 +60,12 @@
   text-transform: none !important;
   font-size: $font-size-14 !important;
   font-family: $font-family-primay !important;
+}
+
+.forget-password-success-message {
+  width: 420px;
+  padding-left: $font-size-50;
+  padding-right: $font-size-50;
+  text-align: left;
+  margin-top: $font-size-20;
 }

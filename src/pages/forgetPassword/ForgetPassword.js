@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 // Material UI Components
+import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -8,30 +9,45 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 
 // Icons
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CheckIcon from "@mui/icons-material/Check";
+import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Utils
 import {
   EMPTY_FIELD,
+  INVALID_EMAIL_FORMAT,
   INVALID_PASSWORD_FORMAT,
   DIFFERENT_PASSWORD,
 } from "../../constants/util";
 
 const ForgetPassword = () => {
   // Use states
+  const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newRepeatedPassword, setNewRepeatedPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatedPassword, setShowRepeatedPassword] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleClickShowRepeatedPassword = () =>
     setShowRepeatedPassword((show) => !show);
+
+  const validateEmail = (newEmail) => {
+    let regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i;
+    if (!regex.test(newEmail)) {
+      setEmailError(INVALID_EMAIL_FORMAT);
+    } else {
+      setEmailError("");
+    }
+  };
 
   const validatePassword = (newPass) => {
     if (newPass.length <= 7) {
@@ -45,8 +61,10 @@ const ForgetPassword = () => {
     switch (errorType) {
       case EMPTY_FIELD:
         return "El campo no puede quedar vacío";
+      case INVALID_EMAIL_FORMAT:
+        return INVALID_EMAIL_FORMAT;
       case INVALID_PASSWORD_FORMAT:
-        return "Formato de contraseña inválido";
+        return INVALID_PASSWORD_FORMAT;
       case DIFFERENT_PASSWORD:
         return "Las contraseñas deben coincidir";
       default:
@@ -55,11 +73,23 @@ const ForgetPassword = () => {
   };
 
   const handleChangePassword = () => {
+    let hasErrors = false;
+    if (email === "") {
+      setEmailError(EMPTY_FIELD);
+      hasErrors = true;
+    }
     if (newPassword === "") {
       setPasswordError(EMPTY_FIELD);
+      hasErrors = true;
     }
     if (newPassword !== newRepeatedPassword) {
       setPasswordError(DIFFERENT_PASSWORD);
+      hasErrors = true;
+    }
+
+    if (!hasErrors && emailError === "" && passwordError === "") {
+      // LLAMAR BACKEND PARA GUARDAR NUEVA CONTRASEÑA
+      setShowSuccessMessage(true);
     }
   };
 
@@ -82,6 +112,29 @@ const ForgetPassword = () => {
           <Typography variant="subtitle">
             ¿Olvidaste tu contraseña? Ingresá una nueva!
           </Typography>
+        </div>
+        <div className="text-field-container">
+          <TextField
+            id="email"
+            value={email}
+            label="Correo electrónico"
+            placeholder="aaaa@gmail.com"
+            color="primary"
+            focused
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailIcon color="primary" />
+                </InputAdornment>
+              ),
+              className: "text-field",
+            }}
+            style={{ marginTop: 11 }}
+            onChange={({ target: { value } }) => setEmail(value)}
+            error={!!emailError}
+            helperText={handleErrorMessages(emailError)}
+            onBlur={(event) => validateEmail(event.target.value)}
+          />
         </div>
         <div className="text-field-container">
           <TextField
@@ -170,6 +223,17 @@ const ForgetPassword = () => {
             Cambiar contraseña
           </Button>
         </div>
+        {showSuccessMessage && (
+          <div className="forget-password-success-message">
+            <Alert
+              icon={<CheckIcon fontSize="inherit" />}
+              variant="outlined"
+              severity="success"
+            >
+              Tu contraseña se ha cambiado con éxito!
+            </Alert>
+          </div>
+        )}
       </div>
     </div>
   );
