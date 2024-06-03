@@ -131,7 +131,7 @@ const ForgetPassword = () => {
             }}
             style={{ marginTop: 11 }}
             onChange={({ target: { value } }) => setEmail(value)}
-            error={emailError !== "" ? true : false}
+            error={!!emailError}
             helperText={handleErrorMessages(emailError)}
             onBlur={(event) => validateEmail(event.target.value)}
           />
