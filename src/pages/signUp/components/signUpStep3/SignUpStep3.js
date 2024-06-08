@@ -22,6 +22,7 @@ import {
   INVALID_REGISTRATION_NUMBER_FORMAT,
   UNIVERSITY_PROVINCE,
   UNIVERSITY_CITY,
+  UNIVERSITY
 } from "../../../../constants/util";
 
 //hook
@@ -173,6 +174,7 @@ const SignUpStep3 = (props) => {
               id="universityProvince"
               label="Seleccionar provincia"
               color="primary"
+              value={values[UNIVERSITY_PROVINCE]}
               onChange={(event) =>
                 handleOnChangeSelect(event.target.value, "universityProvince")
               }
@@ -212,6 +214,7 @@ const SignUpStep3 = (props) => {
               label="Seleccionar ciudad"
               color="primary"
               inputProps={{ disabled: !values.universityProvince }}
+              value={values[UNIVERSITY_CITY]}
               onChange={(event) =>
                 handleOnChangeSelect(event.target.value, "universityCity")
               }
@@ -238,6 +241,7 @@ const SignUpStep3 = (props) => {
               id="universidad"
               label="Seleccionar universidad"
               color="primary"
+              value={values[UNIVERSITY]}
               inputProps={{ disabled: !values.universityCity }}
               classes={{
                 root: "option-select",

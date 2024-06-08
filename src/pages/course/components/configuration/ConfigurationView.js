@@ -108,7 +108,7 @@ const ConfigurationView = (props) => {
     const newErrorMessages = {};
 
     for (const fieldName in newCourseData) {
-      if (fieldName !== "id" && newCourseData[fieldName].trim() === "") {
+      if (fieldName !== "id" && !newCourseData[fieldName]) {
         newErrorMessages[fieldName] = ERROR_EMPTY_FIELDS;
         hasErrors = true;
       }

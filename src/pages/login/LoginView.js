@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+//hook
+import useFetchLogin from "./hooks";
 
 // Material UI Components
 import Typography from "@mui/material/Typography";
@@ -30,6 +33,18 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    authenticated,
+    loginTeacher,
+  } = useFetchLogin();
+
+  useEffect(() => {
+    if (!emailError && !passwordError && authenticated) {
+     // window.location.href = "http://localhost:3000/courses";
+     console.log("login");
+    }
+  }, [authenticated])
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -68,19 +83,16 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    let hasErrors = false;
-    if (email === "") {
+    if (!email) {
       setEmailError(EMPTY_FIELD);
-      hasErrors = true;
+      return;
     }
-    if (password === "") {
+    if (!password) {
       setPasswordError(EMPTY_FIELD);
-      hasErrors = true;
+      return;
     }
 
-    if (!hasErrors && emailError === "" && passwordError === "") {
-      window.location.href = "http://localhost:3000/courses";
-    }
+    loginTeacher(email, password);
   };
 
   return (
