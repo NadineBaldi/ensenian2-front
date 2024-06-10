@@ -57,6 +57,11 @@
   font-family: $font-family-primay !important;
 }
 
+.login-message-container {
+  width: 530px;
+  padding: $font-size-10 44px;
+}
+
 .login-btn-container {
   width: fit-content;
   padding-left: $font-size-50;

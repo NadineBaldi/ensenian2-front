@@ -6,7 +6,7 @@ import {
 } from "../../api/login";
 
 const useFetchLogin = () => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(null);
 
   const loginTeacher = async (username, password) => {
     try {
