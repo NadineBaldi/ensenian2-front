@@ -26,6 +26,7 @@ import {
   INVALID_DNI_FORMAT,
   INVALID_PHONE_NUMBER_FORMAT,
   PROVINCE_SELECTED,
+  CITY,
 } from "../../../../constants/util";
 
 const SignUpStep2 = (props) => {
@@ -229,6 +230,7 @@ const SignUpStep2 = (props) => {
               onChange={(event) =>
                 handleOnChangeSelect(event.target.value, "provinceSelected")
               }
+              value={values[PROVINCE_SELECTED]}
               classes={{
                 root: "option-select",
               }}
@@ -266,6 +268,7 @@ const SignUpStep2 = (props) => {
               onChange={(event) =>
                 handleOnChangeSelect(event.target.value, "city")
               }
+              value={values[CITY]}
               classes={{
                 root: "option-select",
               }}

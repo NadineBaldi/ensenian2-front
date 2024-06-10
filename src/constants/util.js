@@ -44,6 +44,7 @@ const NOT_QUESTION_SELECTED =
 const PASSWORDS_NOT_THE_SAME = "Las nuevas contraseñas deben coincidir";
 const REGISTRATION_NUMBER_LENGTH =
   "El número de legajo ingresado tiene un formato incorrecto. El mismo puede contener hasta 5 dígitos.";
+const LOGIN_ERROR = "Usuario y/o contraseña incorrectos. Por favor, inténtalo de nuevo."
 
 // status
 const ARCHIVED_COURSE_STATUS = "Archivado";
@@ -135,4 +136,5 @@ module.exports = {
   UNIVERSITY_PROVINCE,
   UNIVERSITY_CITY,
   REGISTRATION_NUMBER_LENGTH,
+  LOGIN_ERROR
 };

@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+//hook
+import useFetchLogin from "./hooks";
 
 // Material UI Components
+import Alert from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -20,6 +24,7 @@ import {
   EMPTY_FIELD,
   INVALID_EMAIL_FORMAT,
   INVALID_PASSWORD_FORMAT,
+  LOGIN_ERROR
 } from "../../constants/util";
 
 const Login = () => {
@@ -30,6 +35,21 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loginErrorMessage, setLoginErrorMessage] = useState("");
+
+  const {
+    authenticated,
+    loginTeacher,
+  } = useFetchLogin();
+
+  useEffect(() => {
+    if (!emailError && !passwordError && authenticated) {
+     window.location.href = "http://localhost:3000/courses";
+    } else if (authenticated === false) {
+      setLoginErrorMessage(LOGIN_ERROR);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authenticated])
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -68,19 +88,16 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    let hasErrors = false;
-    if (email === "") {
+    if (!email) {
       setEmailError(EMPTY_FIELD);
-      hasErrors = true;
+      return;
     }
-    if (password === "") {
+    if (!password) {
       setPasswordError(EMPTY_FIELD);
-      hasErrors = true;
+      return;
     }
 
-    if (!hasErrors && emailError === "" && passwordError === "") {
-      window.location.href = "http://localhost:3000/courses";
-    }
+    loginTeacher(email, password);
   };
 
   return (
@@ -171,6 +188,14 @@ const Login = () => {
             </Link>
           </div>
         </div>
+        {loginErrorMessage !== "" && (
+          <div className="login-message-container">
+            <Alert variant="filled" severity="error">
+              {LOGIN_ERROR}
+            </Alert>
+          </div>
+        )
+        }
         <div className="login-btn-container">
           <Button
             variant="contained"
