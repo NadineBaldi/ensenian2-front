@@ -54,10 +54,10 @@ const AccountData = () => {
     password: false,
     name: false,
     lastName: false,
-    birthdate: false,
+    dateOfBirth: false,
     provinceSelected: false,
     city: false,
-    domicile: false,
+    address: false,
     university: false,
     newPassword: false,
     newPasswordDuplicated: false,
@@ -69,10 +69,10 @@ const AccountData = () => {
     duplicatedPass: "",
     name: "",
     lastName: "",
-    birthdate: "",
+    dateOfBirth: "",
     provinceSelected: "",
     city: "",
-    domicile: "",
+    address: "",
     university: "",
     newPassword: "",
     newPasswordDuplicated: "",
@@ -474,7 +474,7 @@ const AccountData = () => {
             <div className="accountData-item-container">
               <TextField
                 id={BIRTHDATE}
-                value={newUserData.birthdate}
+                value={newUserData.dateOfBirth}
                 label="Fecha de nacimiento"
                 color="primary"
                 type="date"
@@ -482,13 +482,13 @@ const AccountData = () => {
                 InputProps={{
                   className: "text-field",
                   endAdornment: handleEndAdornment(BIRTHDATE),
-                  readOnly: editData.birthdate ? false : true,
+                  readOnly: editData.dateOfBirth ? false : true,
                 }}
                 style={{ marginTop: 11 }}
                 fullWidth
                 onChange={(event) => handleChangeNewUserData(event, BIRTHDATE)}
-                error={!!errorMessages.birthdate}
-                helperText={errorMessages.birthdate}
+                error={!!errorMessages.dateOfBirth}
+                helperText={errorMessages.dateOfBirth}
               />
             </div>
             <div className="accountData-item-container">
@@ -583,26 +583,26 @@ const AccountData = () => {
             <div className="accountData-item-container">
               <TextField
                 id={DOMICILE}
-                value={newUserData.domicile}
+                value={newUserData.address}
                 label="Domicilio"
                 color="primary"
                 focused
                 InputProps={{
                   className: "text-field",
                   endAdornment: handleEndAdornment(DOMICILE),
-                  readOnly: editData.domicile ? false : true,
+                  readOnly: editData.address ? false : true,
                 }}
                 style={{ marginTop: 11 }}
                 fullWidth
                 onChange={(event) => handleChangeNewUserData(event, DOMICILE)}
-                error={!!errorMessages.domicile}
-                helperText={errorMessages.domicile}
+                error={!!errorMessages.address}
+                helperText={errorMessages.address}
               />
             </div>
             <div className="accountData-item-container">
               <TextField
                 id={REGISTRATION_NUMBER}
-                value={data.registrationNumber}
+                value={data.enrollmentNumber}
                 label="Número de matrícula"
                 color="primary"
                 type="number"
@@ -619,7 +619,7 @@ const AccountData = () => {
           <div className="accountData-uni-container">
             <TextField
               id={UNIVERSITY}
-              value={universityData.name}
+              value="Universidad Tecnológica Nacional - FRSF"
               label="Universidad"
               color="primary"
               focused

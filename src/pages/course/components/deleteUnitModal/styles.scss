@@ -1,0 +1,48 @@
+@import '../../../../theme/variables';
+
+.delete-unit-modal {
+  &__box-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: $font-size-400;
+    height: $font-size-300;
+    text-align: center;
+    background-color: $secondary-color;
+    border: 1px solid $quaternary-color;
+    border-radius: $font-size-10;
+  }
+
+  &__close-btn-container {
+    position: absolute;
+    top: $font-size-10; 
+    right: $font-size-10;
+  }
+
+  &__title-container {
+    padding-top: $font-size-80;
+    padding-bottom: $font-size-20; 
+    display: flex; 
+    flex-direction: column;
+  }
+
+  &__course-button-container {
+    text-align: center;
+    margin-top: $font-size-10;  
+  }
+  
+  &__button {
+    border-radius: $font-size-20 !important;
+    width: $font-size-150;
+    margin-bottom: $font-size-10 !important;
+    text-transform: none !important;
+    font-weight: bold !important; 
+    margin-right: $font-size-8 !important;  
+    margin-left: $font-size-10 !important; 
+  }
+
+  &__question-text-container {
+    padding-top: $font-size-30;
+  }
+}

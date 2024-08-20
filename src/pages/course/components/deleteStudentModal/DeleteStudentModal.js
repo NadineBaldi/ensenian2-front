@@ -31,7 +31,7 @@ const DeleteStudentModal = (props) => {
               <strong>Cuidado!</strong>
             </Typography>
             <Typography variant="subtitle">
-              Estás por eliminar un estudiante del curso.
+              Estás por eliminar un estudiante de la materia.
             </Typography>
             <div className="delete-student-modal__question-text-container">
               <Typography variant="subtitle">¿Deseas continuar?</Typography>

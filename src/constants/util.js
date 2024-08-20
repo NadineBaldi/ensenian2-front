@@ -6,13 +6,13 @@ const NEW_PASSWORD = "newPassword";
 const NEW_PASSWORD_DUPLICATED = "newPasswordDuplicated";
 const DUPLICATED_PASS = "duplicatedPass";
 const DNI = "dni";
-const REGISTRATION_NUMBER = "registrationNumber";
+const REGISTRATION_NUMBER = "enrollmentNumber";
 const NAME = "name";
 const LAST_NAME = "lastName";
-const BIRTHDATE = "birthdate";
+const BIRTHDATE = "dateOfBirth";
 const PROVINCE_SELECTED = "provinceSelected";
 const CITY = "city";
-const DOMICILE = "domicile";
+const DOMICILE = "address";
 const UNIVERSITY = "university";
 const DESCRIPTION = "description";
 const UNIVERSITY_PROVINCE = "universityProvince";
@@ -43,7 +43,7 @@ const NOT_QUESTION_SELECTED =
   "Cuidado! El exámen debe contener al menos una pregunta.";
 const PASSWORDS_NOT_THE_SAME = "Las nuevas contraseñas deben coincidir";
 const REGISTRATION_NUMBER_LENGTH =
-  "El número de legajo ingresado tiene un formato incorrecto. El mismo puede contener hasta 5 dígitos.";
+  "El número de legajo debe contener hasta 5 dígitos.";
 const LOGIN_ERROR = "Usuario y/o contraseña incorrectos. Por favor, inténtalo de nuevo."
 
 // status

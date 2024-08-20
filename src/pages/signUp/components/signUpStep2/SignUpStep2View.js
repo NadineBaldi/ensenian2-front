@@ -81,7 +81,7 @@ const SignUpStep2 = (props) => {
         !values[fieldName] &&
         fieldName !== "universityProvince" &&
         fieldName !== "universityCity" &&
-        fieldName !== "registrationNumber" &&
+        fieldName !== "enrollmentNumber" &&
         fieldName !== "university"
       ) {
         newErrorMessages[fieldName] = ERROR_EMPTY_FIELDS;
@@ -180,7 +180,7 @@ const SignUpStep2 = (props) => {
         <div className="item-container">
           <TextField
             id="fechaNac"
-            value={values.birthdate}
+            value={values.dateOfBirth}
             label="Fecha de nacimiento"
             color="primary"
             type="date"
@@ -191,10 +191,10 @@ const SignUpStep2 = (props) => {
             style={{ marginTop: 11 }}
             fullWidth
             onChange={(event) =>
-              handleFieldChange("birthdate", event.target.value)
+              handleFieldChange("dateOfBirth", event.target.value)
             }
-            error={!!errorMessages.birthdate}
-            helperText={errorMessages.birthdate}
+            error={!!errorMessages.dateOfBirth}
+            helperText={errorMessages.dateOfBirth}
           />
         </div>
         <div className="item-container">
@@ -283,7 +283,7 @@ const SignUpStep2 = (props) => {
         <div className="item-container">
           <TextField
             id="domicilio"
-            value={values.domicile}
+            value={values.address}
             label="Domicilio"
             color="primary"
             focused
@@ -293,10 +293,10 @@ const SignUpStep2 = (props) => {
             style={{ marginTop: 11 }}
             fullWidth
             onChange={(event) =>
-              handleFieldChange("domicile", event.target.value)
+              handleFieldChange("address", event.target.value)
             }
-            error={!!errorMessages.domicile}
-            helperText={errorMessages.domicile}
+            error={!!errorMessages.address}
+            helperText={errorMessages.address}
           />
         </div>
         <div className="item-container">

@@ -10,7 +10,8 @@ const useFetchLogin = () => {
 
   const loginTeacher = async (username, password) => {
     try {
-      await login({username, password});
+      const response = await login({username, password});
+      console.log(response);
       setAuthenticated(true);
     } catch (e) {
       setAuthenticated(false);

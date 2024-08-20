@@ -66,7 +66,7 @@ const MainCourses = () => {
         <div className="body-container">
           <div className="title-container">
             <Typography variant="title" color="primary">
-              Mis cursos
+              Mis materias
             </Typography>
           </div>
           <div className="cards-container">
@@ -77,7 +77,7 @@ const MainCourses = () => {
               >
                 <AddIcon color="secondary" fontSize="large" />
                 <Typography variant="subtitle2" color="secondary">
-                  Agregar nuevo curso
+                  Agregar nueva materia
                 </Typography>
               </div>
             </div>

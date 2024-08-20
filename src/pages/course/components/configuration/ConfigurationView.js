@@ -159,7 +159,7 @@ const ConfigurationView = (props) => {
       <div className="configuration-view__card">
         <div className="configuration-view__title-container">
           <Typography variant="h5" classes={{ root: "title-text" }}>
-            Datos del curso
+            Datos de la materia
           </Typography>
         </div>
         <div className="configuration-view__textfield-container">

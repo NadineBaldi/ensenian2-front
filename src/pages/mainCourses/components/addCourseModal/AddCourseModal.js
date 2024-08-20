@@ -51,7 +51,7 @@ const AddCourseModal = (props) => {
           </div>
           <div className="addCourseModal-title-container">
             <Typography variant="title" color="primary">
-              Agregar nuevo curso
+              Agregar nueva materia
             </Typography>
           </div>
           <div className="addCourseModal-text-fields">
@@ -59,7 +59,7 @@ const AddCourseModal = (props) => {
               <TextField
                 id="courseName"
                 value={courseName}
-                label="Nombre del curso *"
+                label="Nombre de la materia *"
                 color="primary"
                 focused
                 InputProps={{
@@ -78,7 +78,7 @@ const AddCourseModal = (props) => {
               <TextField
                 id="courseDescription"
                 value={courseDescription}
-                label="Descripción del curso"
+                label="Descripción de la materia"
                 color="primary"
                 focused
                 InputProps={{
