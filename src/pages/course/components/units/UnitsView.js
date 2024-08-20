@@ -14,19 +14,20 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 // Components
 import DeleteQuestionModal from "../deleteQuestionModal/DeleteQuestionModal";
-import EditUnitNameModal from "../editUnitNameModal/EditUnitNameModal";
-import AddUnitModal from "../addUnitModal/AddUnitModal";
+import ManageUnitModal from "../manageUnitModal/ManageUnitModal";
+import DeleteUnitModal from "../deleteUnitModal/DeleteUnitModal";
 
 const UnitsView = (props) => {
   const { units } = props;
 
   const [unitSelected, setUnitSelected] = useState({});
-  const [openEditUnitNameModal, setOpenEditUnitNameModal] = useState(false);
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
-  const [openAddUnitModal, setOpenAddUnitModal] = useState(false);
+  const [openManageUnitModal, setOpenManageUnitModal] = useState(false);
+  const [openDeleteUnitModal, setOpenDeleteUnitModal] = useState(false);
 
   const [openAccordion, setOpenAccordion] = useState({});
 
@@ -38,7 +39,7 @@ const UnitsView = (props) => {
       });
     } else {
       setUnitSelected(unit);
-      setOpenEditUnitNameModal(true);
+      setOpenManageUnitModal(true);
     }
   };
 
@@ -50,7 +51,7 @@ const UnitsView = (props) => {
           startIcon={<AddIcon />}
           className="units-view__add-unit-btn"
           size="small"
-          onClick={() => setOpenAddUnitModal(true)}
+          onClick={() => setOpenManageUnitModal(true)}
         >
           Agregar unidad
         </Button>
@@ -69,6 +70,14 @@ const UnitsView = (props) => {
                     }
                   >
                     <EditIcon fontSize="small" />
+                  </div>
+                  <div
+                    className="delete-icon"
+                    onClick={() =>
+                      setOpenDeleteUnitModal(true)
+                    }
+                  >
+                    <DeleteForeverIcon fontSize="small" />
                   </div>
                   <div
                     onClick={() => handleOpenAccordion(String(id))}
@@ -103,15 +112,14 @@ const UnitsView = (props) => {
         openModal={openDeleteQuestionModal}
         setOpenModal={setOpenDeleteQuestionModal}
       />
-      <EditUnitNameModal
-        openModal={openEditUnitNameModal}
-        setOpenModal={setOpenEditUnitNameModal}
-        units={units}
-        unitSelected={unitSelected}
+      <DeleteUnitModal
+        openModal={openDeleteUnitModal}
+        onClose={() => setOpenDeleteUnitModal(false)}
       />
-      <AddUnitModal
-        openModal={openAddUnitModal}
-        setOpenModal={setOpenAddUnitModal}
+      <ManageUnitModal
+        openModal={openManageUnitModal}
+        onClose={() => { setOpenManageUnitModal(false); setUnitSelected(null)}}
+        unitSelected={unitSelected}
       />
     </div>
   );

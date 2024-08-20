@@ -24,7 +24,7 @@ import DeleteStudentModal from "../deleteStudentModal/DeleteStudentModal";
 const columns = [
   { id: "name", label: "Nombre", minWidth: 170, align: "center" },
   {
-    id: "registrationNumber",
+    id: "enrollmentNumber",
     label: "Número de legajo",
     minWidth: 170,
     align: "center",
@@ -116,7 +116,7 @@ const StudentsManagementModal = (props) => {
                           >
                             <TableCell align="center">{student.name}</TableCell>
                             <TableCell align="center">
-                              {student.registrationNumber}
+                              {student.enrollmentNumber}
                             </TableCell>
                             <TableCell align="center">
                               {student.email}

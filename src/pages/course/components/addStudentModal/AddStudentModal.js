@@ -81,7 +81,7 @@ const AddStudentModal = (props) => {
           </div>
           <div className="addStudentModal__title-container">
             <Typography variant="h6" color="primary">
-              <strong>Agregar estudiantes al curso</strong>
+              <strong>Agregar estudiantes a la materia</strong>
             </Typography>
           </div>
           <div>
@@ -103,9 +103,9 @@ const AddStudentModal = (props) => {
                 }
               />
               <div className="addStudentModal__registration-number-container">
-                {registrationNumbers.map((registrationNumber, index) => (
+                {registrationNumbers.map((enrollmentNumber, index) => (
                   <div key={index} className="addStudentModal__pill">
-                    <span>{registrationNumber}</span>
+                    <span>{enrollmentNumber}</span>
                     <IconButton
                       onClick={() => handleDeleteClick(index)}
                       aria-label="delete"

@@ -53,7 +53,7 @@ const ChangeCourseNameModal = (props) => {
               <TextField
                 id="courseName"
                 value={courseName}
-                label="Nombre actual del curso"
+                label="Nombre actual de la materia"
                 color="primary"
                 focused
                 InputProps={{

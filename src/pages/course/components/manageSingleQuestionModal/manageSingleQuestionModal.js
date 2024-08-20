@@ -113,7 +113,6 @@ const CreateSingleQuestionModal = (props) => {
           </div>
           <div className="create-single-question-modal__title-container">
             <Typography variant="h5" color="primary">
-              <strong></strong>
               {questionSelected ? "Editar pregunta" : "Crear pregunta"}{" "}
             </Typography>
           </div>

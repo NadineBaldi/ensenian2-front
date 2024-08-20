@@ -33,7 +33,7 @@ const CreateBulkQuestionModal = (props) => {
           </div>
           <div className="create-bulk-question-modal__title-container">
             <Typography variant="h5" color="primary">
-              <strong>Cargar preguntas</strong>
+              Cargar preguntas
             </Typography>
           </div>
           <FileUploader />

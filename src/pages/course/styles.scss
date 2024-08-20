@@ -2,12 +2,13 @@
 @import './components/units/styles';
 @import './components/deleteQuestionModal/styles';
 @import './components/editUnitNameModal/styles';
-@import './components/addUnitModal/styles';
+@import './components/manageUnitModal/styles';
 @import './components/questions/styles';
 @import './components/manageSingleQuestionModal/styles';
 @import './components/createBulkQuestionModal/styles';
 @import './components/exams/styles';
 @import './components/deleteExamModal/styles';
+@import './components/deleteUnitModal/styles';
 @import './components/manageExamModal/styles';
 @import './components/configuration/styles';
 @import './components/studentsManagementModal/styles';
@@ -15,6 +16,7 @@
 .course {
   text-align: center;
   background-image: url('../../../assets/images/Background.jpeg');
+  background-size: cover;
   min-height: 100vh;
 }
 

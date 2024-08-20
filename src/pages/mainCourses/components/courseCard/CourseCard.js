@@ -105,14 +105,14 @@ const CourseCard = (props) => {
                 <MenuItem
                   onClick={() => changeCourseStatus(PUBLISHED_COURSE_STATUS)}
                 >
-                  Publicar curso
+                  Publicar materia
                 </MenuItem>
               )}
               {courseStatus !== ARCHIVED_COURSE_STATUS && (
                 <MenuItem
                   onClick={() => changeCourseStatus(ARCHIVED_COURSE_STATUS)}
                 >
-                  Archivar curso
+                  Archivar materia
                 </MenuItem>
               )}
             </Menu>

@@ -44,7 +44,7 @@ const Login = () => {
 
   useEffect(() => {
     if (!emailError && !passwordError && authenticated) {
-     window.location.href = "http://localhost:3000/courses";
+      window.location.href = "http://localhost:3000/courses";
     } else if (authenticated === false) {
       setLoginErrorMessage(LOGIN_ERROR);
     }
