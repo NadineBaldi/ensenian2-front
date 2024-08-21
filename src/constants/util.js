@@ -19,6 +19,7 @@ const UNIVERSITY_PROVINCE = "universityProvince";
 const PHONE = "phone";
 const UNIVERSITY_CITY = "universityCity";
 const TOKEN = "token";
+const USER_ID = "userId";
 
 // Course status
 const ARCHIVADO = "Archivado";
@@ -49,8 +50,8 @@ const LOGIN_ERROR =
   "Usuario y/o contraseña incorrectos. Por favor, inténtalo de nuevo.";
 
 // status
-const ARCHIVED_COURSE_STATUS = "Archivado";
-const PUBLISHED_COURSE_STATUS = "Publicado";
+const ARCHIVED_COURSE_STATUS = "ARCHIVED";
+const PUBLISHED_COURSE_STATUS = "PUBLISHED";
 
 const grades = [
   {
@@ -140,4 +141,5 @@ module.exports = {
   REGISTRATION_NUMBER_LENGTH,
   LOGIN_ERROR,
   TOKEN,
+  USER_ID
 };
