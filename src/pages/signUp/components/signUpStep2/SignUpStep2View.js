@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 
 //hook
-import useFetchCommon from "../../hooks";
+import useFetchCommon from "../../../../commons/hooks/hooks";
 
 // Material UI Components
 import Typography from "@mui/material/Typography";

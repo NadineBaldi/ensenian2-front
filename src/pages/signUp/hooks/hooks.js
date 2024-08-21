@@ -1,5 +1,5 @@
 //Api
-import { signup } from "../../../../api/signup";
+import { signup } from "../../../api/signup";
 
 const useSingUp = () => {
   const saveTeacher = async (data) => {

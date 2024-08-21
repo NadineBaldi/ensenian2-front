@@ -31,7 +31,7 @@ import useFetchCommon from "../../../../commons/hooks/hooks";
 import useSignUp from "../../hooks/hooks";
 
 // Cookies
-import { getCookie } from "../../commons/helpers/cookies";
+import { getCookie } from "../../../../commons/helpers/cookies";
 
 const SignUpStep3 = (props) => {
   const {

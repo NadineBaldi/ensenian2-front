@@ -15,6 +15,10 @@ import AddCourseModal from "./components/addCourseModal/AddCourseModal";
 
 // Constants
 import { courses } from "../../constants/courses";
+import { TOKEN } from "../../constants/util";
+
+// Cookies
+import { deleteCookie } from '../../commons/helpers/cookies';
 
 const MainCourses = () => {
   // useState
@@ -59,7 +63,10 @@ const MainCourses = () => {
               <MenuItem onClick={handleManageAccount}>
                 Gestionar cuenta
               </MenuItem>
-              <MenuItem>Cerrar sesión</MenuItem>
+              <MenuItem onClick={() => {
+              deleteCookie(TOKEN);
+              window.location.href = "http://localhost:3000/login";
+            }}>Cerrar sesión</MenuItem>
             </Menu>
           </div>
         </div>
