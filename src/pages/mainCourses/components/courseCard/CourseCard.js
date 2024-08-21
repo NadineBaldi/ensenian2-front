@@ -38,16 +38,29 @@ const CourseCard = (props) => {
 
   const handleColor = () => {
     switch (courseStatus) {
-      case "Pendiente":
+      case "PENDING":
         return "tertiary";
-      case "Archivado":
+      case "ARCHIVED":
         return "skyblue";
-      case "Publicado":
+      case "PUBLISHED":
         return "green";
       default:
         return "tertiary";
     }
   };
+
+  const handleCourseStatus = () => {
+    switch (courseStatus) {
+      case "PENDING":
+        return "Pendiente";
+      case "ARCHIVED":
+        return "Archivado";
+      case "PUBLISHED":
+        return "Publicado";
+      default:
+        return "Pendiente";
+    }
+  }
 
   const handleChangeName = () => {
     setAnchorEl(null);
@@ -84,7 +97,7 @@ const CourseCard = (props) => {
               <CircleIcon style={{ fontSize: 10 }} color={handleColor()} />
               <div className="title-state-container">
                 <Typography variant="state" color="black">
-                  {courseStatus}
+                  {handleCourseStatus()}
                 </Typography>
               </div>
             </div>

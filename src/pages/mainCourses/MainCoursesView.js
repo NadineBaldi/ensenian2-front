@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI Components
 import Typography from "@mui/material/Typography";
@@ -14,17 +14,26 @@ import CourseCard from "./components/courseCard/CourseCard";
 import AddCourseModal from "./components/addCourseModal/AddCourseModal";
 
 // Constants
-import { courses } from "../../constants/courses";
 import { TOKEN } from "../../constants/util";
 
 // Cookies
 import { deleteCookie } from '../../commons/helpers/cookies';
+
+// Hooks
+import useFetchSubjects from './hooks/hooks';
 
 const MainCourses = () => {
   // useState
   const [openAddCourseModal, setOpenAddCourseModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
+
+  const { getSubjectsByTeacherId, subjects } = useFetchSubjects();
+
+  useEffect(() => {
+    getSubjectsByTeacherId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleManageAccount = () => {
     setAnchorEl(null);
@@ -88,13 +97,13 @@ const MainCourses = () => {
                 </Typography>
               </div>
             </div>
-            {courses.map(({ name, status, id }) => (
+            {subjects?.map(({ name, state, id }) => (
               <div className="course-card-container">
                 <CourseCard
                   courseId={id}
                   courseName={name}
-                  courseStatus={status}
-                  courses={courses}
+                  courseStatus={state}
+                  courses={subjects}
                 />
               </div>
             ))}

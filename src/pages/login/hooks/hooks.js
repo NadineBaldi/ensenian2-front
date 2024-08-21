@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 //Api
-import { login } from "../../../api/login";
+import { login, getCurrentUser } from "../../../api/login";
 
 // Cookies
 import { setCookie, deleteCookie } from "../../../commons/helpers/cookies";
 
 // Constants
-import { TOKEN } from "../../../constants/util";
+import { TOKEN, USER_ID } from "../../../constants/util";
 
 const useFetchLogin = () => {
   const [error, setError] = useState(false);
@@ -17,8 +17,11 @@ const useFetchLogin = () => {
       const {
         data: { token },
       } = await login({ username, password });
-
       setCookie(TOKEN, token);
+
+      const { data: { id: userId } } = await getCurrentUser(token);
+      setCookie(USER_ID, userId);
+
       window.location.href = "http://localhost:3000/courses";
     } catch (e) {
       deleteCookie(TOKEN);
