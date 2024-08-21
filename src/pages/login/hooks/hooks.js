@@ -4,10 +4,10 @@ import { useState } from "react";
 import { login } from "../../../api/login";
 
 // Cookies
-import { setCookie, deleteCookie } from "../../commons/helpers/cookies";
+import { setCookie, deleteCookie } from "../../../commons/helpers/cookies";
 
 // Constants
-import { TOKEN } from "../../constants/util";
+import { TOKEN } from "../../../constants/util";
 
 const useFetchLogin = () => {
   const [error, setError] = useState(false);

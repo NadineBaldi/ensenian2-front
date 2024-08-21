@@ -84,7 +84,6 @@ const AccountData = () => {
   const {
     provinces,
     cities,
-    universityData,
     loadProvinces,
     loadCities,
     getUniversityInfoById,
