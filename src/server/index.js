@@ -1,9 +1,22 @@
 import React, { Suspense } from "react";
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
-import routes from "./routes";
+import { routes, publicRoutes } from "./routes";
+import { getCookie } from "../commons/helpers/cookies";
+
+// Constants
+import { TOKEN } from "../constants/util";
 
 const getRoutes = () => {
-  return routes.map((prop, index) => {
+  if (getCookie(TOKEN)) {
+    return routes.map((prop, index) => {
+      return <Route {...prop} key={index} />;
+    });
+  }
+  return null;
+};
+
+const getPublicRoutes = () => {
+  return publicRoutes.map((prop, index) => {
     return <Route {...prop} key={index} />;
   });
 };
@@ -13,8 +26,9 @@ export default (
     <Suspense>
       <Routes>
         {getRoutes()}
-        <Route exact path="/" element={<Navigate to="/signUp" />} />
-        <Route path="*" element={<Navigate to="/signUp" />} />
+        {getPublicRoutes()}
+        <Route exact path="/" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Suspense>
   </BrowserRouter>

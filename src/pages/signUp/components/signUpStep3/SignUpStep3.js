@@ -22,11 +22,16 @@ import {
   INVALID_REGISTRATION_NUMBER_FORMAT,
   UNIVERSITY_PROVINCE,
   UNIVERSITY_CITY,
-  UNIVERSITY
+  UNIVERSITY,
+  TOKEN,
 } from "../../../../constants/util";
 
 //hook
-import useFetchCommon from "../../hooks";
+import useFetchCommon from "../../../../commons/hooks/hooks";
+import useSignUp from "../../hooks/hooks";
+
+// Cookies
+import { getCookie } from "../../commons/helpers/cookies";
 
 const SignUpStep3 = (props) => {
   const {
@@ -40,8 +45,20 @@ const SignUpStep3 = (props) => {
     provinces,
   } = props;
 
-  const { cities, loadCities, universities, loadUniversities, saveTeacher } =
+  // Hooks
+  const { cities, loadCities, universities, loadUniversities } =
     useFetchCommon();
+  const { saveTeacher } = useSignUp();
+
+  // Cookies
+  const token = getCookie(TOKEN);
+
+  useEffect(() => {
+    if (token) {
+      window.location.href = "http://localhost:3000/courses";
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   useEffect(() => {
     if (values[UNIVERSITY_PROVINCE]) loadCities(values[UNIVERSITY_PROVINCE]);
