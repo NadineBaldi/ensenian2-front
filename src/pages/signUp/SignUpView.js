@@ -7,7 +7,7 @@ import Step2 from "./components/signUpStep2/SignUpStep2View";
 import Step3 from "./components/signUpStep3/SignUpStep3";
 
 //hook
-import useFetchCommon from "./hooks";
+import useFetchCommon from "../../commons/hooks/hooks";
 
 const SignUp = () => {
   // Use states

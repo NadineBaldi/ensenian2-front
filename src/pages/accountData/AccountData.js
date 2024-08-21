@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 //hook
-import useFetchCommon from "./hooks";
+import useFetchCommon from "../../commons/hooks/hooks";
 
 // Material UI Components
 import Avatar from "@mui/material/Avatar";
@@ -44,7 +44,10 @@ import {
   UNIVERSITY,
   NEW_PASSWORD,
   NEW_PASSWORD_DUPLICATED,
+  TOKEN,
 } from "../../constants/util";
+
+import { deleteCookie } from "../../commons/helpers/cookies";
 
 const AccountData = () => {
   // Use states
@@ -403,6 +406,10 @@ const AccountData = () => {
           variant="contained"
           className="sign-off-button"
           color="secondary"
+          onClick={() => {
+            deleteCookie(TOKEN);
+            window.location.href = "http://localhost:3000/login";
+          }}
         >
           Cerrar sesión
         </Button>

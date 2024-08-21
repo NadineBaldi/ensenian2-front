@@ -24,8 +24,11 @@ import {
   EMPTY_FIELD,
   INVALID_EMAIL_FORMAT,
   INVALID_PASSWORD_FORMAT,
-  LOGIN_ERROR
+  LOGIN_ERROR,
+  TOKEN,
 } from "../../constants/util";
+
+import { getCookie } from "../../commons/helpers/cookies";
 
 const Login = () => {
   // Use states
@@ -35,21 +38,18 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loginErrorMessage, setLoginErrorMessage] = useState("");
 
-  const {
-    authenticated,
-    loginTeacher,
-  } = useFetchLogin();
+  // Token
+  const token = getCookie(TOKEN);
+
+  const { error, loginTeacher } = useFetchLogin();
 
   useEffect(() => {
-    if (!emailError && !passwordError && authenticated) {
+    if (token) {
       window.location.href = "http://localhost:3000/courses";
-    } else if (authenticated === false) {
-      setLoginErrorMessage(LOGIN_ERROR);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authenticated])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -188,14 +188,13 @@ const Login = () => {
             </Link>
           </div>
         </div>
-        {loginErrorMessage !== "" && (
+        {error && (
           <div className="login-message-container">
             <Alert variant="filled" severity="error">
               {LOGIN_ERROR}
             </Alert>
           </div>
-        )
-        }
+        )}
         <div className="login-btn-container">
           <Button
             variant="contained"
