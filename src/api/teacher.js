@@ -13,10 +13,6 @@ const config = {
   }
 };
 
-export function getSubjectById() {
-  return axios.get(`${API_URL}/subject/teacher/${userId}`, config)
-}
-
-export function saveSubject(data) {
-  return axios.post(`${API_URL}/subject/save`, data, config)
+export function getTeacherInfo() {
+  return axios.get(`${API_URL}/teacher/find/${userId}`, config)
 }

@@ -49,6 +49,9 @@ const REGISTRATION_NUMBER_LENGTH =
 const LOGIN_ERROR =
   "Usuario y/o contraseña incorrectos. Por favor, inténtalo de nuevo.";
 
+// Success Messages
+const SUBJECT_ADDED_CORRECTLY = "Listo! La materia fue creada con éxito."
+
 // status
 const ARCHIVED_COURSE_STATUS = "ARCHIVED";
 const PUBLISHED_COURSE_STATUS = "PUBLISHED";
@@ -141,5 +144,6 @@ module.exports = {
   REGISTRATION_NUMBER_LENGTH,
   LOGIN_ERROR,
   TOKEN,
-  USER_ID
+  USER_ID,
+  SUBJECT_ADDED_CORRECTLY
 };
