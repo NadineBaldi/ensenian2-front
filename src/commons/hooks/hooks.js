@@ -7,10 +7,15 @@ import {
   getUniversitiesByCityId,
 } from "../../api/commons";
 
+import {
+  getTeacherInfo
+} from "../../api/teacher";
+
 const useFetchCommon = () => {
   const [provinces, setProvinces] = useState([]);
   const [cities, setCities] = useState([]);
   const [universities, setUniversities] = useState([]);
+  const [teacherInfo, setTeacherInfo] = useState({});
 
   const loadProvinces = async () => {
     try {
@@ -39,13 +44,24 @@ const useFetchCommon = () => {
     }
   };
 
+  const loadTeacherInfo = async () => {
+    try {
+      const { data } = await getTeacherInfo();
+      if (data) setTeacherInfo(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return {
     provinces,
     cities,
     universities,
+    teacherInfo,
     loadProvinces,
     loadCities,
     loadUniversities,
+    loadTeacherInfo
   };
 };
 

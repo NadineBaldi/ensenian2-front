@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI Components
 import Button from "@mui/material/Button";
@@ -14,12 +14,23 @@ import CloseIcon from "@mui/icons-material/Close";
 import { EMPTY_FIELD } from "../../../../constants/util";
 
 const AddCourseModal = (props) => {
-  const { openAddCourseModal, setOpenAddCourseModal } = props;
+  const { 
+    openAddCourseModal, 
+    setOpenAddCourseModal, 
+    loadTeacherInfo, 
+    teacherInfo, 
+    addNewSubject 
+  } = props;
 
   // useState
   const [courseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseNameError, setCourseNameError] = useState("");
+
+  useEffect(() => {
+    loadTeacherInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleErrorMessages = (errorType) => {
     if (errorType === EMPTY_FIELD) {
@@ -31,6 +42,17 @@ const AddCourseModal = (props) => {
   const handleOnClick = () => {
     if (courseName === "") {
       setCourseNameError(EMPTY_FIELD);
+    } else {
+      const values = {
+        name: courseName,
+        description: courseDescription,
+        university: teacherInfo && teacherInfo.university ? teacherInfo.university.id : 1,
+        specialty: "ISI",
+        teacher: teacherInfo ? teacherInfo.id : 1
+      }
+
+      addNewSubject(values);
+      setOpenAddCourseModal(false);
     }
   };
 

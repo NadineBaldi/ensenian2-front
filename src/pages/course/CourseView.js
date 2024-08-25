@@ -13,8 +13,8 @@ import ExamsView from "./components/exams/ExamsView";
 import QuestionsView from "./components/questions/QuestionsView";
 import UnitsView from "./components/units/UnitsView";
 
-// Constants
-import { courses } from "../../constants/courses";
+// Hooks
+import useFetchSubjects from '../mainCourses/hooks/hooks';
 
 const CourseView = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,6 +22,13 @@ const CourseView = () => {
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const [courseInfo, setCourseInfo] = useState({});
   const [units, setUnits] = useState([]);
+
+  const { getSubjectsByTeacherId, subjects } = useFetchSubjects();
+
+  useEffect(() => {
+    getSubjectsByTeacherId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getQueryVariable = (variable) => {
     let query = window.location.search.substring(1);
@@ -34,22 +41,60 @@ const CourseView = () => {
     }
     return false;
   };
+  
+  const unidadesAReemplazar = [
+    {
+      id: 11,
+      name: "Unidad 1: MRU",
+      questions: [
+        "Título pregunta 1",
+        "Título pregunta 2",
+        "Título pregunta 3",
+      ],
+    },
+    {
+      id: 12,
+      name: "Unidad 2: MRUA",
+      questions: [
+        "Título pregunta 1",
+        "Título pregunta 2",
+        "Título pregunta 3",
+      ],
+    },
+    {
+      id: 13,
+      name: "Unidad 3: Óptica",
+      questions: [
+        "Título pregunta 1",
+        "Título pregunta 2",
+        "Título pregunta 3",
+        "Título pregunta 4",
+        "Título pregunta 5",
+      ],
+    },
+    {
+      id: 14,
+      name: "Unidad 4: Leyes de Newton",
+      questions: ["Título pregunta 1", "Título pregunta 2"],
+    },
+  ];
 
   useEffect(() => {
     const courseId = getQueryVariable("courseId");
     if (courseId !== null) {
-      const course = courses.find(
+      const course = subjects?.find(
         (course) => course.id.toString() === courseId
       );
       if (course) {
-        const { units, ...other } = course;
+        const { units, ...other } = course; 
         setCourseInfo({
           ...other,
         });
-        setUnits(units);
+        setUnits(unidadesAReemplazar); //cambiar por las del back cuando esten
       }
     }
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subjects]);
 
   const handleManageAccount = () => {
     setAnchorEl(null);

@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Snackbar from '@mui/material/Snackbar';
 
 // Icons
 import AddIcon from "@mui/icons-material/Add";
@@ -14,12 +15,13 @@ import CourseCard from "./components/courseCard/CourseCard";
 import AddCourseModal from "./components/addCourseModal/AddCourseModal";
 
 // Constants
-import { TOKEN } from "../../constants/util";
+import { TOKEN, SUBJECT_ADDED_CORRECTLY } from "../../constants/util";
 
 // Cookies
 import { deleteCookie } from '../../commons/helpers/cookies';
 
 // Hooks
+import useFetchCommon from "../../commons/hooks/hooks";
 import useFetchSubjects from './hooks/hooks';
 
 const MainCourses = () => {
@@ -27,17 +29,35 @@ const MainCourses = () => {
   const [openAddCourseModal, setOpenAddCourseModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
+  const [refreshPage, setRefreshPage] = useState(false);
 
-  const { getSubjectsByTeacherId, subjects } = useFetchSubjects();
+  // Hooks
+  const { loadTeacherInfo, teacherInfo } = useFetchCommon();
+  const { getSubjectsByTeacherId, subjects, addNewSubject, showSuccessMessage, setShowSuccessMessage } = useFetchSubjects();
 
   useEffect(() => {
     getSubjectsByTeacherId();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (refreshPage) {
+      window.location.href = "http://localhost:3000/courses";
+    }
+  }, [refreshPage])
+
   const handleManageAccount = () => {
     setAnchorEl(null);
     window.open("http://localhost:3000/accountData", "_self");
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setShowSuccessMessage(false);
+    setRefreshPage(true);
   };
 
   return (
@@ -57,7 +77,9 @@ const MainCourses = () => {
                 />
               </div>
               <Typography variant="subtitle" color="secondary">
-                Nombre de usuario
+                {teacherInfo && teacherInfo.name && teacherInfo.lastName
+                ? `${teacherInfo.name} ${teacherInfo.lastName}`
+                : "Usuario"}
               </Typography>
             </div>
             <Menu
@@ -73,9 +95,11 @@ const MainCourses = () => {
                 Gestionar cuenta
               </MenuItem>
               <MenuItem onClick={() => {
-              deleteCookie(TOKEN);
-              window.location.href = "http://localhost:3000/login";
-            }}>Cerrar sesión</MenuItem>
+                deleteCookie(TOKEN);
+                window.location.href = "http://localhost:3000/login";
+              }}>
+                Cerrar sesión
+              </MenuItem>
             </Menu>
           </div>
         </div>
@@ -113,7 +137,20 @@ const MainCourses = () => {
       <AddCourseModal
         openAddCourseModal={openAddCourseModal}
         setOpenAddCourseModal={setOpenAddCourseModal}
+        loadTeacherInfo={loadTeacherInfo}
+        teacherInfo={teacherInfo}
+        addNewSubject={addNewSubject}
       />
+      {showSuccessMessage && (
+        <div className="course-snackbar-container">
+          <Snackbar
+            open={showSuccessMessage}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            message={SUBJECT_ADDED_CORRECTLY}
+/>
+        </div>
+      )}
     </div>
   );
 };
