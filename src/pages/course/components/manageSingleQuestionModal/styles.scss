@@ -95,6 +95,12 @@
     padding-left: $font-size-50;
     padding-top: $font-size-10;
   }
+
+  &-snackbar-container {
+    .MuiSnackbar-root {
+      margin-left: 700px;
+    }
+  }
 }
 
 .text-field {

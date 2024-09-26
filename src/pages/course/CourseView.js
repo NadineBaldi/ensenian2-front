@@ -18,6 +18,7 @@ import useFetchSubjects from '../mainCourses/hooks/hooks';
 import useFetchCommon from "../../commons/hooks/hooks";
 
 import { setCookie, getCookie } from "../../commons/helpers/cookies";
+import { getQueryVariable } from "../../commons/helpers/url-query";
 import { SELECTED_TAB } from "../../constants/util";
 
 const CourseView = () => {
@@ -53,18 +54,6 @@ const CourseView = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getQueryVariable = (variable) => {
-    let query = window.location.search.substring(1);
-    let vars = query.split("&");
-    for (let i = 0; i < vars.length; i++) {
-      let pair = vars[i].split("=");
-      if (pair[0] === variable) {
-        return pair[1];
-      }
-    }
-    return false;
-  };
-  
   const unidadesAReemplazar = [
     {
       id: 11,

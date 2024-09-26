@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import questionHook from '../../hooks/hooks'
+
 // Material UI Components
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
@@ -8,10 +10,13 @@ import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import Snackbar from '@mui/material/Snackbar';
 
 // Icons
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+
+import { getQueryVariable } from '../../../../commons/helpers/url-query'
 
 // Constants
 import {
@@ -21,19 +26,28 @@ import {
 
 const CreateSingleQuestionModal = (props) => {
   const { openModal, onClose, questionSelected } = props;
+  const { createQuestion, editQuestion, snackbar, setSnackbar } = questionHook();
 
   // variables for textFields values
   const initialState = {
-    title: "",
-    options: [
+    question: "",
+    answers: [
       {
-        title: "",
+        answer: "",
         correct: false,
       },
-      { title: "", correct: false },
+      { answer: "", correct: false },
     ],
   };
   const [values, setValues] = useState(initialState);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackbar({ open: false });
+  };
 
   useEffect(() => {
     if (questionSelected) {
@@ -47,7 +61,7 @@ const CreateSingleQuestionModal = (props) => {
   const handleAddOption = () => {
     setValues({
       ...values,
-      options: [...values.options, { title: "", correct: false }],
+      answers: [...values.answers, { answer: "", correct: false }],
     });
   };
 
@@ -58,47 +72,59 @@ const CreateSingleQuestionModal = (props) => {
     });
   };
 
-  const handleChangeOptions = (index, key, newValue) => {
-    const optionsAux = values.options;
-    const selectedOption = optionsAux[index];
+  const handleChangeAnswers = (index, key, newValue) => {
+    const answersAux = values.answers;
+    const selectedOption = answersAux[index];
     selectedOption[key] = newValue;
-    setValues({ ...values, options: optionsAux });
+    setValues({ ...values, answers: answersAux });
   };
 
   const handleDeleteOption = (indexToDelete) => {
-    const newOptions = values.options.filter(
+    const newAnswers = values.answers.filter(
       (option, index) => index !== indexToDelete
     );
-    setValues({ ...values, options: newOptions });
+    setValues({ ...values, answers: newAnswers });
   };
 
   const getErrorMessages = () => {
-    const errorTitle = values.title === "" ? ERROR_EMPTY_FIELDS : "";
-    const error = values.options.some(({ correct }) => correct)
+    const errorTitle = values.question === "" ? ERROR_EMPTY_FIELDS : "";
+    const error = values.answers.some(({ correct }) => correct)
       ? ""
       : NOT_CORRECT_OPTION_SELECTED;
-    const optionsWithError = values.options.map(({ title, ...other }) => ({
+    const answersWithError = values.answers.map(({ answer, ...other }) => ({
       ...other,
-      title,
-      error: title === "" ? ERROR_EMPTY_FIELDS : "",
+      answer,
+      error: answer === "" ? ERROR_EMPTY_FIELDS : "",
     }));
 
     setValues({
       ...values,
       errorTitle,
       error,
-      options: optionsWithError,
+      answers: answersWithError,
     });
 
     return (
-      !!errorTitle || !!error || optionsWithError.some(({ error }) => !!error)
+      !!errorTitle || !!error || answersWithError.some(({ error }) => !!error)
     );
   };
 
   const handleCreateQuestion = () => {
     if (!getErrorMessages()) {
+      const subjectId = getQueryVariable("courseId");
       console.log("Pregunta creada");
-      //TODO aca se llama al back para guardar/editar nueva preg
+      if (questionSelected) {
+        editQuestion({
+          ...values,
+          subjectId,
+        });
+      } else {
+        createQuestion({
+          ...values,
+          subjectId,
+        });
+      }
+      onClose();
     }
   };
 
@@ -120,7 +146,7 @@ const CreateSingleQuestionModal = (props) => {
             <div className="create-single-question-modal__title-text-field-container">
               <TextField
                 id="questionTitle"
-                value={values.title}
+                value={values.question}
                 label="Título"
                 placeholder="Ingrese una pregunta"
                 color="primary"
@@ -129,22 +155,22 @@ const CreateSingleQuestionModal = (props) => {
                   className: "title-text-field",
                 }}
                 style={{ marginTop: 11 }}
-                onChange={(event) => handleFieldChange(event, "title")}
+                onChange={(event) => handleFieldChange(event, "question")}
                 error={!!values.errorTitle}
                 helperText={values.errorTitle}
               />
             </div>
             <div className="create-single-question-modal__options-container">
-              {values.options.map(
+              {values.answers.map(
                 (
-                  { title: optionTitle, correct, error: optionError },
+                  { answer, correct, error: optionError },
                   index
                 ) => (
                   <div key={index}>
                     <div className="create-single-question-modal__text-field-container">
                       <TextField
                         id={String(index)}
-                        value={optionTitle}
+                        value={answer}
                         label={`Opción ${index + 1}`}
                         placeholder="Ingrese una respuesta"
                         color="primary"
@@ -154,9 +180,9 @@ const CreateSingleQuestionModal = (props) => {
                         }}
                         style={{ marginTop: 11 }}
                         onChange={(event) =>
-                          handleChangeOptions(
+                          handleChangeAnswers(
                             index,
-                            "title",
+                            "answer",
                             event.target.value
                           )
                         }
@@ -170,7 +196,7 @@ const CreateSingleQuestionModal = (props) => {
                           checked={correct}
                           size="small"
                           onChange={(event) =>
-                            handleChangeOptions(
+                            handleChangeAnswers(
                               index,
                               "correct",
                               event.target.checked
@@ -181,7 +207,7 @@ const CreateSingleQuestionModal = (props) => {
                           Respuesta correcta
                         </Typography>
                       </div>
-                      {values.options.length > 2 && (
+                      {values.answers.length > 2 && (
                         <div
                           className="create-single-question-modal__trash-button"
                           onClick={() => handleDeleteOption(index)}
@@ -222,6 +248,13 @@ const CreateSingleQuestionModal = (props) => {
           </div>
         </div>
       </Modal>
+      <div className="create-single-question-modal-snackbar-container">
+      <Snackbar
+            {...snackbar}
+            autoHideDuration={3000}
+            onClose={handleClose}
+          />
+      </div>
     </div>
   );
 };
