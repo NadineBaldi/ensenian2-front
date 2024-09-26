@@ -15,7 +15,12 @@ import CourseCard from "./components/courseCard/CourseCard";
 import AddCourseModal from "./components/addCourseModal/AddCourseModal";
 
 // Constants
-import { TOKEN, SUBJECT_ADDED_CORRECTLY } from "../../constants/util";
+import { 
+  TOKEN, 
+  SUBJECT_ADDED_CORRECTLY, 
+  SUBJECT_NAME_EDITED_CORRECTLY,
+  SUBJECT_STATUS_EDITED_CORRECTLY 
+} from "../../constants/util";
 
 // Cookies
 import { deleteCookie } from '../../commons/helpers/cookies';
@@ -33,7 +38,19 @@ const MainCourses = () => {
 
   // Hooks
   const { loadTeacherInfo, teacherInfo } = useFetchCommon();
-  const { getSubjectsByTeacherId, subjects, addNewSubject, showSuccessMessage, setShowSuccessMessage } = useFetchSubjects();
+  const { 
+    getSubjectsByTeacherId, 
+    subjects, 
+    addNewSubject, 
+    showSuccessMessage, 
+    setShowSuccessMessage,
+    editSubjectName,
+    showSuccessEditNameMessage,
+    setShowSuccessEditNameMessage,
+    editSubjectStatus,
+    showSuccessEditStatusMessage,
+    setShowSuccessEditStatusMessage
+  } = useFetchSubjects();
 
   useEffect(() => {
     getSubjectsByTeacherId();
@@ -44,7 +61,7 @@ const MainCourses = () => {
     if (refreshPage) {
       window.location.href = "http://localhost:3000/courses";
     }
-  }, [refreshPage])
+  }, [refreshPage]);
 
   const handleManageAccount = () => {
     setAnchorEl(null);
@@ -57,6 +74,8 @@ const MainCourses = () => {
     }
 
     setShowSuccessMessage(false);
+    setShowSuccessEditNameMessage(false);
+    setShowSuccessEditStatusMessage(false);
     setRefreshPage(true);
   };
 
@@ -128,6 +147,8 @@ const MainCourses = () => {
                   courseName={name}
                   courseStatus={state}
                   courses={subjects}
+                  editSubjectName={editSubjectName}
+                  editSubjectStatus={editSubjectStatus}
                 />
               </div>
             ))}
@@ -148,7 +169,27 @@ const MainCourses = () => {
             autoHideDuration={6000}
             onClose={handleClose}
             message={SUBJECT_ADDED_CORRECTLY}
-/>
+          />
+        </div>
+      )}
+      {showSuccessEditNameMessage && (
+        <div className="course-snackbar-container">
+          <Snackbar
+            open={showSuccessEditNameMessage}
+            autoHideDuration={5000}
+            onClose={handleClose}
+            message={SUBJECT_NAME_EDITED_CORRECTLY}
+          />
+        </div>
+      )}
+      {showSuccessEditStatusMessage && (
+        <div className="course-snackbar-container">
+          <Snackbar
+            open={showSuccessEditStatusMessage}
+            autoHideDuration={5000}
+            onClose={handleClose}
+            message={SUBJECT_STATUS_EDITED_CORRECTLY}
+          />
         </div>
       )}
     </div>

@@ -20,11 +20,12 @@ const PHONE = "phone";
 const UNIVERSITY_CITY = "universityCity";
 const TOKEN = "token";
 const USER_ID = "userId";
+const SELECTED_TAB = "selectedTab";
 
 // Course status
-const ARCHIVADO = "Archivado";
-const PENDIENTE = "Pendiente";
-const PUBLICADO = "Publicado";
+const ARCHIVADO = "ARCHIVED";
+const PENDIENTE = "PENDING";
+const PUBLICADO = "PUBLISHED";
 
 // error messages
 const INVALID_EMAIL_FORMAT =
@@ -50,7 +51,10 @@ const LOGIN_ERROR =
   "Usuario y/o contraseña incorrectos. Por favor, inténtalo de nuevo.";
 
 // Success Messages
-const SUBJECT_ADDED_CORRECTLY = "Listo! La materia fue creada con éxito."
+const SUBJECT_ADDED_CORRECTLY = "Listo! La materia fue creada con éxito.";
+const SUBJECT_NAME_EDITED_CORRECTLY = "Listo! El nombre de la materia fue cambiado con éxito.";
+const SUBJECT_STATUS_EDITED_CORRECTLY = "Listo! El estado de la materia fue cambiado con éxito.";
+const SUBJECT_DESCRIPTION_EDITED_CORRECTLY = "Listo! La descripción de la materia fue cambiada con éxito.";
 
 // status
 const ARCHIVED_COURSE_STATUS = "ARCHIVED";
@@ -145,5 +149,9 @@ module.exports = {
   LOGIN_ERROR,
   TOKEN,
   USER_ID,
-  SUBJECT_ADDED_CORRECTLY
+  SUBJECT_ADDED_CORRECTLY,
+  SUBJECT_NAME_EDITED_CORRECTLY,
+  SUBJECT_STATUS_EDITED_CORRECTLY,
+  SUBJECT_DESCRIPTION_EDITED_CORRECTLY,
+  SELECTED_TAB,
 };

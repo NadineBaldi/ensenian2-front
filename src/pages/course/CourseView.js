@@ -15,18 +15,41 @@ import UnitsView from "./components/units/UnitsView";
 
 // Hooks
 import useFetchSubjects from '../mainCourses/hooks/hooks';
+import useFetchCommon from "../../commons/hooks/hooks";
+
+import { setCookie, getCookie } from "../../commons/helpers/cookies";
+import { SELECTED_TAB } from "../../constants/util";
 
 const CourseView = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
-  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const [currentTabIndex, setCurrentTabIndex] = useState(Number(getCookie(SELECTED_TAB)) || 0);
   const [courseInfo, setCourseInfo] = useState({});
   const [units, setUnits] = useState([]);
 
-  const { getSubjectsByTeacherId, subjects } = useFetchSubjects();
+  // Hooks
+  const { 
+    getSubjectsByTeacherId, 
+    subjects,
+    editSubjectStatus,
+    showSuccessEditStatusMessage,
+    setShowSuccessEditStatusMessage,
+    editSubjectName,
+    showSuccessEditNameMessage,
+    setShowSuccessEditNameMessage,
+    editSubjectDescription,
+    showSuccessEditDescriptionMessage,
+    setShowSuccessEditDescriptionMessage
+  } = useFetchSubjects();
+  const { loadTeacherInfo, teacherInfo } = useFetchCommon();
 
   useEffect(() => {
     getSubjectsByTeacherId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    loadTeacherInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -102,6 +125,7 @@ const CourseView = () => {
   };
 
   const handleTabChange = (e, tabIndex) => {
+    setCookie(SELECTED_TAB, tabIndex);
     setCurrentTabIndex(tabIndex);
   };
 
@@ -122,7 +146,9 @@ const CourseView = () => {
                 />
               </div>
               <Typography variant="subtitle" color="secondary">
-                Nombre de usuario
+                {teacherInfo && teacherInfo.name && teacherInfo.lastName
+                ? `${teacherInfo.name} ${teacherInfo.lastName}`
+                : "Usuario"}
               </Typography>
             </div>
             <Menu
@@ -159,7 +185,19 @@ const CourseView = () => {
           <div>{currentTabIndex === 1 && <QuestionsView />}</div>
           <div>{currentTabIndex === 2 && <ExamsView />}</div>
           <div>
-            {currentTabIndex === 3 && <ConfigView courseInfo={courseInfo} />}
+            {currentTabIndex === 3 &&
+              <ConfigView 
+                courseInfo={courseInfo}
+                editSubjectStatus={editSubjectStatus}
+                showSuccessEditStatusMessage={showSuccessEditStatusMessage}
+                setShowSuccessEditStatusMessage={setShowSuccessEditStatusMessage}
+                editSubjectName={editSubjectName}
+                showSuccessEditNameMessage={showSuccessEditNameMessage}
+                setShowSuccessEditNameMessage={setShowSuccessEditNameMessage}
+                editSubjectDescription={editSubjectDescription}
+                showSuccessEditDescriptionMessage={showSuccessEditDescriptionMessage}
+                setShowSuccessEditDescriptionMessage={setShowSuccessEditDescriptionMessage}
+              />}
           </div>
         </div>
       </div>

@@ -20,3 +20,15 @@ export function getSubjectById() {
 export function saveSubject(data) {
   return axios.post(`${API_URL}/subject/save`, data, config)
 }
+
+export function changeSubjectName(data) {
+  return axios.put(`${API_URL}/subject/update/name`, data, config)
+}
+
+export function changeSubjectStatus(data) {
+  return axios.put(`${API_URL}/subject/update/state`, data, config)
+}
+
+export function changeSubjectDescription(data) {
+  return axios.put(`${API_URL}/subject/update/description`, data, config)
+}
