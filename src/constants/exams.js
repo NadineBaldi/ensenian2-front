@@ -7,130 +7,130 @@ const exams = [
     questions: [
       {
         id: 1,
-        title: "Título pregunta 1",
-        options: [
+        question: "Título pregunta 1",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: true,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: false,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 2,
-        title: "Título pregunta 2",
-        options: [
+        question: "Título pregunta 2",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: true,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 3,
-        title: "Título pregunta 3",
-        options: [
+        question: "Título pregunta 3",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: true,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 4,
-        title: "Título pregunta 4",
-        options: [
+        question: "Título pregunta 4",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: false,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: true,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 5,
-        title: "Título pregunta 5",
-        options: [
+        question: "Título pregunta 5",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: false,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: true,
           },
         ],
@@ -145,78 +145,78 @@ const exams = [
     questions: [
       {
         id: 1,
-        title: "Título pregunta 1",
-        options: [
+        question: "Título pregunta 1",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: true,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: false,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 2,
-        title: "Título pregunta 2",
-        options: [
+        question: "Título pregunta 2",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: true,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 3,
-        title: "Título pregunta 3",
-        options: [
+        question: "Título pregunta 3",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: true,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
@@ -231,182 +231,182 @@ const exams = [
     questions: [
       {
         id: 1,
-        title: "Título pregunta 1",
-        options: [
+        question: "Título pregunta 1",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: true,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: false,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 2,
-        title: "Título pregunta 2",
-        options: [
+        question: "Título pregunta 2",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: true,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 3,
-        title: "Título pregunta 3",
-        options: [
+        question: "Título pregunta 3",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: true,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 4,
-        title: "Título pregunta 4",
-        options: [
+        question: "Título pregunta 4",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: false,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: true,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: false,
           },
         ],
       },
       {
         id: 5,
-        title: "Título pregunta 5",
-        options: [
+        question: "Título pregunta 5",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: false,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: true,
           },
         ],
       },
       {
         id: 6,
-        title: "Título pregunta 5",
-        options: [
+        question: "Título pregunta 5",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: false,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: true,
           },
         ],
       },
       {
         id: 7,
-        title: "Título pregunta 5",
-        options: [
+        question: "Título pregunta 5",
+        answers: [
           {
             id: 11,
-            title: "Respuesta 1",
+            answer: "Respuesta 1",
             correct: false,
           },
           {
             id: 12,
-            title: "Respuesta 2",
+            answer: "Respuesta 2",
             correct: false,
           },
           {
             id: 13,
-            title: "Respuesta 3",
+            answer: "Respuesta 3",
             correct: false,
           },
           {
             id: 14,
-            title: "Respuesta 4",
+            answer: "Respuesta 4",
             correct: true,
           },
         ],

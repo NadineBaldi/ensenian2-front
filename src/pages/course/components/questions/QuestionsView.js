@@ -56,18 +56,18 @@ const QuestionsView = () => {
         </div>
       </div>
       <div className="questions-view__body">
-        {questions.map(({ id, title, ...other }) => (
+        {questions.map(({ id, question, ...other }) => (
           <div className="questions-view__accordion">
             <Accordion>
               <AccordionSummary id={id}>
                 <div className="accordion-summary-container">
-                  <strong>{title}</strong>
+                  <strong>{question}</strong>
                   <div className="edit-icon"></div>
                   <div role="button" className="questions-view__icon-container">
                     <IconButton
                       aria-label="toggle password visibility"
                       onClick={() =>
-                        handleOnClickEditQuestion({ id, title, ...other })
+                        handleOnClickEditQuestion({ id, question, ...other })
                       }
                       edge="end"
                     >

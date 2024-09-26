@@ -83,8 +83,8 @@ const ManageExamModal = (props) => {
   const handleSearch = (value) => {
     let aux = questions;
 
-    aux = aux.filter(({ title }) =>
-      title.toLowerCase().includes(value.toLowerCase())
+    aux = aux.filter(({ question }) =>
+      question.toLowerCase().includes(value.toLowerCase())
     );
 
     setFilteredQuestions(aux);
@@ -226,7 +226,7 @@ const ManageExamModal = (props) => {
                           }
                         />
                       </ListItemIcon>
-                      <ListItemText id={labelId} primary={value.title} />
+                      <ListItemText id={labelId} primary={value.question} />
                     </ListItemButton>
                   </ListItem>
                   {index + 1 !== questions?.length ? (

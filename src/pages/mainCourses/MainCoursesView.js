@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { setCookie } from "../../commons/helpers/cookies";
+
 // Material UI Components
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
@@ -19,7 +21,8 @@ import {
   TOKEN, 
   SUBJECT_ADDED_CORRECTLY, 
   SUBJECT_NAME_EDITED_CORRECTLY,
-  SUBJECT_STATUS_EDITED_CORRECTLY 
+  SUBJECT_STATUS_EDITED_CORRECTLY,
+  SELECTED_TAB,
 } from "../../constants/util";
 
 // Cookies
@@ -54,6 +57,7 @@ const MainCourses = () => {
 
   useEffect(() => {
     getSubjectsByTeacherId();
+    setCookie(SELECTED_TAB, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
