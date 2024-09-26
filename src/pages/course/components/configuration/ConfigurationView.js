@@ -9,12 +9,16 @@ import {
   PENDIENTE,
   PUBLICADO,
   ERROR_EMPTY_FIELDS,
+  SUBJECT_STATUS_EDITED_CORRECTLY,
+  SUBJECT_NAME_EDITED_CORRECTLY,
+  SUBJECT_DESCRIPTION_EDITED_CORRECTLY
 } from "../../../../constants/util";
 
 // Material UI Components
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
+import Snackbar from '@mui/material/Snackbar';
 import TextField from "@mui/material/TextField";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -29,12 +33,22 @@ import EditIcon from "@mui/icons-material/Edit";
 import StudentsManagementModal from "../studentsManagementModal/StudentsManagementModal";
 
 const ConfigurationView = (props) => {
-  const { courseInfo } = props;
+  const { 
+    courseInfo,
+    editSubjectStatus,
+    showSuccessEditStatusMessage,
+    setShowSuccessEditStatusMessage,
+    editSubjectName,
+    showSuccessEditNameMessage,
+    setShowSuccessEditNameMessage,
+    editSubjectDescription,
+    showSuccessEditDescriptionMessage,
+    setShowSuccessEditDescriptionMessage
+  } = props;
 
-  const [data, setData] = useState({});
   const [editCourseData, setEditCourseData] = useState({
     name: false,
-    status: false,
+    state: false,
     description: false,
   });
   const [newCourseData, setNewCourseData] = useState({});
@@ -44,19 +58,25 @@ const ConfigurationView = (props) => {
     description: "",
   });
   const [openModal, setOpenModal] = useState(false);
+  const [refreshPage, setRefreshPage] = useState(false);
 
   useEffect(() => {
     if (courseInfo) {
-      setData(courseInfo);
       setNewCourseData(courseInfo);
     }
-  }, []);
+  }, [courseInfo]);
 
   useEffect(() => {
-    const { status } = courseInfo || {};
+    if (refreshPage && courseInfo) {
+      window.location.href = `http://localhost:3000/course?courseId=${courseInfo.id}`;
+    }
+  }, [refreshPage]);
 
-    if (status) {
-      switch (status) {
+  useEffect(() => {
+    const { state } = courseInfo || {};
+
+    if (state) {
+      switch (state) {
         case ARCHIVADO:
           setAlignment("left");
           break;
@@ -78,8 +98,31 @@ const ConfigurationView = (props) => {
   };
 
   const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
-    // Falta cambiar el estado realmente llamando al back
+    const values = {
+      id: courseInfo.id,
+    }
+
+    debugger
+
+    if (newAlignment) {
+      switch (newAlignment) {
+        case "left":
+          values.state = "ARCHIVED";
+          break;
+        case "center":
+          values.state = "PENDING";
+          break;
+        case "right":
+          values.state = "PUBLISHED";
+          break;
+        default:
+          setAlignment("");
+          break;
+      }
+
+      setAlignment(newAlignment);
+      editSubjectStatus(values);
+    }
   };
 
   const handleChangeNewCourseData = (event, key) => {
@@ -93,7 +136,7 @@ const ConfigurationView = (props) => {
   };
 
   const handleCancelChange = (key) => {
-    setNewCourseData(data);
+    setNewCourseData(courseInfo);
     handleEditIconClick(key, false);
 
     // Clean message error
@@ -117,9 +160,21 @@ const ConfigurationView = (props) => {
     setErrorMessages(newErrorMessages);
 
     if (!hasErrors) {
-      setData(newCourseData);
       handleEditIconClick(key, false);
-      // guardar en backend
+      
+      if (key === NAME) {
+        const values = {
+          id: courseInfo.id,
+          name: newCourseData[NAME]
+        }
+        editSubjectName(values);
+      } else if (key === DESCRIPTION) {
+        const values = {
+          id: courseInfo.id,
+          description: newCourseData[DESCRIPTION]
+        }
+        editSubjectDescription(values)
+      }
     }
   };
 
@@ -152,6 +207,17 @@ const ConfigurationView = (props) => {
         </IconButton>
       </InputAdornment>
     );
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setShowSuccessEditNameMessage(false);
+    setShowSuccessEditStatusMessage(false);
+    setShowSuccessEditDescriptionMessage(false);
+    setRefreshPage(true);
   };
 
   return (
@@ -222,13 +288,13 @@ const ConfigurationView = (props) => {
             color="primary"
           >
             <ToggleButton value="left" aria-label="left aligned">
-              {ARCHIVADO}
+              Archivado
             </ToggleButton>
             <ToggleButton value="center" aria-label="centered">
-              {PENDIENTE}
+              Pendiente
             </ToggleButton>
             <ToggleButton value="right" aria-label="right aligned">
-              {PUBLICADO}
+              Publicado
             </ToggleButton>
           </ToggleButtonGroup>
         </div>
@@ -249,11 +315,41 @@ const ConfigurationView = (props) => {
           </div>
         </div>
       </div>
-      <StudentsManagementModal
+      {openModal && <StudentsManagementModal
         openModal={openModal}
         setOpenModal={setOpenModal}
-        students={courseInfo.students}
-      />
+        students={courseInfo.studentList}
+      />}
+      {showSuccessEditStatusMessage && (
+        <div className="configuration-view__course-snackbar-container">
+          <Snackbar
+            open={showSuccessEditStatusMessage}
+            autoHideDuration={3000}
+            onClose={handleClose}
+            message={SUBJECT_STATUS_EDITED_CORRECTLY}
+          />
+        </div>
+      )}
+      {showSuccessEditNameMessage && (
+        <div className="configuration-view__course-snackbar-container">
+          <Snackbar
+            open={showSuccessEditNameMessage}
+            autoHideDuration={5000}
+            onClose={handleClose}
+            message={SUBJECT_NAME_EDITED_CORRECTLY}
+          />
+        </div>
+      )}
+      {showSuccessEditDescriptionMessage && (
+        <div className="configuration-view__course-snackbar-container">
+          <Snackbar
+            open={showSuccessEditDescriptionMessage}
+            autoHideDuration={5000}
+            onClose={handleClose}
+            message={SUBJECT_DESCRIPTION_EDITED_CORRECTLY}
+          />
+        </div>
+      )}
     </div>
   );
 };

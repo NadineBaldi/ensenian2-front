@@ -53,6 +53,12 @@
     font-size: $font-size-14 !important;
     font-family: $font-family-primay !important;
   }
+
+  &__course-snackbar-container {
+    .MuiSnackbar-root {
+      margin-left: 700px;
+    }
+  }
 }
 
 .title-text  {

@@ -20,7 +20,13 @@ import {
 } from "../../../../constants/util";
 
 const CourseCard = (props) => {
-  const { courseId, courseName, courseStatus, courses } = props;
+  const { 
+    courseId, 
+    courseName, 
+    courseStatus, 
+    editSubjectName,
+    editSubjectStatus
+  } = props;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
@@ -68,8 +74,12 @@ const CourseCard = (props) => {
   };
 
   const changeCourseStatus = (newStatus) => {
-    const selectedCourse = courses.find(({ id }) => id === courseId);
-    selectedCourse.status = newStatus;
+    const values = {
+      id: courseId,
+      state: newStatus
+    }
+
+    editSubjectStatus(values);
     setAnchorEl(null);
   };
 
@@ -137,7 +147,7 @@ const CourseCard = (props) => {
         setOpenChangeCourseNameModal={setOpenChangeCourseNameModal}
         courseId={courseId}
         courseName={courseName}
-        courses={courses}
+        editSubjectName={editSubjectName}
       />
     </div>
   );
