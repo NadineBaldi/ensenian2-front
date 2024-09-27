@@ -44,7 +44,7 @@ const columns = [
 ];
 
 const StudentsManagementModal = (props) => {
-  const { openModal, setOpenModal, students } = props;
+  const { openModal, setOpenModal, students, addStudentToCourse } = props;
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -116,10 +116,10 @@ const StudentsManagementModal = (props) => {
                           >
                             <TableCell align="center">{student.name}</TableCell>
                             <TableCell align="center">
-                              {student.enrollmentNumber}
+                              {student.docketNumber}
                             </TableCell>
                             <TableCell align="center">
-                              {student.email}
+                              {student.username}
                             </TableCell>
                             <TableCell align="center">
                               <Button
@@ -155,6 +155,7 @@ const StudentsManagementModal = (props) => {
       <AddStudentModal
         openModal={openAddStudentModal}
         setOpenModal={setOpenAddStudentModal}
+        addStudentToCourse={addStudentToCourse}
       />
     </div>
   );

@@ -6,6 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Tab, Tabs } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
 
 // Components
 import ConfigView from "./components/configuration/ConfigurationView";
@@ -14,24 +15,28 @@ import QuestionsView from "./components/questions/QuestionsView";
 import UnitsView from "./components/units/UnitsView";
 
 // Hooks
-import useFetchSubjects from '../mainCourses/hooks/hooks';
+import useFetchSubjects from "../mainCourses/hooks/hooks";
 import useFetchCommon from "../../commons/hooks/hooks";
+import useFetchSubject from "./hooks/hooks";
 
 import { setCookie, getCookie } from "../../commons/helpers/cookies";
-import { getQueryVariable } from "../../commons/helpers/url-query";
 import { SELECTED_TAB } from "../../constants/util";
+
+// Cookies
+import { deleteCookie } from "../../commons/helpers/cookies";
+
+// Constants
+import { TOKEN } from "../../constants/util";
 
 const CourseView = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
-  const [currentTabIndex, setCurrentTabIndex] = useState(Number(getCookie(SELECTED_TAB)) || 0);
-  const [courseInfo, setCourseInfo] = useState({});
-  const [units, setUnits] = useState([]);
+  const [currentTabIndex, setCurrentTabIndex] = useState(
+    Number(getCookie(SELECTED_TAB)) || 0
+  );
 
   // Hooks
-  const { 
-    getSubjectsByTeacherId, 
-    subjects,
+  const {
     editSubjectStatus,
     showSuccessEditStatusMessage,
     setShowSuccessEditStatusMessage,
@@ -40,16 +45,21 @@ const CourseView = () => {
     setShowSuccessEditNameMessage,
     editSubjectDescription,
     showSuccessEditDescriptionMessage,
-    setShowSuccessEditDescriptionMessage
+    setShowSuccessEditDescriptionMessage,
   } = useFetchSubjects();
   const { loadTeacherInfo, teacherInfo } = useFetchCommon();
+  const {
+    course,
+    getCourseDetails,
+    snackbar,
+    setSnackbar,
+    addStudentToCourse,
+    createQuestion,
+    editQuestion,
+  } = useFetchSubject();
 
   useEffect(() => {
-    getSubjectsByTeacherId();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
+    getCourseDetails();
     loadTeacherInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -91,23 +101,6 @@ const CourseView = () => {
     },
   ];
 
-  useEffect(() => {
-    const courseId = getQueryVariable("courseId");
-    if (courseId !== null) {
-      const course = subjects?.find(
-        (course) => course.id.toString() === courseId
-      );
-      if (course) {
-        const { units, ...other } = course; 
-        setCourseInfo({
-          ...other,
-        });
-        setUnits(unidadesAReemplazar); //cambiar por las del back cuando esten
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subjects]);
-
   const handleManageAccount = () => {
     setAnchorEl(null);
     window.open("http://localhost:3000/accountData", "_self");
@@ -116,6 +109,14 @@ const CourseView = () => {
   const handleTabChange = (e, tabIndex) => {
     setCookie(SELECTED_TAB, tabIndex);
     setCurrentTabIndex(tabIndex);
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbar({ open: false });
   };
 
   return (
@@ -136,8 +137,8 @@ const CourseView = () => {
               </div>
               <Typography variant="subtitle" color="secondary">
                 {teacherInfo && teacherInfo.name && teacherInfo.lastName
-                ? `${teacherInfo.name} ${teacherInfo.lastName}`
-                : "Usuario"}
+                  ? `${teacherInfo.name} ${teacherInfo.lastName}`
+                  : "Usuario"}
               </Typography>
             </div>
             <Menu
@@ -152,14 +153,21 @@ const CourseView = () => {
               <MenuItem onClick={handleManageAccount}>
                 Gestionar cuenta
               </MenuItem>
-              <MenuItem>Cerrar sesión</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  deleteCookie(TOKEN);
+                  window.location.href = "http://localhost:3000/login";
+                }}
+              >
+                Cerrar sesión
+              </MenuItem>
             </Menu>
           </div>
         </div>
         <div className="body-container">
           <div className="title-container">
             <Typography variant="title" color="primary">
-              {courseInfo.name}
+              {course.name}
             </Typography>
           </div>
           <div className="tabs-container">
@@ -170,25 +178,49 @@ const CourseView = () => {
               <Tab label="Configuraciones" />
             </Tabs>
           </div>
-          <div>{currentTabIndex === 0 && <UnitsView units={units} />}</div>
-          <div>{currentTabIndex === 1 && <QuestionsView />}</div>
+          <div>
+            {currentTabIndex === 0 && <UnitsView units={unidadesAReemplazar} />}
+          </div>
+          <div>
+            {currentTabIndex === 1 && (
+              <QuestionsView
+                createQuestion={createQuestion}
+                editQuestion={editQuestion}
+              />
+            )}
+          </div>
           <div>{currentTabIndex === 2 && <ExamsView />}</div>
           <div>
-            {currentTabIndex === 3 &&
-              <ConfigView 
-                courseInfo={courseInfo}
+            {currentTabIndex === 3 && (
+              <ConfigView
+                courseInfo={course}
                 editSubjectStatus={editSubjectStatus}
                 showSuccessEditStatusMessage={showSuccessEditStatusMessage}
-                setShowSuccessEditStatusMessage={setShowSuccessEditStatusMessage}
+                setShowSuccessEditStatusMessage={
+                  setShowSuccessEditStatusMessage
+                }
                 editSubjectName={editSubjectName}
                 showSuccessEditNameMessage={showSuccessEditNameMessage}
                 setShowSuccessEditNameMessage={setShowSuccessEditNameMessage}
                 editSubjectDescription={editSubjectDescription}
-                showSuccessEditDescriptionMessage={showSuccessEditDescriptionMessage}
-                setShowSuccessEditDescriptionMessage={setShowSuccessEditDescriptionMessage}
-              />}
+                showSuccessEditDescriptionMessage={
+                  showSuccessEditDescriptionMessage
+                }
+                setShowSuccessEditDescriptionMessage={
+                  setShowSuccessEditDescriptionMessage
+                }
+                addStudentToCourse={addStudentToCourse}
+              />
+            )}
           </div>
         </div>
+      </div>
+      <div className="snackbar-container">
+        <Snackbar
+          {...snackbar}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        />
       </div>
     </div>
   );

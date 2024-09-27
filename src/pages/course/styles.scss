@@ -75,3 +75,9 @@
     background-color: $green-color !important;
   }
 }
+
+.snackbar-container {
+  .MuiSnackbar-root {
+    margin-left: 700px;
+  }
+}
