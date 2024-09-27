@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import questionHook from '../../hooks/hooks'
-
 // Material UI Components
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
@@ -10,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import Snackbar from '@mui/material/Snackbar';
 
 // Icons
 import AddIcon from "@mui/icons-material/Add";
@@ -25,8 +22,7 @@ import {
 } from "../../../../constants/util";
 
 const CreateSingleQuestionModal = (props) => {
-  const { openModal, onClose, questionSelected } = props;
-  const { createQuestion, editQuestion, snackbar, setSnackbar } = questionHook();
+  const { openModal, onClose, questionSelected, createQuestion, editQuestion } = props;
 
   // variables for textFields values
   const initialState = {
@@ -40,14 +36,6 @@ const CreateSingleQuestionModal = (props) => {
     ],
   };
   const [values, setValues] = useState(initialState);
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setSnackbar({ open: false });
-  };
 
   useEffect(() => {
     if (questionSelected) {
@@ -248,13 +236,6 @@ const CreateSingleQuestionModal = (props) => {
           </div>
         </div>
       </Modal>
-      <div className="create-single-question-modal-snackbar-container">
-      <Snackbar
-            {...snackbar}
-            autoHideDuration={3000}
-            onClose={handleClose}
-          />
-      </div>
     </div>
   );
 };

@@ -43,7 +43,8 @@ const ConfigurationView = (props) => {
     setShowSuccessEditNameMessage,
     editSubjectDescription,
     showSuccessEditDescriptionMessage,
-    setShowSuccessEditDescriptionMessage
+    setShowSuccessEditDescriptionMessage,
+    addStudentToCourse,
   } = props;
 
   const [editCourseData, setEditCourseData] = useState({
@@ -319,6 +320,7 @@ const ConfigurationView = (props) => {
         openModal={openModal}
         setOpenModal={setOpenModal}
         students={courseInfo.studentList}
+        addStudentToCourse={addStudentToCourse}
       />}
       {showSuccessEditStatusMessage && (
         <div className="configuration-view__course-snackbar-container">

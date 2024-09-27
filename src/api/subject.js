@@ -13,8 +13,12 @@ const config = {
   }
 };
 
-export function getSubjectById() {
+export function getSubjectsById() {
   return axios.get(`${API_URL}/subject/teacher/${userId}`, config)
+}
+
+export function getSubjectById(courseId) {
+  return axios.get(`${API_URL}/subject/find/${courseId}`, config)
 }
 
 export function saveSubject(data) {
@@ -31,4 +35,8 @@ export function changeSubjectStatus(data) {
 
 export function changeSubjectDescription(data) {
   return axios.put(`${API_URL}/subject/update/description`, data, config)
+}
+
+export function addStudentToSubject(courseId, data) {
+  return axios.post(`${API_URL}/subject/register/${courseId}/students`, data, config)
 }

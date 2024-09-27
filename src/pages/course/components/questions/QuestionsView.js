@@ -18,7 +18,7 @@ import CreateBulkQuestionModal from "../createBulkQuestionModal/createBulkQuesti
 // Constants
 import { questions } from "../../../../constants/questions";
 
-const QuestionsView = () => {
+const QuestionsView = ({ createQuestion, editQuestion }) => {
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
   const [openManageSingleQuestionModal, setOpenManageSingleQuestionModal] =
     useState(false);
@@ -98,6 +98,8 @@ const QuestionsView = () => {
           setOpenManageSingleQuestionModal(false);
         }}
         questionSelected={questionSelected}
+        createQuestion={createQuestion}
+        editQuestion={editQuestion}
       />
       <CreateBulkQuestionModal
         openModal={openCreateBulkQuestionModal}

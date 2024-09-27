@@ -17,7 +17,7 @@ import {
 } from "../../../../constants/util";
 
 const AddStudentModal = (props) => {
-  const { openModal, setOpenModal } = props;
+  const { openModal, setOpenModal, addStudentToCourse } = props;
 
   const [registrationNumbers, setRegistrationNumbers] = useState([]);
   const [registrationNumberValue, setRegistrationNumberValue] = useState("");
@@ -32,7 +32,7 @@ const AddStudentModal = (props) => {
     if (registrationNumberValue === "") {
       setRegistrationNumberError(EMPTY_FIELD);
       hasErrors = true;
-    } else if (registrationNumberValue.length > 5) {
+    } else if (registrationNumberValue.length > 6) {
       setRegistrationNumberError(REGISTRATION_NUMBER_LENGTH);
       hasErrors = true;
     }
@@ -44,8 +44,8 @@ const AddStudentModal = (props) => {
   };
 
   const handleSaveStudentsClick = () => {
-    // LLAMAR BACKEND PARA GUARDAR ESTUDIANTES
-    setOpenModal(false);
+    addStudentToCourse({ studentsDocketList: registrationNumbers })
+    handleOnClose();
   };
 
   const handleDeleteClick = (index) => {
@@ -65,6 +65,7 @@ const AddStudentModal = (props) => {
   };
 
   const handleOnClose = () => {
+    setRegistrationNumbers([]);
     setRegistrationNumberValue("");
     setRegistrationNumberError("");
     setOpenModal(false);
@@ -75,7 +76,7 @@ const AddStudentModal = (props) => {
       <Modal open={openModal} onClose={handleOnClose}>
         <div className="addStudentModal__box-container">
           <div className="addStudentModal__close-btn-container">
-            <IconButton onClick={() => setOpenModal(false)} aria-label="close">
+            <IconButton onClick={handleOnClose} aria-label="close">
               <CloseIcon />
             </IconButton>
           </div>

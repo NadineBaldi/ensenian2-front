@@ -2,7 +2,7 @@ import { useState } from "react";
 
 // Api
 import { 
-  getSubjectById, 
+  getSubjectsById, 
   saveSubject, 
   changeSubjectName,
   changeSubjectStatus,
@@ -16,9 +16,9 @@ const useFetchSubjects = () => {
   const [showSuccessEditStatusMessage, setShowSuccessEditStatusMessage] = useState(false);
   const [showSuccessEditDescriptionMessage, setShowSuccessEditDescriptionMessage] = useState(false);
   
-  const getSubjectsByTeacherId = async (id) => {
+  const getSubjectsByTeacherId = async () => {
     try {
-      const { data } = await getSubjectById(id);
+      const { data } = await getSubjectsById();
 
       setSubjects(data);
     } catch (e) {
