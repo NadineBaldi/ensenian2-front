@@ -9,12 +9,16 @@ import {
   changeSubjectDescription
 } from "../../../api/subject";
 
+import { 
+  SUBJECT_ADDED_CORRECTLY, 
+  SUBJECT_NAME_EDITED_CORRECTLY,
+  SUBJECT_STATUS_EDITED_CORRECTLY,
+  SUBJECT_DESCRIPTION_EDITED_CORRECTLY,
+} from "../../../constants/util";
+
 const useFetchSubjects = () => {
   const [subjects, setSubjects] = useState([]);
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showSuccessEditNameMessage, setShowSuccessEditNameMessage] = useState(false);
-  const [showSuccessEditStatusMessage, setShowSuccessEditStatusMessage] = useState(false);
-  const [showSuccessEditDescriptionMessage, setShowSuccessEditDescriptionMessage] = useState(false);
+  const [snackbar, setSnackbar] = useState({ open: false});
   
   const getSubjectsByTeacherId = async () => {
     try {
@@ -29,40 +33,44 @@ const useFetchSubjects = () => {
   const addNewSubject = async (data) => {
     try {
       await saveSubject(data);
-      setShowSuccessMessage(true);
+      await getSubjectsByTeacherId();
+      setSnackbar({ open: true, message: SUBJECT_ADDED_CORRECTLY });
     } catch (e) {
       console.log(e);
-      setShowSuccessMessage(false);
+      setSnackbar({ open: true, message: "Ocurrió un error, intente nuevamente"});
     }
   }
 
   const editSubjectName = async (data) => {
     try {
       await changeSubjectName(data);
-      setShowSuccessEditNameMessage(true);
+      await getSubjectsByTeacherId();
+      setSnackbar({ open: true, message: SUBJECT_NAME_EDITED_CORRECTLY});
     } catch (e) {
       console.log(e);
-      setShowSuccessEditNameMessage(false);
+      setSnackbar({ open: true, message: "Ocurrió un error, intente nuevamente"});
     }
   }
 
   const editSubjectStatus = async (data) => {
     try {
       await changeSubjectStatus(data);
-      setShowSuccessEditStatusMessage(true);
+      await getSubjectsByTeacherId();
+      setSnackbar({ open: true, message: SUBJECT_STATUS_EDITED_CORRECTLY});
     } catch (e) {
       console.log(e);
-      setShowSuccessEditStatusMessage(false);
+      setSnackbar({ open: true, message: "Ocurrió un error, intente nuevamente"});
     }
   }
 
   const editSubjectDescription = async (data) => {
     try {
       await changeSubjectDescription(data);
-      setShowSuccessEditDescriptionMessage(true);
+      await getSubjectsByTeacherId();
+      setSnackbar({ open: true, message: SUBJECT_DESCRIPTION_EDITED_CORRECTLY});
     } catch (e) {
       console.log(e);
-      setShowSuccessEditDescriptionMessage(false);
+      setSnackbar({ open: true, message: "Ocurrió un error, intente nuevamente"});
     }
   }
 
@@ -70,17 +78,11 @@ const useFetchSubjects = () => {
     getSubjectsByTeacherId,
     subjects,
     addNewSubject,
-    showSuccessMessage,
-    setShowSuccessMessage,
     editSubjectName,
-    showSuccessEditNameMessage,
-    setShowSuccessEditNameMessage,
     editSubjectStatus,
-    showSuccessEditStatusMessage,
-    setShowSuccessEditStatusMessage,
     editSubjectDescription,
-    showSuccessEditDescriptionMessage,
-    setShowSuccessEditDescriptionMessage
+    snackbar,
+    setSnackbar,
   }
 };
 

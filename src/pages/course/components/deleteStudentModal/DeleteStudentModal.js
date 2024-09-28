@@ -10,19 +10,19 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 
 const DeleteStudentModal = (props) => {
-  const { openModal, setOpenModal } = props;
+  const { openModal, onClose, deleteStudentFromSubject, selectedStudent: { docketNumber } } = props;
 
   const handleDeleteStudent = () => {
-    // LLAMAR AL BACK PARA ELIMINAR ESTUDIANTE
-    setOpenModal(false);
+    deleteStudentFromSubject(docketNumber);
+    onClose(false);
   };
 
   return (
     <div className="delete-student-modal">
-      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+      <Modal open={openModal} onClose={onClose}>
         <div className="delete-student-modal__box-container">
           <div className="delete-student-modal__close-btn-container">
-            <IconButton onClick={() => setOpenModal(false)} aria-label="close">
+            <IconButton onClick={onClose} aria-label="close">
               <CloseIcon />
             </IconButton>
           </div>
@@ -49,7 +49,7 @@ const DeleteStudentModal = (props) => {
             <Button
               className="delete-student-modal__button"
               variant="outlined"
-              onClick={() => setOpenModal(false)}
+              onClick={onClose}
               size="small"
             >
               Cancelar

@@ -44,12 +44,13 @@ const columns = [
 ];
 
 const StudentsManagementModal = (props) => {
-  const { openModal, setOpenModal, students, addStudentToCourse } = props;
+  const { openModal, setOpenModal, students, addStudentToCourse, deleteStudentFromSubject } = props;
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [openAddStudentModal, setOpenAddStudentModal] = useState(false);
   const [openDeleteStudentModal, setOpenDeleteStudentModal] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -123,7 +124,7 @@ const StudentsManagementModal = (props) => {
                             </TableCell>
                             <TableCell align="center">
                               <Button
-                                onClick={() => setOpenDeleteStudentModal(true)}
+                                onClick={() => { setOpenDeleteStudentModal(true); setSelectedStudent(student) }}
                               >
                                 <DeleteForeverIcon />
                               </Button>
@@ -148,10 +149,14 @@ const StudentsManagementModal = (props) => {
           </div>
         </div>
       </Modal>
-      <DeleteStudentModal
-        openModal={openDeleteStudentModal}
-        setOpenModal={setOpenDeleteStudentModal}
-      />
+      {openDeleteStudentModal && 
+            <DeleteStudentModal
+            openModal={openDeleteStudentModal}
+            onClose={() => { setOpenDeleteStudentModal(false); setSelectedStudent(null); }}
+            deleteStudentFromSubject={deleteStudentFromSubject}
+            selectedStudent={selectedStudent}
+          />
+      }
       <AddStudentModal
         openModal={openAddStudentModal}
         setOpenModal={setOpenAddStudentModal}

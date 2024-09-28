@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Api
 import { 
@@ -9,6 +9,7 @@ import {
 import { 
   addStudentToSubject,
   getSubjectById,
+  removeStudentFromSubject
 } from "../../../api/subject";
 
 import { getQueryVariable } from "../../../commons/helpers/url-query";
@@ -59,6 +60,18 @@ const useFetchSubject = () => {
     }
   }
 
+  const deleteStudentFromSubject = async (studentDocketId) => {
+    try {
+      const { data } = await removeStudentFromSubject(courseId, studentDocketId);
+      setCourse(data);
+      setSnackbar({ open: true, message: "Estudiante removido con éxito"});
+    } catch (e) {
+      console.log(e);
+      setSnackbar({ open: true, message: "Hubo un error al remover el estudiante"});
+    }
+  }
+
+
   return {
     snackbar,
     setSnackbar,
@@ -66,6 +79,7 @@ const useFetchSubject = () => {
     editQuestion,
     addStudentToCourse,
     getCourseDetails,
+    deleteStudentFromSubject,
     course,
   }
 };
