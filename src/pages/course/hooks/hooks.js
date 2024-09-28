@@ -4,6 +4,7 @@ import { useState } from "react";
 import { 
   saveQuestion, 
   updateQuestion,
+  getQuestionsBySubjectId,
 } from "../../../api/question";
 
 import { 
@@ -17,6 +18,7 @@ import { getQueryVariable } from "../../../commons/helpers/url-query";
 const useFetchSubject = () => {
   const [snackbar, setSnackbar] = useState({ open: false });
   const [course, setCourse] = useState({});
+  const [questions, setQuestions] = useState([]);
   const courseId = getQueryVariable("courseId");
 
   const getCourseDetails = async () => {
@@ -28,10 +30,21 @@ const useFetchSubject = () => {
       console.log(e);
     }
   }
+
+  const getQuestions = async () => {
+    try {
+      const { data } = await getQuestionsBySubjectId(courseId);
+      
+      setQuestions(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   
   const createQuestion = async (data) => {
     try {
       await saveQuestion(data);
+      await getQuestions();
       setSnackbar({ open: true, message: "Pregunta creada con exito!"});
     } catch (e) {
       console.log(e);
@@ -42,6 +55,7 @@ const useFetchSubject = () => {
   const editQuestion = async (data) => {
     try {
       await updateQuestion(data);
+      await getQuestions();
       setSnackbar({ open: true, message: "Pregunta editada con exito!"});
     } catch (e) {
       console.log(e);
@@ -81,6 +95,8 @@ const useFetchSubject = () => {
     getCourseDetails,
     deleteStudentFromSubject,
     course,
+    getQuestions,
+    questions,
   }
 };
 
