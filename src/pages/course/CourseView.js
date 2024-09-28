@@ -38,14 +38,10 @@ const CourseView = () => {
   // Hooks
   const {
     editSubjectStatus,
-    showSuccessEditStatusMessage,
-    setShowSuccessEditStatusMessage,
     editSubjectName,
-    showSuccessEditNameMessage,
-    setShowSuccessEditNameMessage,
     editSubjectDescription,
-    showSuccessEditDescriptionMessage,
-    setShowSuccessEditDescriptionMessage,
+    snackbar: subjectsSnackbar,
+    setSnackbar: setSubjectsSnackbar,
   } = useFetchSubjects();
   const { loadTeacherInfo, teacherInfo } = useFetchCommon();
   const {
@@ -56,6 +52,7 @@ const CourseView = () => {
     addStudentToCourse,
     createQuestion,
     editQuestion,
+    deleteStudentFromSubject,
   } = useFetchSubject();
 
   useEffect(() => {
@@ -116,6 +113,7 @@ const CourseView = () => {
       return;
     }
 
+    setSubjectsSnackbar({ open: false });
     setSnackbar({ open: false });
   };
 
@@ -195,21 +193,10 @@ const CourseView = () => {
               <ConfigView
                 courseInfo={course}
                 editSubjectStatus={editSubjectStatus}
-                showSuccessEditStatusMessage={showSuccessEditStatusMessage}
-                setShowSuccessEditStatusMessage={
-                  setShowSuccessEditStatusMessage
-                }
                 editSubjectName={editSubjectName}
-                showSuccessEditNameMessage={showSuccessEditNameMessage}
-                setShowSuccessEditNameMessage={setShowSuccessEditNameMessage}
                 editSubjectDescription={editSubjectDescription}
-                showSuccessEditDescriptionMessage={
-                  showSuccessEditDescriptionMessage
-                }
-                setShowSuccessEditDescriptionMessage={
-                  setShowSuccessEditDescriptionMessage
-                }
                 addStudentToCourse={addStudentToCourse}
+                deleteStudentFromSubject={deleteStudentFromSubject}
               />
             )}
           </div>
@@ -218,6 +205,13 @@ const CourseView = () => {
       <div className="snackbar-container">
         <Snackbar
           {...snackbar}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        />
+      </div>
+      <div className="snackbar-container">
+        <Snackbar
+          {...subjectsSnackbar}
           autoHideDuration={3000}
           onClose={handleCloseSnackbar}
         />

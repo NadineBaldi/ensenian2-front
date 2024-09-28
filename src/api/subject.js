@@ -40,3 +40,7 @@ export function changeSubjectDescription(data) {
 export function addStudentToSubject(courseId, data) {
   return axios.post(`${API_URL}/subject/register/${courseId}/students`, data, config)
 }
+
+export function removeStudentFromSubject(courseId, studentDocketId) {
+  return axios.put(`${API_URL}/subject/remove-student`, null, {...config, params: { docket: studentDocketId, idSubject: courseId }})
+}

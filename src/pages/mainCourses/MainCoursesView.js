@@ -19,9 +19,6 @@ import AddCourseModal from "./components/addCourseModal/AddCourseModal";
 // Constants
 import { 
   TOKEN, 
-  SUBJECT_ADDED_CORRECTLY, 
-  SUBJECT_NAME_EDITED_CORRECTLY,
-  SUBJECT_STATUS_EDITED_CORRECTLY,
   SELECTED_TAB,
 } from "../../constants/util";
 
@@ -37,7 +34,6 @@ const MainCourses = () => {
   const [openAddCourseModal, setOpenAddCourseModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const openOptions = Boolean(anchorEl);
-  const [refreshPage, setRefreshPage] = useState(false);
 
   // Hooks
   const { loadTeacherInfo, teacherInfo } = useFetchCommon();
@@ -45,14 +41,10 @@ const MainCourses = () => {
     getSubjectsByTeacherId, 
     subjects, 
     addNewSubject, 
-    showSuccessMessage, 
-    setShowSuccessMessage,
     editSubjectName,
-    showSuccessEditNameMessage,
-    setShowSuccessEditNameMessage,
     editSubjectStatus,
-    showSuccessEditStatusMessage,
-    setShowSuccessEditStatusMessage
+    snackbar,
+    setSnackbar
   } = useFetchSubjects();
 
   useEffect(() => {
@@ -61,26 +53,17 @@ const MainCourses = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (refreshPage) {
-      window.location.href = "http://localhost:3000/courses";
-    }
-  }, [refreshPage]);
-
   const handleManageAccount = () => {
     setAnchorEl(null);
     window.open("http://localhost:3000/accountData", "_self");
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
       return;
     }
 
-    setShowSuccessMessage(false);
-    setShowSuccessEditNameMessage(false);
-    setShowSuccessEditStatusMessage(false);
-    setRefreshPage(true);
+    setSnackbar({ open: false });
   };
 
   return (
@@ -166,36 +149,13 @@ const MainCourses = () => {
         teacherInfo={teacherInfo}
         addNewSubject={addNewSubject}
       />
-      {showSuccessMessage && (
         <div className="course-snackbar-container">
           <Snackbar
-            open={showSuccessMessage}
             autoHideDuration={6000}
-            onClose={handleClose}
-            message={SUBJECT_ADDED_CORRECTLY}
+            onClose={handleCloseSnackbar}
+            {...snackbar}
           />
         </div>
-      )}
-      {showSuccessEditNameMessage && (
-        <div className="course-snackbar-container">
-          <Snackbar
-            open={showSuccessEditNameMessage}
-            autoHideDuration={5000}
-            onClose={handleClose}
-            message={SUBJECT_NAME_EDITED_CORRECTLY}
-          />
-        </div>
-      )}
-      {showSuccessEditStatusMessage && (
-        <div className="course-snackbar-container">
-          <Snackbar
-            open={showSuccessEditStatusMessage}
-            autoHideDuration={5000}
-            onClose={handleClose}
-            message={SUBJECT_STATUS_EDITED_CORRECTLY}
-          />
-        </div>
-      )}
     </div>
   );
 };
