@@ -12,6 +12,8 @@ import {
   removeStudentFromSubject
 } from "../../../api/subject";
 
+import { saveUnit } from "../../../api/units";
+
 import { getQueryVariable } from "../../../commons/helpers/url-query";
 
 const useFetchSubject = () => {
@@ -71,6 +73,16 @@ const useFetchSubject = () => {
     }
   }
 
+  const saveNewUnit = async (data) => {
+    try {
+      await saveUnit({ ...data, subjectEntityId: courseId });
+      setSnackbar({ open: true, message: "Unidad creada con éxito"});
+    } catch (e) {
+      console.log(e);
+      setSnackbar({ open: true, message: "Hubo un error al crear la unidad"});
+    }
+  }
+
 
   return {
     snackbar,
@@ -81,6 +93,7 @@ const useFetchSubject = () => {
     getCourseDetails,
     deleteStudentFromSubject,
     course,
+    saveNewUnit,
   }
 };
 

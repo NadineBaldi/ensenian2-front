@@ -29,7 +29,7 @@ import {
 import { questions } from "../../../../constants/questions";
 
 const ManageUnitModal = (props) => {
-  const { openModal, onClose, unitSelected } = props;
+  const { openModal, onClose, unitSelected, saveNewUnit } = props;
 
   const [newUnitData, setNewUnitData] = useState({});
   const {
@@ -102,7 +102,7 @@ const ManageUnitModal = (props) => {
               className: "title-text-field",
             }}
             style={{ marginTop: 11 }}
-            onChange={(event) => handleChangeNewUnitData(event, "unitName")}
+            onChange={(event) => handleChangeNewUnitData(event, "name")}
             error={!!unitNameError}
             helperText={unitNameError}
           />
@@ -203,7 +203,7 @@ const ManageUnitModal = (props) => {
 
   const getErrorMessages = () => {
     let unitNameError = !unitName ? ERROR_EMPTY_FIELDS : "";
-    unitNameError = unitName === unitSelected.name ? INVALID_NAME : "";
+    unitNameError = (unitSelected && unitName === unitSelected.name) ? INVALID_NAME : unitNameError;
 
     setNewUnitData({
       ...newUnitData,
@@ -215,9 +215,16 @@ const ManageUnitModal = (props) => {
 
   const handleApplyChanges = () => {
     if (!getErrorMessages()) {
-      console.log("Se están guardando (ponele)");
+      if (unitSelected) {
+        //edit
+      } else {
+        saveNewUnit({
+          name: unitName,
+          description,
+          questionsListId: newUnitQuestions.map(({ id }) => (id)),
+        });
+      }
       onClose();
-      //TODO aca se llama al back
     }
   };
 
