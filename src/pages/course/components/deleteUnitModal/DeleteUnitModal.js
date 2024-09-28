@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 
 const DeleteUnitModal = (props) => {
-  const { openModal, onClose } = props;
+  const { openModal, onClose, deleteUnit } = props;
 
   return (
     <div className="delete-unit-modal">
@@ -37,6 +37,7 @@ const DeleteUnitModal = (props) => {
               className="delete-unit-modal__button"
               variant="contained"
               size="small"
+              onClick={deleteUnit}
             >
               Continuar
             </Button>

@@ -29,10 +29,11 @@ import {
 import { questions } from "../../../../constants/questions";
 
 const ManageUnitModal = (props) => {
-  const { openModal, onClose, unitSelected, saveNewUnit } = props;
+  const { openModal, onClose, unitSelected, saveNewUnit, updateUnitDetails } = props;
 
   const [newUnitData, setNewUnitData] = useState({});
   const {
+    id,
     name: unitName,
     description,
     unitNameError,
@@ -46,7 +47,7 @@ const ManageUnitModal = (props) => {
   useEffect(() => {
     if (unitSelected) {
       setNewUnitData({ ...unitSelected });
-      setNewUnitQuestions(unitSelected.questions);
+      setNewUnitQuestions(unitSelected.questions || []);
     } else {
       setNewUnitData({});
       setCurrentTabIndex(0);
@@ -216,7 +217,12 @@ const ManageUnitModal = (props) => {
   const handleApplyChanges = () => {
     if (!getErrorMessages()) {
       if (unitSelected) {
-        //edit
+        updateUnitDetails({
+          id,
+          name: unitName,
+          description,
+          questionsListId: newUnitQuestions.map(({ id }) => (id)),
+        })
       } else {
         saveNewUnit({
           name: unitName,
