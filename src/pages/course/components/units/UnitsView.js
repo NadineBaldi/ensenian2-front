@@ -22,7 +22,7 @@ import ManageUnitModal from "../manageUnitModal/ManageUnitModal";
 import DeleteUnitModal from "../deleteUnitModal/DeleteUnitModal";
 
 const UnitsView = (props) => {
-  const { units, saveNewUnit } = props;
+  const { units = [], saveNewUnit, deleteUnit, updateUnitDetails } = props;
 
   const [unitSelected, setUnitSelected] = useState(null);
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
@@ -42,6 +42,17 @@ const UnitsView = (props) => {
       setOpenManageUnitModal(true);
     }
   };
+
+  const onCloseDeleteModal = () => {
+    setOpenDeleteUnitModal(false);  
+    setUnitSelected(null);
+  }
+
+  const handleDeleteUnit = () => {
+    const { id: unitId } = unitSelected;
+    deleteUnit(unitId); 
+    onCloseDeleteModal();
+  }
 
   return (
     <div className="units-view">
@@ -73,8 +84,10 @@ const UnitsView = (props) => {
                   </div>
                   <div
                     className="delete-icon"
-                    onClick={() =>
-                      setOpenDeleteUnitModal(true)
+                    onClick={() =>{
+                      setUnitSelected({ id, name });
+                      setOpenDeleteUnitModal(true);
+                    }
                     }
                   >
                     <DeleteForeverIcon fontSize="small" />
@@ -114,13 +127,15 @@ const UnitsView = (props) => {
       />
       <DeleteUnitModal
         openModal={openDeleteUnitModal}
-        onClose={() => setOpenDeleteUnitModal(false)}
+        onClose={onCloseDeleteModal}
+        deleteUnit={handleDeleteUnit}
       />
       <ManageUnitModal
         openModal={openManageUnitModal}
         onClose={() => { setOpenManageUnitModal(false); setUnitSelected(null)}}
         unitSelected={unitSelected}
         saveNewUnit={saveNewUnit}
+        updateUnitDetails={updateUnitDetails}
       />
     </div>
   );

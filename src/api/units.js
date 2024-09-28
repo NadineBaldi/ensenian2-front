@@ -16,3 +16,10 @@ export function saveUnit(data) {
   return axios.post(`${API_URL}/unit/save`, data, config);
 }
 
+export function deleteUnitById(unitId) {
+  return axios.delete(`${API_URL}/unit/delete/id/${unitId}`, config);
+}
+
+export function updateUnit(data) {
+    return axios.put(`${API_URL}/unit/update`, data, config);
+}
