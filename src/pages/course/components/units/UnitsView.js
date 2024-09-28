@@ -22,9 +22,9 @@ import ManageUnitModal from "../manageUnitModal/ManageUnitModal";
 import DeleteUnitModal from "../deleteUnitModal/DeleteUnitModal";
 
 const UnitsView = (props) => {
-  const { units } = props;
+  const { units, saveNewUnit } = props;
 
-  const [unitSelected, setUnitSelected] = useState({});
+  const [unitSelected, setUnitSelected] = useState(null);
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
   const [openManageUnitModal, setOpenManageUnitModal] = useState(false);
   const [openDeleteUnitModal, setOpenDeleteUnitModal] = useState(false);
@@ -57,7 +57,7 @@ const UnitsView = (props) => {
         </Button>
       </div>
       <div className="units-view__body">
-        {units.map(({ id, name, questions }) => (
+        {units.map(({ id, name, questionsList }) => (
           <div className="units_view__accordion">
             <Accordion expanded={!!openAccordion[String(id)]}>
               <AccordionSummary id={id}>
@@ -66,7 +66,7 @@ const UnitsView = (props) => {
                   <div
                     className="edit-icon"
                     onClick={() =>
-                      handleOpenAccordion(null, { id, name, questions })
+                      handleOpenAccordion(null, { id, name, questionsList })
                     }
                   >
                     <EditIcon fontSize="small" />
@@ -90,8 +90,8 @@ const UnitsView = (props) => {
               </AccordionSummary>
               <AccordionDetails>
                 <List>
-                  {questions
-                    ? questions.map((item) => (
+                  {questionsList
+                    ? questionsList.map((item) => (
                         <ListItem>
                           <ListItemText primary={item} />
                           <Button
@@ -120,6 +120,7 @@ const UnitsView = (props) => {
         openModal={openManageUnitModal}
         onClose={() => { setOpenManageUnitModal(false); setUnitSelected(null)}}
         unitSelected={unitSelected}
+        saveNewUnit={saveNewUnit}
       />
     </div>
   );
