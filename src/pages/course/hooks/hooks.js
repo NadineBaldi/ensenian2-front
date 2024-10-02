@@ -13,6 +13,8 @@ import {
   removeStudentFromSubject
 } from "../../../api/subject";
 
+import { saveUnit, deleteUnitById, updateUnit } from "../../../api/units";
+
 import { getQueryVariable } from "../../../commons/helpers/url-query";
 
 const useFetchSubject = () => {
@@ -85,6 +87,38 @@ const useFetchSubject = () => {
     }
   }
 
+  const saveNewUnit = async (data) => {
+    try {
+      await saveUnit({ ...data, subjectEntityId: courseId });
+      await getCourseDetails();
+      setSnackbar({ open: true, message: "Unidad creada con éxito"});
+    } catch (e) {
+      console.log(e);
+      setSnackbar({ open: true, message: "Hubo un error al crear la unidad"});
+    }
+  }
+
+  const deleteUnit = async (unitId) => {
+    try {
+      await deleteUnitById(unitId);
+      await getCourseDetails();
+      setSnackbar({ open: true, message: "Unidad removida con éxito"});
+    } catch (e) {
+      console.log(e);
+      setSnackbar({ open: true, message: "Hubo un error al remover la unidad"});
+    }
+  }
+
+  const updateUnitDetails = async (data) => {
+    try {
+      await updateUnit({ ...data, subjectEntityId: courseId });
+      await getCourseDetails();
+      setSnackbar({ open: true, message: "Unidad editada con éxito"});
+    } catch (e) {
+      console.log(e);
+      setSnackbar({ open: true, message: "Hubo un error al editar la unidad"});
+    }
+  }
 
   return {
     snackbar,
@@ -97,6 +131,9 @@ const useFetchSubject = () => {
     course,
     getQuestions,
     questions,
+    saveNewUnit,
+    deleteUnit,
+    updateUnitDetails,
   }
 };
 

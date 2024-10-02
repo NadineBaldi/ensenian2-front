@@ -100,7 +100,6 @@ const CreateSingleQuestionModal = (props) => {
   const handleCreateQuestion = () => {
     if (!getErrorMessages()) {
       const subjectId = getQueryVariable("courseId");
-      console.log("Pregunta creada");
       if (questionSelected) {
         editQuestion({
           ...values,

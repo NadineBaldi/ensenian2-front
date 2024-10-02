@@ -29,10 +29,11 @@ import {
 import { questions } from "../../../../constants/questions";
 
 const ManageUnitModal = (props) => {
-  const { openModal, onClose, unitSelected } = props;
+  const { openModal, onClose, unitSelected, saveNewUnit, updateUnitDetails } = props;
 
   const [newUnitData, setNewUnitData] = useState({});
   const {
+    id,
     name: unitName,
     description,
     unitNameError,
@@ -46,7 +47,7 @@ const ManageUnitModal = (props) => {
   useEffect(() => {
     if (unitSelected) {
       setNewUnitData({ ...unitSelected });
-      setNewUnitQuestions(unitSelected.questions);
+      setNewUnitQuestions(unitSelected.questions || []);
     } else {
       setNewUnitData({});
       setCurrentTabIndex(0);
@@ -102,7 +103,7 @@ const ManageUnitModal = (props) => {
               className: "title-text-field",
             }}
             style={{ marginTop: 11 }}
-            onChange={(event) => handleChangeNewUnitData(event, "unitName")}
+            onChange={(event) => handleChangeNewUnitData(event, "name")}
             error={!!unitNameError}
             helperText={unitNameError}
           />
@@ -203,7 +204,7 @@ const ManageUnitModal = (props) => {
 
   const getErrorMessages = () => {
     let unitNameError = !unitName ? ERROR_EMPTY_FIELDS : "";
-    unitNameError = unitName === unitSelected.name ? INVALID_NAME : "";
+    unitNameError = (unitSelected && unitName === unitSelected.name) ? INVALID_NAME : unitNameError;
 
     setNewUnitData({
       ...newUnitData,
@@ -215,9 +216,21 @@ const ManageUnitModal = (props) => {
 
   const handleApplyChanges = () => {
     if (!getErrorMessages()) {
-      console.log("Se están guardando (ponele)");
+      if (unitSelected) {
+        updateUnitDetails({
+          id,
+          name: unitName,
+          description,
+          questionsListId: newUnitQuestions.map(({ id }) => (id)),
+        })
+      } else {
+        saveNewUnit({
+          name: unitName,
+          description,
+          questionsListId: newUnitQuestions.map(({ id }) => (id)),
+        });
+      }
       onClose();
-      //TODO aca se llama al back
     }
   };
 

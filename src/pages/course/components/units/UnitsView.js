@@ -22,9 +22,9 @@ import ManageUnitModal from "../manageUnitModal/ManageUnitModal";
 import DeleteUnitModal from "../deleteUnitModal/DeleteUnitModal";
 
 const UnitsView = (props) => {
-  const { units } = props;
+  const { units = [], saveNewUnit, deleteUnit, updateUnitDetails } = props;
 
-  const [unitSelected, setUnitSelected] = useState({});
+  const [unitSelected, setUnitSelected] = useState(null);
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
   const [openManageUnitModal, setOpenManageUnitModal] = useState(false);
   const [openDeleteUnitModal, setOpenDeleteUnitModal] = useState(false);
@@ -43,6 +43,17 @@ const UnitsView = (props) => {
     }
   };
 
+  const onCloseDeleteModal = () => {
+    setOpenDeleteUnitModal(false);  
+    setUnitSelected(null);
+  }
+
+  const handleDeleteUnit = () => {
+    const { id: unitId } = unitSelected;
+    deleteUnit(unitId); 
+    onCloseDeleteModal();
+  }
+
   return (
     <div className="units-view">
       <div className="units-view__header">
@@ -57,7 +68,7 @@ const UnitsView = (props) => {
         </Button>
       </div>
       <div className="units-view__body">
-        {units.map(({ id, name, questions }) => (
+        {units.map(({ id, name, questionsList }) => (
           <div className="units_view__accordion">
             <Accordion expanded={!!openAccordion[String(id)]}>
               <AccordionSummary id={id}>
@@ -66,15 +77,17 @@ const UnitsView = (props) => {
                   <div
                     className="edit-icon"
                     onClick={() =>
-                      handleOpenAccordion(null, { id, name, questions })
+                      handleOpenAccordion(null, { id, name, questionsList })
                     }
                   >
                     <EditIcon fontSize="small" />
                   </div>
                   <div
                     className="delete-icon"
-                    onClick={() =>
-                      setOpenDeleteUnitModal(true)
+                    onClick={() =>{
+                      setUnitSelected({ id, name });
+                      setOpenDeleteUnitModal(true);
+                    }
                     }
                   >
                     <DeleteForeverIcon fontSize="small" />
@@ -90,8 +103,8 @@ const UnitsView = (props) => {
               </AccordionSummary>
               <AccordionDetails>
                 <List>
-                  {questions
-                    ? questions.map((item) => (
+                  {questionsList
+                    ? questionsList.map((item) => (
                         <ListItem>
                           <ListItemText primary={item} />
                           <Button
@@ -114,12 +127,15 @@ const UnitsView = (props) => {
       />
       <DeleteUnitModal
         openModal={openDeleteUnitModal}
-        onClose={() => setOpenDeleteUnitModal(false)}
+        onClose={onCloseDeleteModal}
+        deleteUnit={handleDeleteUnit}
       />
       <ManageUnitModal
         openModal={openManageUnitModal}
         onClose={() => { setOpenManageUnitModal(false); setUnitSelected(null)}}
         unitSelected={unitSelected}
+        saveNewUnit={saveNewUnit}
+        updateUnitDetails={updateUnitDetails}
       />
     </div>
   );

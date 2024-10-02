@@ -55,6 +55,9 @@ const CourseView = () => {
     deleteStudentFromSubject,
     questions,
     getQuestions,
+    saveNewUnit,
+    deleteUnit,
+    updateUnitDetails,
   } = useFetchSubject();
 
   useEffect(() => {
@@ -62,43 +65,6 @@ const CourseView = () => {
     loadTeacherInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const unidadesAReemplazar = [
-    {
-      id: 11,
-      name: "Unidad 1: MRU",
-      questions: [
-        "Título pregunta 1",
-        "Título pregunta 2",
-        "Título pregunta 3",
-      ],
-    },
-    {
-      id: 12,
-      name: "Unidad 2: MRUA",
-      questions: [
-        "Título pregunta 1",
-        "Título pregunta 2",
-        "Título pregunta 3",
-      ],
-    },
-    {
-      id: 13,
-      name: "Unidad 3: Óptica",
-      questions: [
-        "Título pregunta 1",
-        "Título pregunta 2",
-        "Título pregunta 3",
-        "Título pregunta 4",
-        "Título pregunta 5",
-      ],
-    },
-    {
-      id: 14,
-      name: "Unidad 4: Leyes de Newton",
-      questions: ["Título pregunta 1", "Título pregunta 2"],
-    },
-  ];
 
   const handleManageAccount = () => {
     setAnchorEl(null);
@@ -179,7 +145,7 @@ const CourseView = () => {
             </Tabs>
           </div>
           <div>
-            {currentTabIndex === 0 && <UnitsView units={unidadesAReemplazar} />}
+            {currentTabIndex === 0 && <UnitsView units={course.unitsList} saveNewUnit={saveNewUnit} deleteUnit={deleteUnit} updateUnitDetails={updateUnitDetails} />}
           </div>
           <div>
             {currentTabIndex === 1 && (
