@@ -23,3 +23,7 @@ export function updateQuestion(data) {
 export function getQuestionsBySubjectId(subjectId) {
   return axios.get(`${API_URL}/question/find/subject/${subjectId}`, config);
 }
+
+export function deleteQuestion (questionId) {
+  return axios.delete(`${API_URL}/question/delete/id/${questionId}`, config);
+}

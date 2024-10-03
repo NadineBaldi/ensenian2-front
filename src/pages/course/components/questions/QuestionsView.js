@@ -15,7 +15,7 @@ import DeleteQuestionModal from "../deleteQuestionModal/DeleteQuestionModal";
 import ManageSingleQuestionModal from "../manageSingleQuestionModal/manageSingleQuestionModal";
 import CreateBulkQuestionModal from "../createBulkQuestionModal/createBulkQuestionModal";
 
-const QuestionsView = ({ createQuestion, editQuestion, questions, getQuestions }) => {
+const QuestionsView = ({ createQuestion, editQuestion, questions, getQuestions, removeQuestion }) => {
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
   const [openManageSingleQuestionModal, setOpenManageSingleQuestionModal] =
     useState(false);
@@ -23,9 +23,13 @@ const QuestionsView = ({ createQuestion, editQuestion, questions, getQuestions }
     useState(false);
   const [questionSelected, setQuestionSelected] = useState(null);
 
-  const handleOnClickEditQuestion = (question) => {
+  const handleOnClickEditQuestion = (question, isEdit) => {
     setQuestionSelected(question);
-    setOpenManageSingleQuestionModal(true);
+    if (isEdit) {
+      setOpenManageSingleQuestionModal(true);
+    } else {
+      setOpenDeleteQuestionModal(true);
+    }
   };
 
   useEffect(() => {
@@ -69,7 +73,7 @@ const QuestionsView = ({ createQuestion, editQuestion, questions, getQuestions }
                     <IconButton
                       aria-label="toggle password visibility"
                       onClick={() =>
-                        handleOnClickEditQuestion({ id, question, ...other })
+                        handleOnClickEditQuestion({ id, question, ...other }, true)
                       }
                       edge="end"
                     >
@@ -77,10 +81,10 @@ const QuestionsView = ({ createQuestion, editQuestion, questions, getQuestions }
                     </IconButton>
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={() => setOpenDeleteQuestionModal(true)}
+                      onClick={() => handleOnClickEditQuestion({ id, question, ...other }, false)}
                       edge="end"
                     >
-                      <DeleteForeverIcon color="primary" />
+                      <DeleteForeverIcon color="primary"/>
                     </IconButton>
                   </div>
                 </div>
@@ -91,7 +95,12 @@ const QuestionsView = ({ createQuestion, editQuestion, questions, getQuestions }
       </div>
       <DeleteQuestionModal
         openModal={openDeleteQuestionModal}
-        setOpenModal={setOpenDeleteQuestionModal}
+        onClose={() => {
+          setQuestionSelected(null);
+          setOpenDeleteQuestionModal(false);
+        }}
+        questionSelected={questionSelected}
+        removeQuestion={removeQuestion}
       />
       <ManageSingleQuestionModal
         openModal={openManageSingleQuestionModal}

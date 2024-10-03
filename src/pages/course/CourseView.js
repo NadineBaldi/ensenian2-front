@@ -55,6 +55,7 @@ const CourseView = () => {
     deleteStudentFromSubject,
     questions,
     getQuestions,
+    removeQuestion,
     saveNewUnit,
     deleteUnit,
     updateUnitDetails,
@@ -154,6 +155,7 @@ const CourseView = () => {
                 editQuestion={editQuestion}
                 questions={questions}
                 getQuestions={getQuestions}
+                removeQuestion={removeQuestion}
               />
             )}
           </div>
