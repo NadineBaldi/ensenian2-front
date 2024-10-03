@@ -4,6 +4,8 @@ import { useState } from "react";
 import { 
   saveQuestion, 
   updateQuestion,
+  getQuestionsBySubjectId,
+  deleteQuestion,
 } from "../../../api/question";
 
 import { 
@@ -19,6 +21,7 @@ import { getQueryVariable } from "../../../commons/helpers/url-query";
 const useFetchSubject = () => {
   const [snackbar, setSnackbar] = useState({ open: false });
   const [course, setCourse] = useState({});
+  const [questions, setQuestions] = useState([]);
   const courseId = getQueryVariable("courseId");
 
   const getCourseDetails = async () => {
@@ -30,10 +33,21 @@ const useFetchSubject = () => {
       console.log(e);
     }
   }
+
+  const getQuestions = async () => {
+    try {
+      const { data } = await getQuestionsBySubjectId(courseId);
+      
+      setQuestions(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   
   const createQuestion = async (data) => {
     try {
-      await saveQuestion(data);
+      await saveQuestion({...data, subjectEntityId: courseId });
+      await getQuestions();
       setSnackbar({ open: true, message: "Pregunta creada con exito!"});
     } catch (e) {
       console.log(e);
@@ -43,11 +57,23 @@ const useFetchSubject = () => {
 
   const editQuestion = async (data) => {
     try {
-      await updateQuestion(data);
+      await updateQuestion({...data, subjectEntityId: courseId });
+      await getQuestions();
       setSnackbar({ open: true, message: "Pregunta editada con exito!"});
     } catch (e) {
       console.log(e);
       setSnackbar({ open: true, message: "Hubo un error al editar la pregunta"});
+    }
+  }
+
+  const removeQuestion = async (questionId) => {
+    try {
+      await deleteQuestion(questionId);
+      await getQuestions();
+      setSnackbar({ open: true, message: "Pregunta borrada con exito!"});
+    } catch (e) {
+      setSnackbar({ open: true, message: "Hubo un error al borrar la pregunta"});
+      console.log(e);
     }
   }
 
@@ -115,6 +141,9 @@ const useFetchSubject = () => {
     getCourseDetails,
     deleteStudentFromSubject,
     course,
+    getQuestions,
+    removeQuestion,
+    questions,
     saveNewUnit,
     deleteUnit,
     updateUnitDetails,

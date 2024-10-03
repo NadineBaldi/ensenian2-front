@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI Components
 import Button from "@mui/material/Button";
@@ -15,10 +15,7 @@ import DeleteQuestionModal from "../deleteQuestionModal/DeleteQuestionModal";
 import ManageSingleQuestionModal from "../manageSingleQuestionModal/manageSingleQuestionModal";
 import CreateBulkQuestionModal from "../createBulkQuestionModal/createBulkQuestionModal";
 
-// Constants
-import { questions } from "../../../../constants/questions";
-
-const QuestionsView = ({ createQuestion, editQuestion }) => {
+const QuestionsView = ({ createQuestion, editQuestion, questions, getQuestions, removeQuestion }) => {
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
   const [openManageSingleQuestionModal, setOpenManageSingleQuestionModal] =
     useState(false);
@@ -26,10 +23,19 @@ const QuestionsView = ({ createQuestion, editQuestion }) => {
     useState(false);
   const [questionSelected, setQuestionSelected] = useState(null);
 
-  const handleOnClickEditQuestion = (question) => {
+  const handleOnClickEditQuestion = (question, isEdit) => {
     setQuestionSelected(question);
-    setOpenManageSingleQuestionModal(true);
+    if (isEdit) {
+      setOpenManageSingleQuestionModal(true);
+    } else {
+      setOpenDeleteQuestionModal(true);
+    }
   };
+
+  useEffect(() => {
+    getQuestions();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="questions-view">
@@ -67,7 +73,7 @@ const QuestionsView = ({ createQuestion, editQuestion }) => {
                     <IconButton
                       aria-label="toggle password visibility"
                       onClick={() =>
-                        handleOnClickEditQuestion({ id, question, ...other })
+                        handleOnClickEditQuestion({ id, question, ...other }, true)
                       }
                       edge="end"
                     >
@@ -75,10 +81,10 @@ const QuestionsView = ({ createQuestion, editQuestion }) => {
                     </IconButton>
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={() => setOpenDeleteQuestionModal(true)}
+                      onClick={() => handleOnClickEditQuestion({ id, question, ...other }, false)}
                       edge="end"
                     >
-                      <DeleteForeverIcon color="primary" />
+                      <DeleteForeverIcon color="primary"/>
                     </IconButton>
                   </div>
                 </div>
@@ -89,7 +95,12 @@ const QuestionsView = ({ createQuestion, editQuestion }) => {
       </div>
       <DeleteQuestionModal
         openModal={openDeleteQuestionModal}
-        setOpenModal={setOpenDeleteQuestionModal}
+        onClose={() => {
+          setQuestionSelected(null);
+          setOpenDeleteQuestionModal(false);
+        }}
+        questionSelected={questionSelected}
+        removeQuestion={removeQuestion}
       />
       <ManageSingleQuestionModal
         openModal={openManageSingleQuestionModal}

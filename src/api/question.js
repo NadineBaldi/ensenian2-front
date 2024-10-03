@@ -19,3 +19,11 @@ export function saveQuestion(data) {
 export function updateQuestion(data) {
     return axios.put(`${API_URL}/question/update`, data, config);
 }
+
+export function getQuestionsBySubjectId(subjectId) {
+  return axios.get(`${API_URL}/question/find/subject/${subjectId}`, config);
+}
+
+export function deleteQuestion (questionId) {
+  return axios.delete(`${API_URL}/question/delete/id/${questionId}`, config);
+}
