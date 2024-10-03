@@ -23,9 +23,9 @@ import LockIcon from "@mui/icons-material/Lock";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import Snackbar from "@mui/material/Snackbar";
 
 // Constants
-import { userData } from "../../constants/userData";
 import {
   DNI,
   EMAIL,
@@ -51,7 +51,6 @@ import { deleteCookie } from "../../commons/helpers/cookies";
 
 const AccountData = () => {
   // Use states
-  const [data, setData] = useState({});
   const [editData, setEditData] = useState({
     email: false,
     password: false,
@@ -86,10 +85,12 @@ const AccountData = () => {
     cities,
     loadProvinces,
     loadCities,
-    getUniversityInfoById,
+    loadTeacherInfo,
+    teacherInfo,
+    snackbar,
+    setSnackbar,
+    updateTeacher,
   } = useFetchCommon();
-
-  const userId = 1;
 
   useEffect(() => {
     if (newUserData[PROVINCE_SELECTED])
@@ -97,17 +98,13 @@ const AccountData = () => {
   }, [newUserData[PROVINCE_SELECTED]]);
 
   useEffect(() => {
-    if (newUserData[UNIVERSITY]) getUniversityInfoById(newUserData[UNIVERSITY]);
-  }, [newUserData[UNIVERSITY]]);
+    loadProvinces();
+    loadTeacherInfo();
+  }, []);
 
   useEffect(() => {
-    loadProvinces();
-    if (userData) {
-      const filterData = userData.find(({ id }) => id === userId);
-      setData(filterData);
-      setNewUserData(filterData);
-    }
-  }, []);
+    if (teacherInfo) setNewUserData(teacherInfo);
+  }, [teacherInfo]);
 
   const handleEditIconClick = (key, value) => {
     setEditData({ ...editData, [key]: value });
@@ -199,18 +196,18 @@ const AccountData = () => {
 
     if (
       !hasErrors &&
-      newErrorMessages.email === "" &&
-      newErrorMessages.password === "" &&
-      newErrorMessages.newPassword === "" &&
-      newErrorMessages.newPasswordDuplicated === ""
+      !newErrorMessages.email &&
+      (!editData[`${PASSWORD}`] || (!newErrorMessages.password &&
+      !newErrorMessages.newPassword &&
+      newErrorMessages.newPasswordDuplicated === ""))
     ) {
-      setData(newUserData);
+      updateTeacher(newUserData);
       handleEditIconClick(key, false);
     }
   };
 
   const handleCancelChange = (key) => {
-    setNewUserData(data);
+    setNewUserData(teacherInfo);
     handleEditIconClick(key, false);
 
     // Clean message error
@@ -250,6 +247,15 @@ const AccountData = () => {
       </InputAdornment>
     );
   };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbar({ open: false });
+  };
+
 
   return (
     <div className="accountData">
@@ -500,7 +506,7 @@ const AccountData = () => {
             <div className="accountData-item-container">
               <TextField
                 id={DNI}
-                value={data.dni}
+                value={newUserData.dni}
                 label="DNI"
                 color="primary"
                 type="number"
@@ -514,7 +520,7 @@ const AccountData = () => {
               />
             </div>
             <div className="accountData-item-container-form-control">
-              {data.provinceSelected && (
+              {newUserData.provinceSelected && (
                 <FormControl
                   color="primary"
                   focused
@@ -552,7 +558,7 @@ const AccountData = () => {
               )}
             </div>
             <div className="accountData-item-container-form-control">
-              {data.provinceSelected && (
+              {newUserData.provinceSelected && (
                 <FormControl
                   color="primary"
                   focused
@@ -608,7 +614,7 @@ const AccountData = () => {
             <div className="accountData-item-container">
               <TextField
                 id={REGISTRATION_NUMBER}
-                value={data.enrollmentNumber}
+                value={newUserData.enrollmentNumber}
                 label="Número de matrícula"
                 color="primary"
                 type="number"
@@ -638,6 +644,13 @@ const AccountData = () => {
             />
           </div>
         </div>
+      </div>
+      <div className="snackbar-container">
+        <Snackbar
+          {...snackbar}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+        />
       </div>
     </div>
   );
