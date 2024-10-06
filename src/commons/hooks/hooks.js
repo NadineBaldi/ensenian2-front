@@ -8,7 +8,8 @@ import {
 } from "../../api/commons";
 
 import {
-  getTeacherInfo
+  getTeacherInfo,
+  updateTeacherInfo,
 } from "../../api/teacher";
 
 const useFetchCommon = () => {
@@ -16,6 +17,7 @@ const useFetchCommon = () => {
   const [cities, setCities] = useState([]);
   const [universities, setUniversities] = useState([]);
   const [teacherInfo, setTeacherInfo] = useState({});
+  const [snackbar, setSnackbar] = useState({ open: false});
 
   const loadProvinces = async () => {
     try {
@@ -47,8 +49,25 @@ const useFetchCommon = () => {
   const loadTeacherInfo = async () => {
     try {
       const { data } = await getTeacherInfo();
-      if (data) setTeacherInfo(data);
+      if (data) setTeacherInfo({ 
+        ...data, 
+        city: data.city.id, 
+        university: data.university.id,
+        provinceSelected: data.city.province.id,
+        email: data.username,
+      });
     } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const updateTeacher = async (data) => {
+    try {
+      await updateTeacherInfo(data);
+      await loadTeacherInfo();
+      setSnackbar({ open: true, message: "Datos guardados correctamente" });
+    } catch (e) {
+      setSnackbar({ open: true, message: "Ocurrió un error, intente nuevamente"});
       console.log(e);
     }
   }
@@ -61,7 +80,10 @@ const useFetchCommon = () => {
     loadProvinces,
     loadCities,
     loadUniversities,
-    loadTeacherInfo
+    loadTeacherInfo,
+    snackbar, 
+    setSnackbar,
+    updateTeacher,
   };
 };
 

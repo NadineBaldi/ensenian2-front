@@ -138,3 +138,9 @@
   font-weight: bold !important;
   color: $primay-color !important;
 }
+
+.snackbar-container {
+  .MuiSnackbar-root {
+    margin-left: 700px;
+  }
+}
