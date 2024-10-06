@@ -22,34 +22,41 @@ import ManageUnitModal from "../manageUnitModal/ManageUnitModal";
 import DeleteUnitModal from "../deleteUnitModal/DeleteUnitModal";
 
 const UnitsView = (props) => {
-  const { units = [], saveNewUnit, deleteUnit, updateUnitDetails } = props;
+  const { 
+    units = [], 
+    saveNewUnit, 
+    deleteUnit, 
+    updateUnitDetails,  
+    getUnitData,
+    unitData
+  } = props;
 
-  const [unitSelected, setUnitSelected] = useState(null);
+  const [unitIdSelected, setUnitIdSelected] = useState(null);
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
   const [openManageUnitModal, setOpenManageUnitModal] = useState(false);
   const [openDeleteUnitModal, setOpenDeleteUnitModal] = useState(false);
 
   const [openAccordion, setOpenAccordion] = useState({});
 
-  const handleOpenAccordion = (key, unit) => {
+  const handleOpenAccordion = (key, unitId) => {
     if (key) {
       setOpenAccordion({
         ...openAccordion,
         [key]: !Boolean(openAccordion[key]),
       });
     } else {
-      setUnitSelected(unit);
+      setUnitIdSelected(unitId);
       setOpenManageUnitModal(true);
     }
   };
 
   const onCloseDeleteModal = () => {
     setOpenDeleteUnitModal(false);  
-    setUnitSelected(null);
+    setUnitIdSelected(null);
   }
 
   const handleDeleteUnit = () => {
-    const { id: unitId } = unitSelected;
+    const { id: unitId } = unitIdSelected;
     deleteUnit(unitId); 
     onCloseDeleteModal();
   }
@@ -77,7 +84,7 @@ const UnitsView = (props) => {
                   <div
                     className="edit-icon"
                     onClick={() =>
-                      handleOpenAccordion(null, { id, name, questionsList })
+                      handleOpenAccordion(null, id)
                     }
                   >
                     <EditIcon fontSize="small" />
@@ -85,7 +92,7 @@ const UnitsView = (props) => {
                   <div
                     className="delete-icon"
                     onClick={() =>{
-                      setUnitSelected({ id, name });
+                      setUnitIdSelected(id);
                       setOpenDeleteUnitModal(true);
                     }
                     }
@@ -132,10 +139,15 @@ const UnitsView = (props) => {
       />
       <ManageUnitModal
         openModal={openManageUnitModal}
-        onClose={() => { setOpenManageUnitModal(false); setUnitSelected(null)}}
-        unitSelected={unitSelected}
+        onClose={() => { 
+          setOpenManageUnitModal(false); 
+          setUnitIdSelected(null)
+        }}
+        unitIdSelected={unitIdSelected}
         saveNewUnit={saveNewUnit}
         updateUnitDetails={updateUnitDetails}
+        getUnitData={getUnitData}
+        unitData={unitData}
       />
     </div>
   );

@@ -14,7 +14,7 @@ import {
   removeStudentFromSubject
 } from "../../../api/subject";
 
-import { saveUnit, deleteUnitById, updateUnit } from "../../../api/units";
+import { getUnitById, saveUnit, deleteUnitById, updateUnit } from "../../../api/units";
 
 import { getQueryVariable } from "../../../commons/helpers/url-query";
 
@@ -23,6 +23,7 @@ const useFetchSubject = () => {
   const [course, setCourse] = useState({});
   const [questions, setQuestions] = useState([]);
   const courseId = getQueryVariable("courseId");
+  const [unitData, setUnitData] = useState([]);
 
   const getCourseDetails = async () => {
     try {
@@ -99,6 +100,16 @@ const useFetchSubject = () => {
     }
   }
 
+  const getUnitData = async (unitId) => {
+    try {
+      const { data } = await getUnitById(unitId);
+      
+      setUnitData(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const saveNewUnit = async (data) => {
     try {
       await saveUnit({ ...data, subjectEntityId: courseId });
@@ -144,6 +155,8 @@ const useFetchSubject = () => {
     getQuestions,
     removeQuestion,
     questions,
+    getUnitData,
+    unitData,
     saveNewUnit,
     deleteUnit,
     updateUnitDetails,

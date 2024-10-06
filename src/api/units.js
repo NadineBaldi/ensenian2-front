@@ -12,6 +12,10 @@ const config = {
   }
 };
 
+export function getUnitById(unitId) {
+  return axios.get(`${API_URL}/unit/find/id/${unitId}`, config);
+}
+
 export function saveUnit(data) {
   return axios.post(`${API_URL}/unit/save`, data, config);
 }
