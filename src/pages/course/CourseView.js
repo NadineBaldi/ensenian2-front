@@ -43,7 +43,9 @@ const CourseView = () => {
     snackbar: subjectsSnackbar,
     setSnackbar: setSubjectsSnackbar,
   } = useFetchSubjects();
+
   const { loadTeacherInfo, teacherInfo } = useFetchCommon();
+
   const {
     course,
     getCourseDetails,
@@ -56,6 +58,8 @@ const CourseView = () => {
     questions,
     getQuestions,
     removeQuestion,
+    getUnitData,
+    unitData,
     saveNewUnit,
     deleteUnit,
     updateUnitDetails,
@@ -146,7 +150,15 @@ const CourseView = () => {
             </Tabs>
           </div>
           <div>
-            {currentTabIndex === 0 && <UnitsView units={course.unitsList} saveNewUnit={saveNewUnit} deleteUnit={deleteUnit} updateUnitDetails={updateUnitDetails} />}
+            {currentTabIndex === 0 && 
+              <UnitsView
+                units={course.unitsList} 
+                saveNewUnit={saveNewUnit} 
+                deleteUnit={deleteUnit} 
+                updateUnitDetails={updateUnitDetails}
+                getUnitData={getUnitData}
+                unitData={unitData}
+              />}
           </div>
           <div>
             {currentTabIndex === 1 && (

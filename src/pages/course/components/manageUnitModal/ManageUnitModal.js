@@ -29,7 +29,15 @@ import {
 import { questions } from "../../../../constants/questions";
 
 const ManageUnitModal = (props) => {
-  const { openModal, onClose, unitSelected, saveNewUnit, updateUnitDetails } = props;
+  const { 
+    openModal, 
+    onClose, 
+    unitIdSelected, 
+    saveNewUnit, 
+    updateUnitDetails,
+    getUnitData,
+    unitData
+  } = props;
 
   const [newUnitData, setNewUnitData] = useState({});
   const {
@@ -45,9 +53,14 @@ const ManageUnitModal = (props) => {
   const [filteredQuestions, setFilteredQuestions] = useState([]);
 
   useEffect(() => {
-    if (unitSelected) {
-      setNewUnitData({ ...unitSelected });
-      setNewUnitQuestions(unitSelected.questions || []);
+    if (unitIdSelected) getUnitData(unitIdSelected);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [unitIdSelected]);
+
+  useEffect(() => {
+    if (unitData) {
+      setNewUnitData({ ...unitData });
+      setNewUnitQuestions(unitData.questionsList || []);
     } else {
       setNewUnitData({});
       setCurrentTabIndex(0);
@@ -57,7 +70,7 @@ const ManageUnitModal = (props) => {
 
     setFilteredQuestions(questions);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSelected, openModal]);
+  }, [unitData, openModal]);
 
   const handleChangeNewUnitData = (event, key) => {
     setNewUnitData({ ...newUnitData, [key]: event.target.value });
@@ -204,7 +217,7 @@ const ManageUnitModal = (props) => {
 
   const getErrorMessages = () => {
     let unitNameError = !unitName ? ERROR_EMPTY_FIELDS : "";
-    unitNameError = (unitSelected && unitName === unitSelected.name) ? INVALID_NAME : unitNameError;
+    unitNameError = (unitData && unitName === unitData.name) ? INVALID_NAME : unitNameError;
 
     setNewUnitData({
       ...newUnitData,
@@ -216,7 +229,7 @@ const ManageUnitModal = (props) => {
 
   const handleApplyChanges = () => {
     if (!getErrorMessages()) {
-      if (unitSelected) {
+      if (unitIdSelected) {
         updateUnitDetails({
           id,
           name: unitName,
@@ -246,7 +259,7 @@ const ManageUnitModal = (props) => {
           <div className="edit-unit-modal__title-container">
             <Typography variant="h5" color="primary">
               <strong>
-                {unitSelected ? "Editar unidad" : "Agregar nueva unidad"}{" "}
+                {unitIdSelected ? "Editar unidad" : "Agregar nueva unidad"}{" "}
               </strong>
             </Typography>
           </div>
@@ -271,7 +284,7 @@ const ManageUnitModal = (props) => {
               variant="contained"
               onClick={() => handleApplyChanges()}
             >
-              {unitSelected ? "Guardar cambios" : "Agregar"}
+              {unitIdSelected ? "Guardar cambios" : "Agregar"}
             </Button>
           </div>
         </div>
