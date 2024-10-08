@@ -10,6 +10,7 @@ import {
 
 import { 
   saveExam,
+  deleteExam,
 } from "../../../api/exam";
 
 import { 
@@ -157,6 +158,16 @@ const useFetchSubject = () => {
     }
   }
 
+  const removeExam = async (examId) => {
+    try {
+      await deleteExam(examId);
+      setSnackbar({ open: true, message: "Examen borrado con exito!"});
+    } catch (e) {
+      console.log(e);
+      setSnackbar({ open: true, message: "Hubo un error al borrar el examen"});
+    }
+  }
+
   return {
     snackbar,
     setSnackbar,
@@ -175,6 +186,7 @@ const useFetchSubject = () => {
     deleteUnit,
     updateUnitDetails,
     createExam,
+    removeExam,
   }
 };
 

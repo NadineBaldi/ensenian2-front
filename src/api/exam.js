@@ -16,3 +16,7 @@ const config = {
 export function saveExam(data) {
   return axios.post(`${API_URL}/exam/create`, { ...data, teacherId: userId }, config);
 }
+
+export function deleteExam(examId) {
+  return axios.delete(`${API_URL}/exam/delete/id/${examId}`, config);
+}

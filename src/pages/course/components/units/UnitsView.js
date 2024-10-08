@@ -28,7 +28,8 @@ const UnitsView = (props) => {
     deleteUnit, 
     updateUnitDetails,  
     getUnitData,
-    unitData
+    unitData,
+    questions,
   } = props;
 
   const [unitIdSelected, setUnitIdSelected] = useState(null);
@@ -148,6 +149,7 @@ const UnitsView = (props) => {
         updateUnitDetails={updateUnitDetails}
         getUnitData={getUnitData}
         unitData={unitData}
+        questions={questions}
       />
     </div>
   );

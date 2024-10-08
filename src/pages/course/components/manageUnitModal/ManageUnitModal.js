@@ -26,7 +26,6 @@ import {
   ERROR_EMPTY_FIELDS,
   INVALID_NAME,
 } from "../../../../constants/util";
-import { questions } from "../../../../constants/questions";
 
 const ManageUnitModal = (props) => {
   const { 
@@ -36,7 +35,8 @@ const ManageUnitModal = (props) => {
     saveNewUnit, 
     updateUnitDetails,
     getUnitData,
-    unitData
+    unitData,
+    questions,
   } = props;
 
   const [newUnitData, setNewUnitData] = useState({});

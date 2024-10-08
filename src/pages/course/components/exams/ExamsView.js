@@ -19,7 +19,7 @@ import ManageExamModal from "../manageExamModal/ManageExamModal";
 // Constants
 import { exams } from "../../../../constants/exams";
 
-const ExamsView = ({ createExam, questions }) => {
+const ExamsView = ({ createExam, questions, removeExam }) => {
   const [openDeleteExamModal, setOpenDeleteExamModal] = useState(false);
   const [openManageExamModal, setOpenManageExamModal] = useState(false);
   const [examSelected, setExamSelected] = useState(false);
@@ -34,9 +34,13 @@ const ExamsView = ({ createExam, questions }) => {
     );
   };
 
-  const handleOnClickEditExam = (exam) => {
+  const handleOnClickEditExam = (exam, isEdit) => {
     setExamSelected(exam);
-    setOpenManageExamModal(true);
+    if (isEdit) {
+      setOpenManageExamModal(true);
+    } else {
+      setOpenDeleteExamModal(true);
+    }
   };
 
   const handleCloseModal = () => {
@@ -92,7 +96,7 @@ const ExamsView = ({ createExam, questions }) => {
                             approvalNote,
                             questions,
                             ...other,
-                          })
+                          }, true)
                         }
                         edge="end"
                       >
@@ -100,7 +104,14 @@ const ExamsView = ({ createExam, questions }) => {
                       </IconButton>
                       <IconButton
                         aria-label="toggle password visibility"
-                        onClick={() => setOpenDeleteExamModal(true)}
+                        onClick={() => handleOnClickEditExam({
+                          id,
+                          description,
+                          duration,
+                          approvalNote,
+                          questions,
+                          ...other,
+                        }, false)}
                         edge="end"
                       >
                         <DeleteForeverIcon color="primary" />
@@ -115,7 +126,9 @@ const ExamsView = ({ createExam, questions }) => {
       </div>
       <DeleteExamModal
         openModal={openDeleteExamModal}
-        setOpenModal={setOpenDeleteExamModal}
+        onClose={() => { setOpenDeleteExamModal(false); setExamSelected(null); }}
+        onConfirm={() => { removeExam(examSelected.id); setOpenDeleteExamModal(false); setExamSelected(null); }}
+        removeExam={removeExam}
       />
       <ManageExamModal
         openModal={openManageExamModal}

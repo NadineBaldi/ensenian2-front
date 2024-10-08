@@ -64,10 +64,12 @@ const CourseView = () => {
     deleteUnit,
     updateUnitDetails,
     createExam,
+    removeExam,
   } = useFetchSubject();
 
   useEffect(() => {
     getCourseDetails();
+    getQuestions();
     loadTeacherInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -159,6 +161,7 @@ const CourseView = () => {
                 updateUnitDetails={updateUnitDetails}
                 getUnitData={getUnitData}
                 unitData={unitData}
+                questions={questions}
               />}
           </div>
           <div>
@@ -167,12 +170,11 @@ const CourseView = () => {
                 createQuestion={createQuestion}
                 editQuestion={editQuestion}
                 questions={questions}
-                getQuestions={getQuestions}
                 removeQuestion={removeQuestion}
               />
             )}
           </div>
-          <div>{currentTabIndex === 2 && <ExamsView createExam={createExam} questions={questions} />}</div>
+          <div>{currentTabIndex === 2 && <ExamsView createExam={createExam} questions={questions} removeExam={removeExam} />}</div>
           <div>
             {currentTabIndex === 3 && (
               <ConfigView

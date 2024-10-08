@@ -15,7 +15,7 @@ import DeleteQuestionModal from "../deleteQuestionModal/DeleteQuestionModal";
 import ManageSingleQuestionModal from "../manageSingleQuestionModal/manageSingleQuestionModal";
 import CreateBulkQuestionModal from "../createBulkQuestionModal/createBulkQuestionModal";
 
-const QuestionsView = ({ createQuestion, editQuestion, questions, getQuestions, removeQuestion }) => {
+const QuestionsView = ({ createQuestion, editQuestion, questions, removeQuestion }) => {
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
   const [openManageSingleQuestionModal, setOpenManageSingleQuestionModal] =
     useState(false);
@@ -31,11 +31,6 @@ const QuestionsView = ({ createQuestion, editQuestion, questions, getQuestions, 
       setOpenDeleteQuestionModal(true);
     }
   };
-
-  useEffect(() => {
-    getQuestions();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="questions-view">

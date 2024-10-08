@@ -10,14 +10,14 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 
 const DeleteExamModal = (props) => {
-  const { openModal, setOpenModal } = props;
+  const { openModal, onClose, onConfirm } = props;
 
   return (
     <div className="delete-exam-modal">
-      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+      <Modal open={openModal} onClose={onClose}>
         <div className="delete-exam-modal__box-container">
           <div className="delete-exam-modal__close-btn-container">
-            <IconButton onClick={() => setOpenModal(false)} aria-label="close">
+            <IconButton onClick={onClose} aria-label="close">
               <CloseIcon />
             </IconButton>
           </div>
@@ -37,13 +37,14 @@ const DeleteExamModal = (props) => {
               className="delete-exam-modal__button"
               variant="contained"
               size="small"
+              onClick={onConfirm}
             >
               Continuar
             </Button>
             <Button
               className="delete-exam-modal__button"
               variant="outlined"
-              onClick={() => setOpenModal(false)}
+              onClick={onClose}
               size="small"
             >
               Cancelar
