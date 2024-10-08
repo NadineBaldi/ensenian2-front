@@ -28,16 +28,15 @@ import {
   NOT_QUESTION_SELECTED,
   grades,
 } from "../../../../constants/util";
-import { questions } from "../../../../constants/questions";
 
 const ManageExamModal = (props) => {
-  const { openModal, onClose, examSelected } = props;
+  const { openModal, onClose, examSelected, createExam, questions } = props;
 
   const [newExamData, setNewExamData] = useState({});
   const {
     description,
-    timeLimit,
-    minimumGrade,
+    duration,
+    approvalNote,
     errorDescription,
     errorTimeLimit,
     errorQuestions,
@@ -50,7 +49,7 @@ const ManageExamModal = (props) => {
   useEffect(() => {
     if (examSelected) {
       setNewExamData({ ...examSelected });
-      setIsSelected(!!examSelected.timeLimit);
+      setIsSelected(!!examSelected.duration);
       setNewExamQuestions(examSelected.questions);
     } else {
       setNewExamData({});
@@ -124,7 +123,7 @@ const ManageExamModal = (props) => {
         <div className="edit-exam-modal__limit-time-text-field-container">
           <TextField
             id="examTimeLimit"
-            value={timeLimit}
+            value={duration}
             label="Tiempo límite (en minutos)"
             color="primary"
             focused
@@ -133,7 +132,7 @@ const ManageExamModal = (props) => {
             }}
             style={{ marginTop: 11 }}
             disabled={!isSelected}
-            onChange={(event) => handleChangeNewExamData(event, "timeLimit")}
+            onChange={(event) => handleChangeNewExamData(event, "duration")}
             error={!!errorTimeLimit}
             helperText={errorTimeLimit}
           />
@@ -155,11 +154,12 @@ const ManageExamModal = (props) => {
           <div className="edit-exam-modal__slider-container">
             <Slider
               aria-label="Custom grades"
-              defaultValue={minimumGrade}
+              value={approvalNote}
               getAriaValueText={valuetext}
               step={10}
               valueLabelDisplay="auto"
               marks={grades}
+              onChange={(event) => handleChangeNewExamData(event, "approvalNote")}
             />
           </div>
         </div>
@@ -243,7 +243,7 @@ const ManageExamModal = (props) => {
 
   const getErrorMessages = () => {
     const errorDescription = !description ? ERROR_EMPTY_FIELDS : "";
-    const errorTimeLimit = !timeLimit && isSelected ? ERROR_EMPTY_FIELDS : "";
+    const errorTimeLimit = !duration && isSelected ? ERROR_EMPTY_FIELDS : "";
     const errorQuestions = !newExamQuestions?.length
       ? NOT_QUESTION_SELECTED
       : "";
@@ -260,9 +260,16 @@ const ManageExamModal = (props) => {
 
   const handleApplyChanges = () => {
     if (!getErrorMessages()) {
-      console.log("Se están guardando (ponele)");
+      if (examSelected) {
+        //edit
+      } else {
+        createExam({
+          ...newExamData,
+          timed: isSelected,
+          questionList: newExamQuestions.map(({ id }) => id),
+        });
+      }
       onClose();
-      //TODO aca se llama al back
     }
   };
 

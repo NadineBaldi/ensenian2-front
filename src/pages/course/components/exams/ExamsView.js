@@ -19,16 +19,16 @@ import ManageExamModal from "../manageExamModal/ManageExamModal";
 // Constants
 import { exams } from "../../../../constants/exams";
 
-const ExamsView = () => {
+const ExamsView = ({ createExam, questions }) => {
   const [openDeleteExamModal, setOpenDeleteExamModal] = useState(false);
   const [openManageExamModal, setOpenManageExamModal] = useState(false);
   const [examSelected, setExamSelected] = useState(false);
 
-  const handleTitle = (timeLimit, questions) => {
+  const handleTitle = (duration, questions) => {
     return (
       <Typography variant="subtitle" classes={{ root: "title-text" }}>
-        {timeLimit !== null
-          ? `${timeLimit} MINUTOS DISPONIBLES. ${questions.length} PREGUNTAS.`
+        {duration !== null
+          ? `${duration} MINUTOS DISPONIBLES. ${questions.length} PREGUNTAS.`
           : `SIN LÍMITE DE TIEMPO. ${questions.length} PREGUNTAS.`}
       </Typography>
     );
@@ -62,9 +62,9 @@ const ExamsView = () => {
           ({
             id,
             description,
-            timeLimit,
+            duration,
             questions,
-            minimumGrade,
+            approvalNote,
             ...other
           }) => (
             <div className="exams-view__accordion">
@@ -72,7 +72,7 @@ const ExamsView = () => {
                 <AccordionSummary id={id}>
                   <div className="accordion-summary-container">
                     <div className="accordion-summary-text-container">
-                      {handleTitle(timeLimit, questions)}
+                      {handleTitle(duration, questions)}
                       <Typography
                         variant="subtitle"
                         classes={{ root: "description-text" }}
@@ -88,8 +88,8 @@ const ExamsView = () => {
                           handleOnClickEditExam({
                             id,
                             description,
-                            timeLimit,
-                            minimumGrade,
+                            duration,
+                            approvalNote,
                             questions,
                             ...other,
                           })
@@ -121,6 +121,8 @@ const ExamsView = () => {
         openModal={openManageExamModal}
         onClose={handleCloseModal}
         examSelected={examSelected}
+        createExam={createExam}
+        questions={questions}
       />
     </div>
   );

@@ -9,6 +9,10 @@ import {
 } from "../../../api/question";
 
 import { 
+  saveExam,
+} from "../../../api/exam";
+
+import { 
   addStudentToSubject,
   getSubjectById,
   removeStudentFromSubject
@@ -143,6 +147,16 @@ const useFetchSubject = () => {
     }
   }
 
+  const createExam = async (data) => {
+    try {
+      await saveExam({...data, subjectId: courseId });
+      setSnackbar({ open: true, message: "Examen creado con exito!"});
+    } catch (e) {
+      console.log(e);
+      setSnackbar({ open: true, message: "Hubo un error al crear el examen"});
+    }
+  }
+
   return {
     snackbar,
     setSnackbar,
@@ -160,6 +174,7 @@ const useFetchSubject = () => {
     saveNewUnit,
     deleteUnit,
     updateUnitDetails,
+    createExam,
   }
 };
 
