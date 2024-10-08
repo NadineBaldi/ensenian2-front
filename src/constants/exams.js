@@ -1,8 +1,8 @@
 const exams = [
   {
     id: 1,
-    timeLimit: null,
-    minimumGrade: 60,
+    duration: null,
+    approvalNote: 60,
     description: "Descripción del exámen 1",
     questions: [
       {
@@ -139,8 +139,8 @@ const exams = [
   },
   {
     id: 2,
-    timeLimit: 60,
-    minimumGrade: 50,
+    duration: 60,
+    approvalNote: 50,
     description: "Descripción del exámen 2",
     questions: [
       {
@@ -225,8 +225,8 @@ const exams = [
   },
   {
     id: 3,
-    timeLimit: 120,
-    minimumGrade: 70,
+    duration: 120,
+    approvalNote: 70,
     description: "Descripción del exámen 3",
     questions: [
       {

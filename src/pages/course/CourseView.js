@@ -63,6 +63,7 @@ const CourseView = () => {
     saveNewUnit,
     deleteUnit,
     updateUnitDetails,
+    createExam,
   } = useFetchSubject();
 
   useEffect(() => {
@@ -171,7 +172,7 @@ const CourseView = () => {
               />
             )}
           </div>
-          <div>{currentTabIndex === 2 && <ExamsView />}</div>
+          <div>{currentTabIndex === 2 && <ExamsView createExam={createExam} questions={questions} />}</div>
           <div>
             {currentTabIndex === 3 && (
               <ConfigView
