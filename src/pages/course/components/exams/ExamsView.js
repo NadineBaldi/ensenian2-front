@@ -16,20 +16,17 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteExamModal from "../deleteExamModal/DeleteExamModal";
 import ManageExamModal from "../manageExamModal/ManageExamModal";
 
-// Constants
-import { exams } from "../../../../constants/exams";
-
-const ExamsView = ({ createExam, questions, removeExam }) => {
+const ExamsView = ({ createExam, questions = [], removeExam, exams = [], editExam }) => {
   const [openDeleteExamModal, setOpenDeleteExamModal] = useState(false);
   const [openManageExamModal, setOpenManageExamModal] = useState(false);
   const [examSelected, setExamSelected] = useState(false);
 
-  const handleTitle = (duration, questions) => {
+  const handleTitle = (duration, questionList = []) => {
     return (
       <Typography variant="subtitle" classes={{ root: "title-text" }}>
         {duration !== null
-          ? `${duration} MINUTOS DISPONIBLES. ${questions.length} PREGUNTAS.`
-          : `SIN LÍMITE DE TIEMPO. ${questions.length} PREGUNTAS.`}
+          ? `${duration} MINUTOS DISPONIBLES. ${questionList.length} PREGUNTA${questionList.length > 1 ? 'S' : ''}.`
+          : `SIN LÍMITE DE TIEMPO. ${questionList.length} PREGUNTA${questionList.length > 1 ? 'S' : ''}.`}
       </Typography>
     );
   };
@@ -67,7 +64,7 @@ const ExamsView = ({ createExam, questions, removeExam }) => {
             id,
             description,
             duration,
-            questions,
+            questionList,
             approvalNote,
             ...other
           }) => (
@@ -76,7 +73,7 @@ const ExamsView = ({ createExam, questions, removeExam }) => {
                 <AccordionSummary id={id}>
                   <div className="accordion-summary-container">
                     <div className="accordion-summary-text-container">
-                      {handleTitle(duration, questions)}
+                      {handleTitle(duration, questionList)}
                       <Typography
                         variant="subtitle"
                         classes={{ root: "description-text" }}
@@ -94,7 +91,7 @@ const ExamsView = ({ createExam, questions, removeExam }) => {
                             description,
                             duration,
                             approvalNote,
-                            questions,
+                            questionList,
                             ...other,
                           }, true)
                         }
@@ -109,7 +106,7 @@ const ExamsView = ({ createExam, questions, removeExam }) => {
                           description,
                           duration,
                           approvalNote,
-                          questions,
+                          questionList,
                           ...other,
                         }, false)}
                         edge="end"
@@ -136,6 +133,7 @@ const ExamsView = ({ createExam, questions, removeExam }) => {
         examSelected={examSelected}
         createExam={createExam}
         questions={questions}
+        editExam={editExam}
       />
     </div>
   );

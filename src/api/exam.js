@@ -20,3 +20,11 @@ export function saveExam(data) {
 export function deleteExam(examId) {
   return axios.delete(`${API_URL}/exam/delete/id/${examId}`, config);
 }
+
+export function getExamsBySubjectId(subjectId) {
+  return axios.get(`${API_URL}/exam/find/subject/${subjectId}`, config);
+}
+
+export function updateExam(data) {
+  return axios.put(`${API_URL}/exam/update`, data, config);
+}

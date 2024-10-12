@@ -30,7 +30,7 @@ import {
 } from "../../../../constants/util";
 
 const ManageExamModal = (props) => {
-  const { openModal, onClose, examSelected, createExam, questions } = props;
+  const { openModal, onClose, examSelected, createExam, questions, editExam } = props;
 
   const [newExamData, setNewExamData] = useState({});
   const {
@@ -50,7 +50,7 @@ const ManageExamModal = (props) => {
     if (examSelected) {
       setNewExamData({ ...examSelected });
       setIsSelected(!!examSelected.duration);
-      setNewExamQuestions(examSelected.questions);
+      setNewExamQuestions(examSelected.questionList);
     } else {
       setNewExamData({});
       setIsSelected(false);
@@ -261,7 +261,11 @@ const ManageExamModal = (props) => {
   const handleApplyChanges = () => {
     if (!getErrorMessages()) {
       if (examSelected) {
-        //edit
+        editExam({
+          ...newExamData,
+          timed: isSelected,
+          questionList: newExamQuestions.map(({ id }) => id),
+        })
       } else {
         createExam({
           ...newExamData,
