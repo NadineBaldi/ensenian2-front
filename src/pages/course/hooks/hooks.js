@@ -11,6 +11,8 @@ import {
 import { 
   saveExam,
   deleteExam,
+  getExamsBySubjectId,
+  updateExam,
 } from "../../../api/exam";
 
 import { 
@@ -29,6 +31,7 @@ const useFetchSubject = () => {
   const [questions, setQuestions] = useState([]);
   const courseId = getQueryVariable("courseId");
   const [unitData, setUnitData] = useState([]);
+  const [exams, setExams] = useState([]);
 
   const getCourseDetails = async () => {
     try {
@@ -148,9 +151,20 @@ const useFetchSubject = () => {
     }
   }
 
+  const getExams = async () => {
+    try {
+      const { data } = await getExamsBySubjectId(courseId);
+      
+      setExams(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const createExam = async (data) => {
     try {
       await saveExam({...data, subjectId: courseId });
+      await getExams();
       setSnackbar({ open: true, message: "Examen creado con exito!"});
     } catch (e) {
       console.log(e);
@@ -158,9 +172,21 @@ const useFetchSubject = () => {
     }
   }
 
+  const editExam = async (data) => {
+    try {
+      await updateExam(data);
+      await getExams();
+      setSnackbar({ open: true, message: "Examen editado con exito!"});
+    } catch (e) {
+      console.log(e);
+      setSnackbar({ open: true, message: "Hubo un error al editar el examen"});
+    }
+  }
+
   const removeExam = async (examId) => {
     try {
       await deleteExam(examId);
+      await getExams();
       setSnackbar({ open: true, message: "Examen borrado con exito!"});
     } catch (e) {
       console.log(e);
@@ -187,6 +213,9 @@ const useFetchSubject = () => {
     updateUnitDetails,
     createExam,
     removeExam,
+    getExams,
+    exams,
+    editExam,
   }
 };
 
