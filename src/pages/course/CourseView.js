@@ -5,8 +5,11 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Tab, Tabs } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
+
+// Icons
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Components
 import ConfigView from "./components/configuration/ConfigurationView";
@@ -97,6 +100,17 @@ const CourseView = () => {
     <div className="course">
       <div className="course-container">
         <div className="header-container">
+          <div className="button-back-container">
+            <Button
+              className="course-back-button"
+              startIcon={<ArrowBackIcon />}
+              onClick={() =>
+                (window.location.href = `http://localhost:3000/courses`)
+              }
+            >
+              Volver atrás
+            </Button>
+          </div>
           <div className="user-info-container">
             <div
               className="account-data-container"
