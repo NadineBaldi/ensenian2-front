@@ -20,3 +20,7 @@ export function getTeacherInfo() {
 export function updateTeacherInfo(data) {
   return axios.put(`${API_URL}/teacher/update`, data, config)
 }
+
+export function changePassword(data) {
+  return axios.post(`${API_URL}/teacher/${userId}/change-password`, data, config)
+}
