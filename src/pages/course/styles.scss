@@ -30,6 +30,21 @@
 .header-container {
   background-color: $tertiary-color; 
   height: $font-size-50;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-back-container {
+  display: flex;
+  justify-content: right;
+  padding-left: $font-size-20;
+}
+
+.course-back-button {
+  color: $secondary-color !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  font-size: $font-size-16 !important;
 }
  
 .user-info-container {
