@@ -10,6 +10,7 @@ import {
 import {
   getTeacherInfo,
   updateTeacherInfo,
+  changePassword
 } from "../../api/teacher";
 
 const useFetchCommon = () => {
@@ -72,6 +73,16 @@ const useFetchCommon = () => {
     }
   }
 
+  const updatePassword = async (data) => {
+    try {
+      await changePassword(data);
+      setSnackbar({ open: true, message: "Contraseña guardada correctamente" });
+    } catch (e) {
+      setSnackbar({ open: true, message: "Ocurrió un error, intente nuevamente"});
+      console.log(e);
+    }
+  }
+
   return {
     provinces,
     cities,
@@ -84,6 +95,7 @@ const useFetchCommon = () => {
     snackbar, 
     setSnackbar,
     updateTeacher,
+    updatePassword
   };
 };
 
