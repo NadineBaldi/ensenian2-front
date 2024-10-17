@@ -22,10 +22,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 
 // Constants
-import {
-  ERROR_EMPTY_FIELDS,
-  INVALID_NAME,
-} from "../../../../constants/util";
+import { ERROR_EMPTY_FIELDS } from "../../../../constants/util";
 
 const ManageUnitModal = (props) => {
   const { 
@@ -217,7 +214,6 @@ const ManageUnitModal = (props) => {
 
   const getErrorMessages = () => {
     let unitNameError = !unitName ? ERROR_EMPTY_FIELDS : "";
-    unitNameError = (unitData && unitName === unitData.name) ? INVALID_NAME : unitNameError;
 
     setNewUnitData({
       ...newUnitData,
