@@ -57,8 +57,7 @@ const UnitsView = (props) => {
   }
 
   const handleDeleteUnit = () => {
-    const { id: unitId } = unitIdSelected;
-    deleteUnit(unitId); 
+    deleteUnit(unitIdSelected); 
     onCloseDeleteModal();
   }
 

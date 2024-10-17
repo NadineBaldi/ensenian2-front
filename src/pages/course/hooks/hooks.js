@@ -36,7 +36,6 @@ const useFetchSubject = () => {
   const getCourseDetails = async () => {
     try {
       const { data } = await getSubjectById(courseId);
-      
       setCourse(data);
     } catch (e) {
       console.log(e);

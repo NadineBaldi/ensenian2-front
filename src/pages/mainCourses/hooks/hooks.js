@@ -14,6 +14,7 @@ import {
   SUBJECT_NAME_EDITED_CORRECTLY,
   SUBJECT_STATUS_EDITED_CORRECTLY,
   SUBJECT_DESCRIPTION_EDITED_CORRECTLY,
+  PUBLISHED_COURSE_STATUS
 } from "../../../constants/util";
 
 const useFetchSubjects = () => {
@@ -54,6 +55,11 @@ const useFetchSubjects = () => {
 
   const editSubjectStatus = async (data) => {
     try {
+      const { units, state } = data;
+      if (state === PUBLISHED_COURSE_STATUS && !units.length) {
+        setSnackbar({ open: true, message: "No se puede publicar un curso sin al menos una unidad"});
+        return;
+      }
       await changeSubjectStatus(data);
       await getSubjectsByTeacherId();
       setSnackbar({ open: true, message: SUBJECT_STATUS_EDITED_CORRECTLY});

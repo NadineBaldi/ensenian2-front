@@ -25,7 +25,8 @@ const CourseCard = (props) => {
     courseName, 
     courseStatus, 
     editSubjectName,
-    editSubjectStatus
+    editSubjectStatus,
+    unitsList,
   } = props;
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -76,7 +77,8 @@ const CourseCard = (props) => {
   const changeCourseStatus = (newStatus) => {
     const values = {
       id: courseId,
-      state: newStatus
+      state: newStatus,
+      units: unitsList,
     }
 
     editSubjectStatus(values);

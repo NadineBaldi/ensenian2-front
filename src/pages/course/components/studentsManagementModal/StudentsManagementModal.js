@@ -120,7 +120,7 @@ const StudentsManagementModal = (props) => {
                               {student.docketNumber}
                             </TableCell>
                             <TableCell align="center">
-                              {student.email}
+                              {student.username}
                             </TableCell>
                             <TableCell align="center">
                               <Button

@@ -127,7 +127,7 @@ const MainCourses = () => {
                 </Typography>
               </div>
             </div>
-            {subjects?.map(({ name, state, id }) => (
+            {subjects?.map(({ name, state, id, unitsList }) => (
               <div className="course-card-container">
                 <CourseCard
                   courseId={id}
@@ -136,6 +136,7 @@ const MainCourses = () => {
                   courses={subjects}
                   editSubjectName={editSubjectName}
                   editSubjectStatus={editSubjectStatus}
+                  unitsList={unitsList}
                 />
               </div>
             ))}
