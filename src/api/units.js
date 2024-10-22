@@ -27,3 +27,7 @@ export function deleteUnitById(unitId) {
 export function updateUnit(data) {
     return axios.put(`${API_URL}/unit/update`, data, config);
 }
+
+export function removeQuestionFromUnit(unitId, questionId) {
+  return axios.put(`${API_URL}/unit/update/remove-question`, null, { ...config, params: { unit: unitId, question: questionId }});
+}

@@ -30,12 +30,14 @@ const UnitsView = (props) => {
     getUnitData,
     unitData,
     questions,
+    deleteQuestiomFromUnit,
   } = props;
 
   const [unitIdSelected, setUnitIdSelected] = useState(null);
   const [openDeleteQuestionModal, setOpenDeleteQuestionModal] = useState(false);
   const [openManageUnitModal, setOpenManageUnitModal] = useState(false);
   const [openDeleteUnitModal, setOpenDeleteUnitModal] = useState(false);
+  const [questionIdSelected, setQuestionIdSelected] = useState(null);
 
   const [openAccordion, setOpenAccordion] = useState({});
 
@@ -111,11 +113,11 @@ const UnitsView = (props) => {
               <AccordionDetails>
                 <List>
                   {questionsList
-                    ? questionsList.map((item) => (
+                    ? questionsList.map(({ id: questionId, question }) => (
                         <ListItem>
-                          <ListItemText primary={item} />
+                          <ListItemText primary={question} />
                           <Button
-                            onClick={() => setOpenDeleteQuestionModal(true)}
+                            onClick={() => { setOpenDeleteQuestionModal(true); setUnitIdSelected(id); setQuestionIdSelected(questionId);}}
                           >
                             <CloseIcon />
                           </Button>
@@ -130,7 +132,15 @@ const UnitsView = (props) => {
       </div>
       <DeleteQuestionModal
         openModal={openDeleteQuestionModal}
-        setOpenModal={setOpenDeleteQuestionModal}
+        onClose={() => {
+          setQuestionIdSelected(null);
+          setOpenDeleteQuestionModal(false);
+        }}
+        onConfirm={() => {
+          deleteQuestiomFromUnit(unitIdSelected, questionIdSelected);
+          setQuestionIdSelected(null);
+          setOpenDeleteQuestionModal(false);
+        }}
       />
       <DeleteUnitModal
         openModal={openDeleteUnitModal}

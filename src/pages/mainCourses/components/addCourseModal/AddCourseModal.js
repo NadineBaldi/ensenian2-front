@@ -46,7 +46,7 @@ const AddCourseModal = (props) => {
       const values = {
         name: courseName,
         description: courseDescription,
-        university: teacherInfo && teacherInfo.university ? teacherInfo.university.id : 1,
+        university: teacherInfo && teacherInfo.university ? teacherInfo.university : 1,
         specialty: "ISI",
         teacher: teacherInfo ? teacherInfo.id : 1
       }

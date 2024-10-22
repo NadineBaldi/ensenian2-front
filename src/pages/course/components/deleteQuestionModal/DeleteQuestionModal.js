@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 
 const DeleteQuestionModal = (props) => {
-  const { openModal, onClose, removeQuestion, questionSelected } = props;
+  const { openModal, onClose, onConfirm } = props;
 
   return (
     <div className="deleteQuestionModal">
@@ -37,7 +37,7 @@ const DeleteQuestionModal = (props) => {
               className="deleteQuestionModal-button"
               variant="contained"
               size="small"
-              onClick={() => { removeQuestion(questionSelected.id); onClose(); }}
+              onClick={onConfirm}
             >
               Continuar
             </Button>

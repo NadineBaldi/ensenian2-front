@@ -71,6 +71,7 @@ const CourseView = () => {
     exams,
     getExams,
     editExam,
+    deleteQuestiomFromUnit,
   } = useFetchSubject();
 
   useEffect(() => {
@@ -180,6 +181,7 @@ const CourseView = () => {
                 getUnitData={getUnitData}
                 unitData={unitData}
                 questions={questions}
+                deleteQuestiomFromUnit={deleteQuestiomFromUnit}
               />}
           </div>
           <div>

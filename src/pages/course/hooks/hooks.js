@@ -21,7 +21,7 @@ import {
   removeStudentFromSubject
 } from "../../../api/subject";
 
-import { getUnitById, saveUnit, deleteUnitById, updateUnit } from "../../../api/units";
+import { getUnitById, saveUnit, deleteUnitById, updateUnit, removeQuestionFromUnit } from "../../../api/units";
 
 import { getQueryVariable } from "../../../commons/helpers/url-query";
 
@@ -36,6 +36,7 @@ const useFetchSubject = () => {
   const getCourseDetails = async () => {
     try {
       const { data } = await getSubjectById(courseId);
+      console.log(data)
       setCourse(data);
     } catch (e) {
       console.log(e);
@@ -139,6 +140,17 @@ const useFetchSubject = () => {
     }
   }
 
+  const deleteQuestiomFromUnit = async (unitId, questionId) => {
+    try {
+      await removeQuestionFromUnit(unitId, questionId);
+      await getCourseDetails();
+      setSnackbar({ open: true, message: "Pregunta removida con éxito"});
+    } catch (e) {
+      console.log(e);
+      setSnackbar({ open: true, message: "Hubo un error al remover la pregunta"});
+    }
+  }
+
   const updateUnitDetails = async (data) => {
     try {
       await updateUnit({ ...data, subjectEntityId: courseId });
@@ -215,6 +227,7 @@ const useFetchSubject = () => {
     getExams,
     exams,
     editExam,
+    deleteQuestiomFromUnit,
   }
 };
 
